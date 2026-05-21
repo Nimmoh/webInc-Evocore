@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Evocore Tech Limited</title>
+    <meta name="description" content="Learn about Evocore Tech Limited's mission, vision, values, and the team empowering Kenyan SMEs with smart technology solutions.">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <script src="script.js" defer></script>
+
+    <style>
+        :root {
+            --bg: #060606;
+            --bg-card: #0f0f0f;
+            --bg-raised: #161616;
+            --border: rgba(255,215,0,0.12);
+            --border-subtle: rgba(255,255,255,0.06);
+            --gold: #E8B84B;
+            --gold-light: #F5D07A;
+            --gold-dark: #C89F2E;
+            --gold-soft: rgba(232,184,75,0.08);
+            --text: #F0F0F0;
+            --text-muted: #888;
+            --text-dim: #555;
+            --accent-line: #FFD700;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Typography override */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Instrument Serif', Georgia, serif !important;
+            font-weight: 400 !important;
+            letter-spacing: -0.01em;
+        }
+
+        /* ── HEADER ── */
+        header {
+            background: rgba(54, 49, 8, 0.88);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        .logo-wrap { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+        .logo-wrap img { height: 42px; width: auto; border-radius: 50%; }
+        .logo-name {
+            font-family: 'Inter', sans-serif !important;
+            font-size: 1.4rem;
+            font-weight: 800 !important;
+            color: var(--text);
+            letter-spacing: -0.02em;
+        }
+        .logo-name span { color: var(--gold); }
+        nav { display: flex; gap: 2rem; align-items: center; }
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+            letter-spacing: 0.02em;
+        }
+        nav a:hover { color: var(--text); }
+        nav a.active { color: var(--gold); }
+
+        /* ══════════════════════════════
+           HERO — Full-bleed with image
+        ══════════════════════════════ */
+        .hero {
+            position: relative;
+            min-height: 88vh;
+            display: flex;
+            align-items: flex-end;
+            overflow: hidden;
+        }
+
+        /* Background image layer */
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1600&auto=format&fit=crop&q=80');
+            background-size: cover;
+            background-position: center 30%;
+            filter: brightness(0.45) saturate(0.6);
+            transform: scale(1.03);
+            transition: transform 8s ease;
+        }
+        .hero:hover .hero-bg { transform: scale(1.0); }
+
+        /* Gold grain overlay */
+        .hero-grain {
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            opacity: 0.35;
+            pointer-events: none;
+        }
+
+        /* Gradient fade to black at the bottom */
+        .hero-fade {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(6,6,6,0.15) 0%,
+                rgba(6,6,6,0.05) 30%,
+                rgba(6,6,6,0.55) 65%,
+                rgba(6,6,6,0.97) 100%
+            );
+        }
+
+        /* Left vignette */
+        .hero-fade-left {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(6,6,6,0.7) 0%, transparent 55%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 2rem 6rem;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeSlideUp 0.7s 0.2s ease forwards;
+        }
+        .hero-eyebrow::before {
+            display: block;
+            width: 28px;
+            height: 1.5px;
+            background: var(--gold);
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 7vw, 5.8rem);
+            line-height: 1.05;
+            color: #fff;
+            max-width: 780px;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeSlideUp 0.8s 0.35s ease forwards;
+        }
+        .hero h1 em {
+            font-style: italic;
+            color: var(--gold);
+        }
+        .hero-sub {
+            font-size: 1.05rem;
+            color: rgba(240,240,240,0.7);
+            max-width: 520px;
+            line-height: 1.8;
+            opacity: 0;
+            animation: fadeSlideUp 0.8s 0.5s ease forwards;
+        }
+
+        /* Scroll indicator */
+        .hero-scroll {
+            position: absolute;
+            bottom: 2.5rem;
+            right: 2rem;
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0;
+            animation: fadeIn 1s 1s ease forwards;
+        }
+        .hero-scroll span {
+            font-size: 0.65rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+            writing-mode: vertical-rl;
+        }
+        .hero-scroll-line {
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, rgba(232,184,75,0.6), transparent);
+            animation: scrollPulse 2s 1.5s ease-in-out infinite;
+        }
+
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+        @keyframes scrollPulse {
+            0%, 100% { transform: scaleY(1); opacity: 0.6; }
+            50%       { transform: scaleY(0.6); opacity: 1; }
+        }
+
+        /* Floating stat pills over hero image */
+        .hero-stats {
+            position: absolute;
+            top: 50%;
+            right: 2.5rem;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 3;
+            opacity: 0;
+            animation: fadeSlideUp 0.9s 0.7s ease forwards;
+        }
+        .hero-stat-pill {
+            background: rgba(15,15,15,0.75);
+            border: 1px solid rgba(232,184,75,0.2);
+            backdrop-filter: blur(12px);
+            padding: 1rem 1.4rem;
+            border-left: 2px solid var(--gold);
+            min-width: 160px;
+        }
+        .hero-stat-pill .num {
+            font-family: 'Instrument Serif', serif !important;
+            font-size: 2.2rem;
+            color: var(--gold);
+            line-height: 1;
+            font-weight: 400 !important;
+        }
+        .hero-stat-pill .lbl {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-top: 0.2rem;
+            letter-spacing: 0.04em;
+        }
+
+        /* ── SECTION WRAPPER ── */
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5.5rem 2rem;
+            width: 100%;
+        }
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 0.75rem;
+        }
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            color: var(--text);
+            line-height: 1.15;
+        }
+        .section-title span { color: var(--gold); }
+
+        /* ── STORY ── */
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+            margin-top: 3rem;
+        }
+        .story-text p {
+            color: var(--text-muted);
+            line-height: 1.9;
+            font-size: 0.97rem;
+            margin-bottom: 1.25rem;
+        }
+        .story-text p:last-child { margin-bottom: 0; }
+
+        /* Image collage on the right */
+        .story-visual {
+            position: relative;
+            height: 380px;
+        }
+        .story-img-main {
+            position: absolute;
+            top: 0; left: 0;
+            width: 75%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(25%);
+        }
+        .story-img-accent {
+            position: absolute;
+            bottom: -1.5rem;
+            right: 0;
+            width: 48%;
+            height: 55%;
+            object-fit: cover;
+            border: 3px solid var(--bg);
+            filter: grayscale(15%);
+        }
+        .story-badge {
+            position: absolute;
+            top: 1.5rem;
+            right: 0;
+            background: var(--gold);
+            color: #060606;
+            padding: 0.75rem 1.25rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+
+        /* ── DIVIDER ── */
+        .divider {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        .divider::after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 1px;
+            background: var(--border-subtle);
+        }
+
+        /* ── MISSION / VISION ── */
+        .mv-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            margin-top: 3rem;
+            border: 1px solid var(--border-subtle);
+        }
+        .mv-card {
+            background: var(--bg-card);
+            padding: 3rem;
+            border-right: 1px solid var(--border-subtle);
+            transition: background 0.25s;
+        }
+        .mv-card:last-child { border-right: none; }
+        .mv-card:hover { background: var(--bg-raised); }
+        .mv-card-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.25rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid var(--border-subtle);
+            width: 100%;
+        }
+        .mv-card-tag::before {
+            width: 20px;
+            height: 1.5px;
+            background: var(--gold);
+            flex-shrink: 0;
+        }
+        .mv-card h3 {
+            font-size: 1.5rem;
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+        .mv-card p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            line-height: 1.85;
+        }
+
+        /* ── VALUES ── */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            margin-top: 3rem;
+            border: 1px solid var(--border-subtle);
+        }
+        .value-item {
+            background: var(--bg-card);
+            padding: 2.25rem 2rem;
+            border-right: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+            transition: background 0.2s;
+        }
+        .value-item:nth-child(3n) { border-right: none; }
+        .value-item:nth-last-child(-n+3) { border-bottom: none; }
+        .value-item:hover { background: var(--bg-raised); }
+        .value-num {
+            font-family: 'Instrument Serif', serif !important;
+            font-size: 1.8rem;
+            color: rgba(232,184,75,0.15);
+            line-height: 1;
+            margin-bottom: 1.1rem;
+            transition: color 0.2s;
+            font-weight: 400 !important;
+        }
+        .value-item:hover .value-num { color: rgba(232,184,75,0.3); }
+        .value-item h4 {
+            font-size: 0.95rem;
+            font-weight: 600 !important;
+            color: var(--text);
+            margin-bottom: 0.6rem;
+        }
+        .value-item p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.75;
+        }
+
+        /* ── WHY US ── */
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            margin-top: 3rem;
+            border: 1px solid var(--border-subtle);
+        }
+        .why-item {
+            padding: 2.25rem 2rem;
+            background: var(--bg-card);
+            border-right: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+            transition: background 0.2s;
+        }
+        .why-item:nth-child(3n) { border-right: none; }
+        .why-item:nth-last-child(-n+3) { border-bottom: none; }
+        .why-item:hover { background: var(--bg-raised); }
+        .why-text h4 {
+            font-size: 0.92rem;
+            font-weight: 600 !important;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+    
+        .why-text p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* ── TEAM ── */
+        .team-intro {
+            max-width: 580px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-top: 1rem;
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            margin-top: 3rem;
+            border: 1px solid var(--border-subtle);
+        }
+        .team-card {
+            background: var(--bg-card);
+            border-right: 1px solid var(--border-subtle);
+            overflow: hidden;
+            transition: background 0.25s;
+        }
+        .team-card:last-child { border-right: none; }
+        .team-card:hover { background: var(--bg-raised); }
+        .team-card-img-wrap {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1;
+            overflow: hidden;
+        }
+        .team-card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: grayscale(30%) brightness(0.9);
+            transition: filter 0.4s, transform 0.5s;
+        }
+        .team-card:hover .team-card-img {
+            filter: grayscale(0%) brightness(1);
+            transform: scale(1.04);
+        }
+        .team-card-img-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(6,6,6,0.55) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .team-card-body {
+            padding: 1.25rem 1.5rem 1.5rem;
+            border-top: 1px solid var(--border-subtle);
+        }
+        .team-card-body h4 {
+            font-size: 1rem;
+            color: var(--text);
+            margin-bottom: 0.25rem;
+        }
+        .team-card-title {
+            font-size: 0.72rem;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+        .team-card-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.65;
+        }
+
+        /* ── CTA BAND ── */
+        .cta-band {
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+        .cta-band::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 600px;
+            height: 600px;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, rgba(232,184,75,0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .cta-band-inner { position: relative; z-index: 1; }
+        .cta-band h2 {
+            font-size: clamp(2rem, 4.5vw, 3.2rem);
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+        .cta-band p {
+            color: var(--text-muted);
+            max-width: 500px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.9rem 2.2rem;
+            background: var(--gold);
+            color: #060606;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.2s;
+        }
+        .btn-primary:hover {
+            background: #FFC800;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.9rem 2.2rem;
+            background: transparent;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            border: 1px solid var(--border-subtle);
+            text-decoration: none;
+            transition: border-color 0.2s, color 0.2s, transform 0.2s;
+            margin-left: 1rem;
+        }
+        .btn-secondary:hover {
+            border-color: var(--border);
+            color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: rgba(54, 49, 8, 0.88);
+            border-top: 1px solid var(--border-subtle);
+            padding: 2.5rem 2rem;
+        }
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .footer-copy { font-size: 0.8rem; color: var(--text-dim); }
+        .footer-socials { display: flex; gap: 1.25rem; }
+        .footer-socials a {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.2s;
+            letter-spacing: 0.04em;
+        }
+        .footer-socials a:hover { color: var(--gold); }
+
+        /* ── ANIMATIONS ── */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.65s ease, transform 0.65s ease;
+        }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 960px) {
+            .story-grid { grid-template-columns: 1fr; }
+            .story-visual { display: none; }
+            .mv-grid { grid-template-columns: 1fr; }
+            .mv-card { border-right: none; border-bottom: 1px solid var(--border-subtle); }
+            .mv-card:last-child { border-bottom: none; }
+            .values-grid { grid-template-columns: 1fr 1fr; }
+            .why-grid { grid-template-columns: 1fr 1fr; }
+            .team-grid { grid-template-columns: repeat(2, 1fr); }
+            .team-card:nth-child(2n) { border-right: none; }
+            .team-card:nth-child(odd) { border-bottom: 1px solid var(--border-subtle); }
+            .hero-stats { display: none; }
+        }
+        @media (max-width: 600px) {
+            nav { display: none; }
+            .hero { min-height: 75vh; }
+            .hero-content { padding: 0 1.25rem 4rem; }
+            .section { padding: 3.5rem 1.25rem; }
+            .values-grid { grid-template-columns: 1fr; }
+            .why-grid { grid-template-columns: 1fr; }
+            .team-grid { grid-template-columns: 1fr 1fr; }
+            .mv-card { padding: 2rem 1.5rem; }
+            .btn-secondary { margin-left: 0; margin-top: 0.75rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="header-inner">
+            <a href="index.html" class="logo-wrap">
+                <img src="images/Evocore_logo.png" alt="Evocore Tech Limited Logo">
+                <span class="logo-name">Evocore<span> Tech</span></span>
+            </a>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="services.html">Our Services</a>
+                <a href="products.html">Products</a>
+                <a href="about.html" class="active">About Us</a>
+                <a href="contact.html">Contact Us</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ══ HERO ══ -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-grain"></div>
+        <div class="hero-fade"></div>
+        <div class="hero-fade-left"></div>
+
+
+        <div class="hero-content">
+            <div class="hero-eyebrow">Our Story</div>
+            <h1>Built in Kenya,<br>for <em>Kenyan</em> businesses.</h1>
+            <p class="hero-sub">We partner with small and medium enterprises to close the technology gap  practically, affordably, and for the long term.</p>
+        </div>
+
+       
+    </section>
+
+    <main style="flex-grow: 1;">
+
+        <!-- STORY -->
+        <div class="section fade-up">
+            <div class="section-label">Our Background</div>
+            <div class="section-title">About Us</div>
+            <div class="story-grid">
+                <div class="story-text">
+                    <p>Evocore Tech was founded with a clear-eyed understanding of the challenges Kenyan SMEs face when it comes to technology, solutions that are either too generic, too expensive, or both. We set out to change that.</p>
+                    <p>Our team brings together developers, designers, strategists, and support specialists who have spent their careers in this market. We don't parachute in best practices from elsewhere; we build from the ground up with local context in mind.</p>
+                    <p>From day one, our commitment has been simple: don't just deliver software, become a partner your business can rely on, year after year.</p>
+                </div>
+                <div class="story-visual">
+                  <img
+    src="images/pic2.jpeg"
+    alt="Team collaboration"
+    class="story-img-main"
+>
+                   <img
+    src="images/pic2.jpeg"
+    alt="Team collaboration"
+    class="story-img-main"
+>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- MISSION + VISION -->
+        <div class="section fade-up">
+            <div class="section-title">Mission &amp; Vision</div>
+                <div class="mv-card">
+                    <div class="mv-card-tag">Our Mission</div>
+                    <h3>Why we do what we do</h3>
+                    <p>To equip Kenyan SMEs with accessible, reliable, and well-supported technology that drives real operational efficiency and sustainable growth without the enterprise price tag.</p>
+                </div>
+                <div class="mv-card">
+                    <div class="mv-card-tag">Our Vision</div>
+                    <h3>Where we're headed</h3>
+                    <p>To be the most trusted technology partner for small and medium businesses in Kenya recognised not just for the quality of our solutions, but for the depth of our client relationships.</p>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- VALUES -->
+        <div class="section fade-up">
+            <div class="section-label">What we stand for</div>
+            <div class="section-title">Our values</div>
+            <div class="values-grid">
+                <div class="value-item">
+                    <div class="value-num">01</div>
+                    <h4>Local First</h4>
+                    <p>Every solution we build starts with an honest understanding of the Kenyan business environment not a template from abroad.</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-num">02</div>
+                    <h4>Honest Partnerships</h4>
+                    <p>We tell clients what they need to hear, not what sounds good. Trust is the foundation of every relationship we build.</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-num">03</div>
+                    <h4>Practical Over Flashy</h4>
+                    <p>We prioritise solutions that actually work day-to-day over impressive demos that fall apart in the field.</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-num">04</div>
+                    <h4>Accessible Pricing</h4>
+                    <p>Great technology shouldn't be reserved for large corporations. We structure our services so SMEs can genuinely afford them.</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-num">05</div>
+                    <h4>Long-term Thinking</h4>
+                    <p>We design systems and relationships to last, not quick deployments that leave clients stranded six months later.</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-num">06</div>
+                    <h4>Continuous Improvement</h4>
+                    <p>Technology evolves and so do we constantly sharpening our skills so our clients benefit from what's current and proven.</p>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- WHY US -->
+        <div class="section fade-up">
+            <div class="section-label">Why Evocore</div>
+            <div class="section-title">Why businesses choose us</div>
+            <div class="why-grid">
+                <div class="why-item">
+                    <div class="why-text">
+                        <h4>Deep Local Knowledge</h4>
+                        <p>We understand the unique dynamics of operating in Kenya  from regulatory considerations to infrastructure realities on the ground.</p>
+                    </div>
+                </div>
+                <div class="why-item">
+                    <div class="why-text">
+                        <h4>Custom-Fit Solutions</h4>
+                        <p>We don't sell off-the-shelf packages and walk away. Every engagement is tailored to your specific workflows and goals.</p>
+                    </div>
+                </div>
+                <div class="why-item">
+                    <div class="why-text">
+                        <h4>Reliable Ongoing Support</h4>
+                        <p>Implementation is just the beginning. Our team remains accessible for support, updates, and guidance as your business grows.</p>
+                    </div>
+                </div>
+                <div class="why-item">
+                    <div class="why-text">
+                        <h4>Security You Can Trust</h4>
+                        <p>Your business data is handled with strict security practices and systems designed for reliability from the start.</p>
+                    </div>
+                </div>
+                <div class="why-item">
+                    <div class="why-text">
+                        <h4>Transparent, Fair Pricing</h4>
+                        <p>No hidden costs or surprise invoices. We scope engagements clearly so you know exactly what you're investing in.</p>
+                    </div>
+                </div>
+                <div class="why-item">
+                    <div class="why-text">
+                        <h4>Measurable Outcomes</h4>
+                        <p>We track results with you. Our goal isn't just delivery  it's ensuring the technology is making a real difference to your operations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- TEAM -->
+        <div class="section fade-up">
+            <div class="section-label">Our Team</div>
+            <div class="section-title">Meet the team</div>
+            <p class="team-intro">A group of specialists who combine technical depth with real understanding of how Kenyan businesses operate. We work closely together so our clients get coherent, well-coordinated support.</p>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-card-img-wrap">
+                        <img src="images/ceo.jpg" alt="Felix Bosire" class="team-card-img">
+                        <div class="team-card-img-overlay"></div>
+                    </div>
+                    <div class="team-card-body">
+                        <h4>Felix Bosire</h4>
+                        <div class="team-card-title">CEO &amp; Lead Strategist</div>
+                        <p class="team-card-desc">Over 15 years in tech consulting and business development across East Africa.</p>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="team-card-img-wrap">
+                        <img src="images/cto.jpg" alt="Joy Ndabari" class="team-card-img">
+                        <div class="team-card-img-overlay"></div>
+                    </div>
+                    <div class="team-card-body">
+                        <h4>Joy Ndabari</h4>
+                        <div class="team-card-title">Chief Technology Officer</div>
+                        <p class="team-card-desc">Leads our development practice, specialising in scalable architecture and mobile solutions.</p>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="team-card-img-wrap">
+                        <img src="images/geofrey.jpeg" alt="Geoffrey Nyachae" class="team-card-img">
+                        <div class="team-card-img-overlay"></div>
+                    </div>
+                    <div class="team-card-body">
+                        <h4>Geoffrey Nyachae</h4>
+                        <div class="team-card-title">Head of Client Success</div>
+                        <p class="team-card-desc">Ensures clients are fully supported and maximising value from every solution we deliver.</p>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="team-card-img-wrap">
+                        <img src="https://placehold.co/400x400/141414/FFD700?text=SW" alt="Sarah Wanjiku" class="team-card-img">
+                        <div class="team-card-img-overlay"></div>
+                    </div>
+                    <div class="team-card-body">
+                        <h4>Sarah Wanjiku</h4>
+                        <div class="team-card-title">Marketing Lead</div>
+                        <p class="team-card-desc">Drives our digital presence and helps clients build compelling, consistent brand stories.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA BAND -->
+        <div class="cta-band fade-up">
+            <div class="cta-band-inner">
+                <h2>Want to build Something?</h2>
+                <p>Tell us about your business and what you're trying to solve. We'll be straight with you about whether and how we can help.</p>
+                <a href="contact.html" class="btn-primary">Get in touch</a>
+                <a href="services.html" class="btn-secondary">See our services</a>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <p class="footer-copy">&copy; <span id="current-year"></span> Evocore Tech Limited. All rights reserved.</p>
+            <div class="footer-socials">
+                <a href="https://www.facebook.com/EvocoreTech" target="_blank" aria-label="Facebook">Fb</a>
+                <a href="https://twitter.com/EvocoreTech" target="_blank" aria-label="Twitter">X</a>
+                <a href="https://www.linkedin.com/company/evocore-tech-limited/" target="_blank" aria-label="LinkedIn">In</a>
+                <a href="https://wa.me/[YourWhatsAppNumber]" target="_blank" aria-label="WhatsApp">Wa</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Scroll-triggered fade-up
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(el => {
+                if (el.isIntersecting) {
+                    el.target.classList.add('visible');
+                    observer.unobserve(el.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>

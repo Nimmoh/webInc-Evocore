@@ -1,0 +1,14 @@
+# Evocore Tech - Robots.txt
+# https://evocore.co.ke
+
+User-agent: *
+Allow: /
+
+# Disallow admin panel from indexing
+Disallow: /admin.html
+
+# Sitemap location
+Sitemap: https://evocore.co.ke/sitemap.xml
+
+# Crawl-delay (optional, for respectful crawling)
+Crawl-delay: 10

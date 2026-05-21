@@ -44,7 +44,7 @@
   }
   </script>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -784,19 +784,78 @@
       .stat-item { flex: 0 0 100%; }
     }
 
-    /* ===== Refreshed typography (Inter + Instrument Serif) ===== */
-    body, body * { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
-    h1, h2, h3, h4, h5, h6,
-    .service-card h3, .step-num, .value-item h4, .process-step h4 {
-      font-family: 'Instrument Serif', Georgia, serif !important;
-      font-weight: 400 !important;
+    /* ===== Professional Typography System ===== */
+    /* Body text: Inter for excellent readability on screens */
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Headings: Playfair Display for elegance and authority */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      font-weight: 600;
+      line-height: 1.2;
       letter-spacing: -0.01em;
     }
+
+    /* Hero heading - extra bold for impact */
+    .hero h1 {
+      font-weight: 700;
+      font-size: clamp(40px, 7vw, 72px);
+      letter-spacing: -0.02em;
+    }
+
+    /* Section headings */
+    .section-header h2,
+    .about-left h2,
+    .cta-inner h2 {
+      font-weight: 600;
+    }
+
+    /* Service card headings */
+    .service-card h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 600;
+    }
+
+    /* Value item headings - use Inter for shorter text */
+    .value-item h4 {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+    }
+
+    /* Process step headings - use Inter for shorter text */
+    .process-step h4 {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+    }
+
+    /* Step numbers */
+    .step-num {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 700;
+    }
+
+    /* Nav brand */
+    .nav-brand-name,
+    .footer-brand-name {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 700;
+    }
+
+    /* Buttons use Inter for clarity */
+    .btn-primary, .btn-secondary {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+    }
+
     /* ===== Sharp corners on buttons and cards ===== */
     .btn, [class*="btn-"],
     .card, [class*="-card"], [class*="card-"],
     .form-card, .service-box, .modal, .value-item { border-radius: 0 !important; }
-    /* ===== Hide leftover icon containers ===== */
     .value-icon, .service-icon, .service-arrow { display: none !important; }
   </style>
 </head>
@@ -828,7 +887,7 @@
       <div class="hero-content">
        
         <h1 class="animate animate-d2">
-          Technology that makes your business<br /><em>work smarter.</em>
+         Digital Solutions that help your business<br /><em>grow smarter.</em>
         </h1>
         <p class="animate animate-d3">
           We build practical digital tools for Kenyan small and medium businesses, from websites and payment systems to custom software that fits how you actually work.
@@ -1048,8 +1107,8 @@
         <div class="footer-col">
           <h5>Contact</h5>
           <ul>
-            <li><a href="mailto:hello@evocoretech.co.ke">hello@evocoretech.co.ke</a></li>
-            <li><a href="tel:+254700000000">+254 700 000 000</a></li>
+            <li><a href="mailto:info@evocoreltd.com">info@evocoreltd.com</a></li>
+            <li><a href="tel:+254720020453">+254720020453</a></li>
             <li><a href="#">Nairobi, Kenya</a></li>
           </ul>
         </div>

@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Evocore Tech Limited | Digital Solutions for Kenyan SMEs</title>
+  <meta name="description" content="Evocore Tech Limited empowers Kenyan SMEs with web design, business automation, payments, and custom software. Your trusted tech partner in Nairobi.">
+  <meta name="keywords" content="Evocore, evocoreltd, evocore tech, evocore kenya, tech solutions, nairobi, kenya, SME, business automation, web design, software development, digital branding, payments">
+  <meta name="author" content="Evocore Tech Limited">
+  <link rel="canonical" href="https://evocoreltd.com/" />
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://evocoreltd.com/" />
+  <meta property="og:title" content="Evocore Tech Limited | Digital Solutions for Kenyan SMEs" />
+  <meta property="og:description" content="Evocore Tech Limited empowers Kenyan SMEs with web design, business automation, payments, and custom software." />
+  <meta property="og:image" content="https://evocoreltd.com/images/og-image.jpg" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://evocoreltd.com/" />
+  <meta name="twitter:title" content="Evocore Tech Limited | Digital Solutions for Kenyan SMEs" />
+  <meta name="twitter:description" content="Evocore Tech Limited empowers Kenyan SMEs with web design, business automation, payments, and custom software." />
+  <meta name="twitter:image" content="https://evocoreltd.com/images/og-image.jpg" />
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Evocore Tech Limited",
+    "url": "https://evocoreltd.com/",
+    "logo": "https://evocoreltd.com/images/logo.png",
+    "contactPoint": [{
+      "@type": "ContactPoint",
+      "telephone": "+254700000000",
+      "contactType": "customer service",
+      "areaServed": "KE",
+      "availableLanguage": ["en", "sw"]
+    }],
+    "sameAs": [
+      "https://www.facebook.com/evocoreltd",
+      "https://twitter.com/evocoreltd",
+      "https://www.linkedin.com/company/evocoreltd/"
+    ]
+  }
+  </script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --surface: #111111;
+      --surface-2: #1a1a1a;
+      --border: rgba(255,255,255,0.08);
+      --border-strong: rgba(255,255,255,0.14);
+      --gold: #E8B84B;
+      --gold-light: #F5D07A;
+      --gold-dim: rgba(232,184,75,0.12);
+      --gold-dim2: rgba(232,184,75,0.06);
+      --text: #f7fbfd;
+      --text-muted: #888;
+      --text-faint: #555;
+      --radius: 12px;
+      --radius-lg: 18px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--black);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---------- TYPOGRAPHY ---------- */
+    h1, h2, h3, h4 {
+      font-family: 'syne', sans-serif;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    .label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .gold-text {
+      color: var(--gold);
+    }
+
+    /* ---------- LAYOUT ---------- */
+    .container {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* ---------- HEADER / NAV ---------- */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(54, 49, 8, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-brand img {
+      height: 36px;
+      width: 36px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .nav-brand-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--text);
+    }
+
+    .nav-brand-name span { color: var(--gold); }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    nav a {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--text); }
+
+    nav a.active { color: var(--text); font-weight: 500; }
+
+    .nav-cta {
+      background: var(--gold);
+      color: #000 !important;
+      font-weight: 500 !important;
+      padding: 8px 18px;
+      border-radius: 8px;
+      transition: background 0.2s, transform 0.2s !important;
+    }
+
+    .nav-cta:hover {
+      background: var(--gold-light) !important;
+      transform: translateY(-1px);
+      color: #000 !important;
+    }
+
+    /* ---------- HERO ---------- */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 100px;
+      padding-bottom: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('images/bgimage.jpg') center/cover no-repeat;
+      filter: blur(4px);
+      z-index: -1;
+    }
+
+    .hero-bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(232,184,75,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(232,184,75,0.04) 1px, transparent 1px),
+        linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55));
+      background-size: 60px 60px, 60px 60px, auto;
+      background-position: 0 0, 0 0, center;
+      background-repeat: repeat, repeat, no-repeat;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 40%, black 30%, transparent 80%);
+    }
+
+    .hero-glow {
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(232,184,75,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 780px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gold-dim);
+      border: 1px solid rgba(232,184,75,0.2);
+      border-radius: 100px;
+      padding: 6px 14px;
+      margin-bottom: 32px;
+    }
+
+    .hero-eyebrow .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    .hero-eyebrow span {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: #fff;
+    }
+
+    .hero h1 {
+      font-size: clamp(38px, 6vw, 72px);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--gold);
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: #fff;
+      max-width: 540px;
+      margin-bottom: 44px;
+      font-weight: 500;
+      line-height: 1.8;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gold);
+      color: #000;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 15px;
+      padding: 13px 26px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(232,184,75,0.25);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      font-size: 15px;
+      padding: 13px 26px;
+      border-radius: 10px;
+      text-decoration: none;
+      border: 1px solid var(--border-strong);
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .btn-secondary:hover {
+      border-color: rgba(255,255,255,0.28);
+      background: rgba(255,255,255,0.04);
+    }
+
+    /* ---------- STATS BAR ---------- */
+    .stats-bar {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 36px 0;
+    }
+
+    .stats-inner {
+      display: flex;
+      gap: 0;
+      align-items: stretch;
+    }
+
+    .stat-item {
+      flex: 1;
+      padding: 0 40px;
+      border-right: 1px solid var(--border);
+    }
+
+    .stat-item:first-child { padding-left: 0; }
+    .stat-item:last-child { border-right: none; }
+
+    .stat-number {
+      font-family: 'Syne', sans-serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* ---------- SECTION SHARED ---------- */
+    section { padding: 100px 0; }
+
+    .section-header {
+      margin-bottom: 64px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 12px;
+      max-width: 520px;
+    }
+
+    .section-header p {
+      color: var(--text-muted);
+      max-width: 480px;
+      margin-top: 14px;
+      font-size: 16px;
+      font-weight: 300;
+    }
+
+    /* ---------- ABOUT ---------- */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .about-left h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 12px;
+      margin-bottom: 20px;
+    }
+
+    .about-left p {
+      color: var(--text-muted);
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .about-right {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .value-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: border-color 0.2s;
+    }
+
+    .value-item:hover { border-color: var(--border-strong); }
+
+    .value-icon {
+      flex-shrink: 0;
+      width: 38px;
+      height: 38px;
+      border-radius: 9px;
+      background: var(--gold-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-size: 16px;
+    }
+
+    .value-item h4 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .value-item p {
+      font-size: 14px;
+      color: #ddd;
+      line-height: 1.65;
+      font-weight: 400;
+    }
+
+    /* ---------- SERVICES ---------- */
+    .services { background: var(--surface); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .service-card {
+      background: var(--black);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      text-decoration: none;
+      display: block;
+      transition: border-color 0.2s, transform 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 3px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .service-card:hover {
+      border-color: rgba(232,184,75,0.25);
+      transform: translateY(-4px);
+    }
+
+    .service-card:hover::before { opacity: 1; }
+
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 11px;
+      background: var(--gold-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .service-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 19px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .service-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      font-weight: 300;
+      margin-bottom: 20px;
+    }
+
+    .service-card .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      padding: 4px 10px;
+      border-radius: 100px;
+      background: var(--gold-dim2);
+      border: 1px solid rgba(232,184,75,0.15);
+      color: var(--gold);
+    }
+
+    .service-arrow {
+      position: absolute;
+      top: 28px; right: 28px;
+      color: var(--text-faint);
+      font-size: 14px;
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    .service-card:hover .service-arrow {
+      color: var(--gold);
+      transform: translate(2px, -2px);
+    }
+
+    /* ---------- PROCESS ---------- */
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      position: relative;
+    }
+
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: calc(12.5% + 14px);
+      right: calc(12.5% + 14px);
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold) 0%, rgba(232,184,75,0.2) 100%);
+    }
+
+    .process-step {
+      padding: 0 24px;
+      text-align: center;
+    }
+
+    .step-num {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--gold);
+      position: relative;
+      z-index: 1;
+    }
+
+    .process-step h4 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .process-step p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ---------- CTA BANNER ---------- */
+    .cta-banner {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cta-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .cta-inner h2 {
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .cta-inner h2 em {
+      font-style: normal;
+      color: var(--gold);
+    }
+
+    .cta-inner p {
+      color: var(--text-muted);
+      font-size: 15px;
+      margin-top: 6px;
+      font-weight: 300;
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+      background: rgba(54, 49, 8, 0.88);
+      border-top: 1px solid var(--border);
+      padding: 56px 0 32px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand p {
+      font-size: 14px;
+      color: var(--text-muted);
+      font-weight: 300;
+      line-height: 1.7;
+      margin: 12px 0 20px;
+      max-width: 260px;
+    }
+
+    .footer-brand-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .footer-brand-name span { color: var(--gold); }
+
+    .footer-col h5 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-col ul li a {
+      font-size: 14px;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul li a:hover { color: var(--text); }
+
+    .footer-socials {
+      display: flex;
+      gap: 10px;
+    }
+
+    .social-link {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .social-link:hover {
+      color: var(--gold);
+      border-color: rgba(232,184,75,0.3);
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+      padding-top: 28px;
+    }
+
+    .footer-bottom p {
+      font-size: 13px;
+      color: var(--text-faint);
+    }
+
+    .footer-bottom a {
+      color: var(--text-faint);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-bottom a:hover { color: var(--text-muted); }
+
+    /* ---------- ENTRANCE ANIMATIONS ---------- */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate { opacity: 0; }
+    .animate.visible { animation: fadeUp 0.6s ease forwards; }
+    .animate-d1 { animation-delay: 0.1s; }
+    .animate-d2 { animation-delay: 0.2s; }
+    .animate-d3 { animation-delay: 0.3s; }
+    .animate-d4 { animation-delay: 0.4s; }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .process-steps::before { display: none; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .stats-inner { flex-wrap: wrap; }
+      .stat-item { flex: 0 0 50%; border-right: none; border-bottom: 1px solid var(--border); padding: 20px 0; }
+      nav { display: none; }
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 34px; }
+      .process-steps { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .cta-inner { flex-direction: column; align-items: flex-start; }
+      .stat-item { flex: 0 0 100%; }
+    }
+
+    /* ===== Refreshed typography (Inter + Instrument Serif) ===== */
+    body, body * { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+    h1, h2, h3, h4, h5, h6,
+    .service-card h3, .step-num, .value-item h4, .process-step h4 {
+      font-family: 'Instrument Serif', Georgia, serif !important;
+      font-weight: 400 !important;
+      letter-spacing: -0.01em;
+    }
+    /* ===== Sharp corners on buttons and cards ===== */
+    .btn, [class*="btn-"],
+    .card, [class*="-card"], [class*="card-"],
+    .form-card, .service-box, .modal, .value-item { border-radius: 0 !important; }
+    /* ===== Hide leftover icon containers ===== */
+    .value-icon, .service-icon, .service-arrow { display: none !important; }
+  </style>
+</head>
+
+<body>
+
+  <!-- ======================== HEADER ======================== -->
+  <header>
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-brand">
+        <img src="images/Evocore_logo.png" alt="Evocore Tech Logo" loading="lazy" />
+        <span class="nav-brand-name">Evocore<span> Tech</span></span>
+      </a>
+      <nav>
+        <a href="index.html" class="active">Home</a>
+        <a href="services.html">Services</a>
+        <a href="products.html">Products</a>
+        <a href="about.html">About</a>
+        <a href="contact.html" class="nav-cta">Get a Quote</a>
+      </nav>
+    </div>
+  </header>
+
+
+  <!-- ======================== HERO ======================== -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="container">
+      <div class="hero-content">
+       
+        <h1 class="animate animate-d2">
+         Technology and digital solutions that help your business<br /><em>grow smarter..</em>
+        </h1>
+        <p class="animate animate-d3">
+          We build practical digital tools for Kenyan small and medium businesses, from websites and payment systems to custom software that fits how you actually work.
+        </p>
+        <div class="hero-actions animate animate-d4">
+          <a href="contact.html" class="btn-primary">
+            Get a free quote
+          </a>
+          <a href="services.html" class="btn-secondary">
+            View our services
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+  <!-- ======================== ABOUT ======================== -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-left animate">
+          <span class="label">Who we are</span>
+          <h2>Practical tech for businesses that are building something real.</h2>
+          <p>Evocore Tech is a Nairobi-based technology company focused on helping small and medium enterprises get more done with digital tools that actually fit their operations.</p>
+          <p>We don't sell generic packages. Every solution we build is shaped around your workflow, your customers, and your market  whether you're a retailer in Westlands, a logistics firm in Industrial Area, or a professional services outfit anywhere in Kenya.</p>
+          <a href="about.html" class="btn-secondary" style="margin-top: 12px; display: inline-flex;">About Evocore</a>
+        </div>
+        <div class="about-right animate animate-d2">
+          <div class="value-item">
+            <div class="value-icon"></div>
+            <div>
+              <h4>Built for the local context</h4>
+              <p>M-Pesa integrations, MPESA STK Push, local tax structures, KRA compliance  we know how business works here.</p>
+            </div>
+          </div>
+          <div class="value-item">
+            <div class="value-icon"></div>
+            <div>
+              <h4>Practical</h4>
+              <p>We focus on solutions that solve real problems, not technology for its own sake.</p>
+            </div>
+          </div>
+          <div class="value-item">
+            <div class="value-icon"></div>
+            <div>
+              <h4>Ongoing support</h4>
+              <p>We remain your tech partner after launch not a vendor who disappears once the invoice is paid.</p>
+            </div>
+          </div>
+          <div class="value-item">
+            <div class="value-icon"></div>
+            <div>
+              <h4>Priced for SMEs</h4>
+              <p>Enterprise-quality work at rates that make sense for businesses at every stage of growth.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ======================== SERVICES ======================== -->
+  <section class="services" id="services-teaser">
+    <div class="container">
+      <div class="section-header animate">
+        <span class="label">What we do</span>
+        <h2>Four service areas. One team you can rely on.</h2>
+        <p>Whether you need a website, a payment system, or a fully custom application, we have the capability and the local experience to deliver it.</p>
+      </div>
+
+      <div class="services-grid">
+
+        <a href="services.html#digital-presence" class="service-card animate animate-d1">
+          <div class="service-icon"></div>
+          <h3>Digital Presence & Branding</h3>
+          <p>A credible online presence is table stakes. We build websites, e-commerce stores, and social media profiles that give your business the digital face it deserves.</p>
+          <div class="tag-list">
+            <span class="tag">Website Design</span>
+            <span class="tag">E-Commerce</span>
+            <span class="tag">Social Media</span>
+            <span class="tag">Brand Identity</span>
+          </div>
+        </a>
+
+        <a href="services.html#business-automation" class="service-card animate animate-d2">
+          <div class="service-icon"></div>
+          <h3>Business Process Automation</h3>
+          <p>Stop doing the same manual tasks every day. We map your operations and build digital workflows that save time, reduce errors, and free your team to focus on growth.</p>
+          <div class="tag-list">
+            <span class="tag">Workflow Automation</span>
+            <span class="tag">Inventory Systems</span>
+            <span class="tag">CRM Tools</span>
+            <span class="tag">Reporting</span>
+          </div>
+        </a>
+
+        <a href="services.html#finance-tech" class="service-card animate animate-d3">
+          <div class="service-icon"></div>
+          <h3>Finance & Payments Integration</h3>
+          <p>Connect M-Pesa, card payments, invoicing, and reconciliation into one clean system. Accept money the way your customers want to pay it.</p>
+          <div class="tag-list">
+            <span class="tag">M-Pesa STK Push</span>
+            <span class="tag">Invoicing</span>
+            <span class="tag">Card Payments</span>
+            <span class="tag">Reconciliation</span>
+          </div>
+        </a>
+
+        <a href="services.html#custom-software" class="service-card animate animate-d4">
+          <div class="service-icon"></div>
+          <h3>Custom Software Development</h3>
+          <p>When off-the-shelf software doesn't fit, we build exactly what you need. Web apps, mobile apps, internal tools designed from scratch around your business logic.</p>
+          <div class="tag-list">
+            <span class="tag">Web Applications</span>
+            <span class="tag">Mobile Apps</span>
+            <span class="tag">Internal Tools</span>
+            <span class="tag">API Development</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ======================== PROCESS ======================== -->
+  <section id="process">
+    <div class="container">
+      <div class="section-header animate" style="text-align: center; max-width: none;">
+        <span class="label">How we work</span>
+        <h2 style="max-width: none; margin: 12px auto 14px;">Simple process, clear expectations.</h2>
+      </div>
+
+      <div class="process-steps">
+        <div class="process-step animate animate-d1">
+          <div class="step-num">01</div>
+          <h4>Discovery call</h4>
+          <p>We talk through your business, your goals, and what's not working. No obligations.</p>
+        </div>
+        <div class="process-step animate animate-d2">
+          <div class="step-num">02</div>
+          <h4>Proposal & scope</h4>
+          <p>You get a clear written proposal  timeline, deliverables, and fixed pricing.</p>
+        </div>
+        <div class="process-step animate animate-d3">
+          <div class="step-num">03</div>
+          <h4>Build & review</h4>
+          <p>We build in stages and keep you in the loop with regular updates and review checkpoints.</p>
+        </div>
+        <div class="process-step animate animate-d4">
+          <div class="step-num">04</div>
+          <h4>Launch & support</h4>
+          <p>Handover, training for your team, and ongoing support so nothing falls through the cracks.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ======================== CTA BANNER ======================== -->
+  <div class="cta-banner">
+    <div class="container" style="padding-top: 72px; padding-bottom: 72px;">
+      <div class="cta-inner animate">
+        <div>
+          <h2>Ready to get started?<br /><em>Let's talk.</em></h2>
+        </div>
+        <div style="display:flex; gap: 14px; flex-wrap: wrap;">
+          <a href="contact.html" class="btn-primary">Book a free call</a>
+          <a href="services.html" class="btn-secondary">Browse services</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ======================== FOOTER ======================== -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-brand-name">Evocore<span> Tech</span></div>
+          <p>Smart, practical technology solutions for Kenyan small and medium businesses. Built locally, for local context.</p>
+          <div class="footer-socials">
+            <a href="https://www.facebook.com/EvocoreTech" target="_blank" class="social-link" aria-label="Facebook">Fb</a>
+            <a href="https://twitter.com/EvocoreTech" target="_blank" class="social-link" aria-label="Twitter">X</a>
+            <a href="https://www.linkedin.com/company/evocore-tech-limited/" target="_blank" class="social-link" aria-label="LinkedIn">In</a>
+            <a href="https://wa.me/254720020453" target="_blank" class="social-link" aria-label="WhatsApp">Wa</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h5>Services</h5>
+          <ul>
+            <li><a href="services.html#digital-presence">Digital Presence</a></li>
+            <li><a href="services.html#business-automation">Business Automation</a></li>
+            <li><a href="services.html#finance-tech">Finance & Payments</a></li>
+            <li><a href="services.html#custom-software">Custom Software</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Company</h5>
+          <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="#">Case Studies</a></li>
+            <li><a href="#">Careers</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Contact</h5>
+          <ul>
+            <li><a href="mailto:hello@evocoretech.co.ke">hello@evocoretech.co.ke</a></li>
+            <li><a href="tel:+254700000000">+254 700 000 000</a></li>
+            <li><a href="#">Nairobi, Kenya</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; <span id="current-year"></span> Evocore Tech Limited. All rights reserved.</p>
+        <div style="display:flex; gap: 20px;">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <script>
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.animate').forEach(el => observer.observe(el));
+
+    // Trigger hero animations immediately
+    document.querySelectorAll('.hero .animate').forEach(el => {
+      el.classList.add('visible');
+    });
+  </script>
+
+</body>
+</html>

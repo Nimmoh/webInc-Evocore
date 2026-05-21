@@ -1,0 +1,2271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel — Evocore Tech Limited</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <style>
+        :root {
+            --bg: #080808;
+            --surface: #0f0f0f;
+            --surface-2: #161616;
+            --surface-3: #1e1e1e;
+            --border: rgba(255,255,255,0.07);
+            --border-2: rgba(255,255,255,0.12);
+            --gold: #E8B84B;
+            --gold-2: #C89F2E;
+            --gold-dim: rgba(232,184,75,0.12);
+            --text: #EFEFEB;
+            --muted: #888;
+            --dim: #555;
+            --green: #22c55e;
+            --red: #ef4444;
+            --blue: #3b82f6;
+            --amber: #f59e0b;
+            --purple: #a855f7;
+            --pink: #ec4899;
+            --teal: #14b8a6;
+            --indigo: #6366f1;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 13px;
+            line-height: 1.6;
+            height: 100vh;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── SHELL ── */
+        .shell {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* ── SIDEBAR ── */
+        .sidebar {
+            width: 210px;
+            min-width: 210px;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .sidebar-brand {
+            padding: 18px 16px 14px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        .brand-icon {
+            width: 34px; height: 34px;
+            background: var(--gold);
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 900; font-size: 14px; color: #080808;
+            letter-spacing: -0.5px; flex-shrink: 0;
+        }
+        .brand-text { display: flex; flex-direction: column; gap: 1px; }
+        .brand-name { font-weight: 800; font-size: 13px; color: var(--text); letter-spacing: -0.02em; }
+        .brand-sub { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim); font-weight: 500; }
+
+        .sidebar-section {
+            padding: 18px 14px 5px;
+            font-size: 9px; font-weight: 700;
+            letter-spacing: 0.14em; text-transform: uppercase;
+            color: var(--dim); flex-shrink: 0;
+        }
+
+        .nav-item {
+            display: flex; align-items: center; gap: 9px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+            color: var(--muted);
+            font-size: 12px; font-weight: 500;
+            margin: 1px 6px;
+            position: relative;
+            user-select: none;
+        }
+        .nav-item:hover { background: var(--surface-2); color: var(--text); }
+        .nav-item.active { background: var(--gold-dim); color: var(--gold); }
+        .nav-item.danger { color: #f87171; }
+        .nav-item.danger:hover { background: rgba(239,68,68,0.08); }
+        .nav-icon { font-size: 16px; width: 18px; text-align: center; flex-shrink: 0; }
+        .nav-badge {
+            margin-left: auto;
+            background: var(--gold); color: #080808;
+            font-size: 9px; font-weight: 800;
+            border-radius: 20px; padding: 1px 6px;
+            min-width: 18px; text-align: center;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding: 10px 6px 12px;
+            border-top: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+        .user-row {
+            display: flex; align-items: center; gap: 9px;
+            padding: 8px 10px; border-radius: 6px;
+            cursor: pointer; transition: background 0.15s;
+            margin-bottom: 4px;
+        }
+        .user-row:hover { background: var(--surface-2); }
+        .user-avatar {
+            width: 28px; height: 28px; border-radius: 50%;
+            background: var(--gold);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 10px; font-weight: 800; color: #080808; flex-shrink: 0;
+        }
+        .user-info { flex: 1; overflow: hidden; }
+        .user-name { font-size: 12px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .user-role { font-size: 9px; color: var(--dim); text-transform: uppercase; letter-spacing: 0.08em; }
+        .online-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+
+        /* ── MAIN ── */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            min-width: 0;
+        }
+
+        /* ── TOPBAR ── */
+        .topbar {
+            height: 52px;
+            min-height: 52px;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center;
+            padding: 0 24px; gap: 16px;
+            flex-shrink: 0;
+        }
+        .topbar-left { display: flex; flex-direction: column; gap: 1px; }
+        .topbar-title { font-size: 15px; font-weight: 300; letter-spacing: -0.01em; color: var(--text); font-family: 'Instrument Serif', Georgia, serif; }
+        .topbar-title em { font-style: italic; color: var(--gold); }
+        .topbar-date { font-size: 10px; color: var(--dim); letter-spacing: 0.02em; }
+        .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+        .refresh-btn {
+            display: flex; align-items: center; gap: 6px;
+            padding: 6px 14px;
+            border: 1px solid var(--border-2);
+            background: transparent; color: var(--muted);
+            font-size: 11px; font-weight: 500;
+            border-radius: 6px; cursor: pointer;
+            transition: all 0.15s; letter-spacing: 0.04em;
+            font-family: inherit;
+        }
+        .refresh-btn:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-dim); }
+
+        /* ── CONTENT ── */
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+        }
+        .content::-webkit-scrollbar { width: 4px; }
+        .content::-webkit-scrollbar-track { background: transparent; }
+        .content::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 4px; }
+
+        /* ── STATS ROW ── */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px 18px;
+            position: relative; overflow: hidden;
+            transition: border-color 0.15s;
+        }
+        .stat-card:hover { border-color: var(--border-2); }
+        .stat-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0;
+            height: 2px; background: var(--gold);
+            transform: scaleX(0); transform-origin: left;
+            transition: transform 0.3s;
+        }
+        .stat-card:hover::before { transform: scaleX(1); }
+        .stat-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); margin-bottom: 8px; }
+        .stat-val { font-size: 26px; font-weight: 300; color: var(--text); letter-spacing: -0.02em; font-family: 'Instrument Serif', Georgia, serif; font-style: italic; line-height: 1; }
+        .stat-change { font-size: 10px; color: var(--muted); margin-top: 5px; }
+        .stat-change.up { color: var(--green); }
+        .stat-change.down { color: var(--red); }
+
+        /* ── PANEL ── */
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .panel-head {
+            padding: 13px 18px;
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; gap: 12px;
+        }
+        .panel-head h2 {
+            font-size: 13px; font-weight: 600;
+            color: var(--text); letter-spacing: -0.01em;
+            font-family: 'Inter', sans-serif;
+        }
+        .panel-head-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+
+        /* ── FILTER TABS ── */
+        .filter-tabs {
+            display: flex; gap: 2px;
+            background: var(--bg);
+            border-radius: 6px; padding: 2px;
+            border: 1px solid var(--border);
+        }
+        .ftab {
+            padding: 4px 10px;
+            font-size: 10px; font-weight: 600;
+            letter-spacing: 0.06em; text-transform: uppercase;
+            border-radius: 4px; cursor: pointer;
+            color: var(--dim); transition: all 0.15s;
+        }
+        .ftab.active { background: var(--surface-3); color: var(--text); }
+        .ftab:hover:not(.active) { color: var(--muted); }
+
+        /* ── SEARCH BOX ── */
+        .search-box {
+            display: flex; align-items: center; gap: 7px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 6px; padding: 5px 10px;
+        }
+        .search-box input {
+            background: transparent; border: none; outline: none;
+            color: var(--text); font-size: 11px; width: 150px;
+            font-family: inherit;
+        }
+        .search-box input::placeholder { color: var(--dim); }
+        .search-box i { color: var(--dim); font-size: 13px; }
+
+        /* ── TABLE ── */
+        table { width: 100%; border-collapse: collapse; }
+        thead tr { background: var(--bg); }
+        th {
+            padding: 9px 16px;
+            font-size: 9px; font-weight: 700;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            color: var(--dim); text-align: left;
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+        }
+        th:first-child { width: 36px; }
+        td { padding: 11px 16px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+        tbody tr:last-child td { border-bottom: none; }
+        tbody tr { transition: background 0.12s; cursor: pointer; }
+        tbody tr:hover { background: var(--surface-2); }
+        input[type="checkbox"] { width: 14px; height: 14px; accent-color: var(--gold); cursor: pointer; }
+
+        /* ── CONTACT CELL ── */
+        .contact-cell { display: flex; align-items: center; gap: 10px; }
+        .avatar {
+            width: 30px; height: 30px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 10px; font-weight: 700; flex-shrink: 0;
+        }
+        .contact-name { font-size: 12px; font-weight: 600; color: var(--text); }
+        .contact-email { font-size: 11px; color: var(--muted); }
+        .subject-text { font-size: 12px; color: var(--text); font-weight: 500; }
+        .date-text { font-size: 11px; color: var(--muted); white-space: nowrap; }
+
+        /* ── BADGES ── */
+        .badge {
+            display: inline-flex; align-items: center;
+            font-size: 9px; font-weight: 700;
+            letter-spacing: 0.07em; text-transform: uppercase;
+            padding: 3px 8px; border-radius: 20px; border: 1px solid;
+            white-space: nowrap;
+        }
+        .badge-unread  { background: rgba(239,68,68,0.1);  color: #f87171; border-color: rgba(239,68,68,0.25); }
+        .badge-read    { background: rgba(136,136,136,0.1); color: var(--muted); border-color: var(--border); }
+        .badge-resolved{ background: rgba(34,197,94,0.1);  color: #4ade80; border-color: rgba(34,197,94,0.25); }
+        .badge-form    { background: rgba(59,130,246,0.1);  color: #93c5fd; border-color: rgba(59,130,246,0.2); }
+        .badge-api     { background: rgba(232,184,75,0.1);  color: var(--gold); border-color: rgba(232,184,75,0.2); }
+
+        /* ── ACTION BTN ── */
+        .action-btn {
+            padding: 5px 10px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 10px; font-weight: 600;
+            border-radius: 5px; cursor: pointer;
+            transition: all 0.15s; letter-spacing: 0.04em;
+            font-family: inherit;
+        }
+        .action-btn:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-dim); }
+
+        /* ── ADD BTN ── */
+        .add-btn {
+            padding: 6px 14px;
+            background: var(--gold);
+            border: none;
+            color: #080808;
+            font-size: 11px; font-weight: 600;
+            border-radius: 6px; cursor: pointer;
+            transition: all 0.15s; letter-spacing: 0.04em;
+            font-family: inherit;
+            display: flex; align-items: center; gap: 5px;
+        }
+        .add-btn:hover { background: var(--gold-2); }
+
+        /* ── TABLE FOOTER ── */
+        .table-footer {
+            padding: 10px 16px;
+            border-top: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .showing-text { font-size: 11px; color: var(--dim); }
+        .pagination { display: flex; gap: 4px; }
+        .page-btn {
+            width: 26px; height: 26px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 5px; cursor: pointer;
+            font-size: 11px; font-weight: 600;
+            border: 1px solid var(--border); color: var(--muted);
+            background: transparent; transition: all 0.15s;
+            font-family: inherit;
+        }
+        .page-btn:hover { border-color: var(--border-2); color: var(--text); }
+        .page-btn.active { background: var(--gold); border-color: var(--gold); color: #080808; }
+
+        /* ── TWO COL GRID ── */
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+
+        /* ── SERVICE LIST ITEMS ── */
+        .service-item {
+            display: flex; align-items: center; gap: 12px;
+            padding: 10px 16px;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.12s; cursor: pointer;
+        }
+        .service-item:last-child { border-bottom: none; }
+        .service-item:hover { background: var(--surface-2); }
+        .service-icon {
+            width: 32px; height: 32px; border-radius: 7px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 15px; flex-shrink: 0;
+        }
+        .service-info { flex: 1; min-width: 0; }
+        .service-name { font-size: 12px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .service-count { font-size: 10px; color: var(--muted); margin-top: 1px; }
+        .service-trend { font-size: 11px; font-weight: 700; flex-shrink: 0; }
+        .trend-up   { color: var(--green); }
+        .trend-down { color: var(--red); }
+        .trend-flat { color: var(--dim); }
+
+        /* ── SETTINGS ── */
+        .setting-row {
+            display: flex; align-items: center;
+            padding: 14px 18px; gap: 14px;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.12s;
+        }
+        .setting-row:last-child { border-bottom: none; }
+        .setting-row:hover { background: var(--surface-2); }
+        .setting-icon {
+            width: 34px; height: 34px; border-radius: 8px;
+            background: var(--surface-3);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px; color: var(--muted); flex-shrink: 0;
+        }
+        .setting-info { flex: 1; }
+        .setting-name { font-size: 12px; font-weight: 600; color: var(--text); }
+        .setting-desc { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+        /* ── TOGGLE ── */
+        .toggle {
+            width: 38px; height: 22px;
+            border-radius: 22px; border: none;
+            cursor: pointer; position: relative;
+            transition: background 0.2s; flex-shrink: 0;
+            outline: none;
+        }
+        .toggle.on  { background: var(--gold); }
+        .toggle.off { background: var(--surface-3); border: 1px solid var(--border-2); }
+        .toggle::after {
+            content: ''; position: absolute; top: 3px;
+            width: 16px; height: 16px; border-radius: 50%;
+            background: #fff; transition: left 0.2s;
+        }
+        .toggle.on::after  { left: 19px; }
+        .toggle.off::after { left: 3px; background: var(--muted); }
+
+        /* ── PRODUCTS ── */
+        .products-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+        }
+        .product-item {
+            padding: 16px 18px;
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            transition: background 0.12s; cursor: pointer;
+        }
+        .product-item:nth-child(2n) { border-right: none; }
+        .product-item:nth-last-child(-n+2) { border-bottom: none; }
+        .product-item:hover { background: var(--surface-2); }
+        .product-name { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 5px; }
+        .product-desc { font-size: 11px; color: var(--muted); line-height: 1.55; margin-bottom: 10px; }
+        .product-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+        .ptag {
+            font-size: 9px; font-weight: 600;
+            letter-spacing: 0.06em; text-transform: uppercase;
+            padding: 2px 7px; border: 1px solid var(--border);
+            color: var(--dim); border-radius: 3px;
+        }
+
+        /* ── ANALYTICS ── */
+        .analytics-row { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-top: 16px; }
+        .chart-area { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 18px; }
+        .chart-title { font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 16px; }
+        .bar-chart { display: flex; align-items: flex-end; gap: 6px; height: 110px; }
+        .bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 5px; }
+        .bar {
+            width: 100%; border-radius: 3px 3px 0 0;
+            background: var(--gold-dim);
+            border: 1px solid rgba(232,184,75,0.2);
+            transition: all 0.3s; cursor: pointer; position: relative;
+        }
+        .bar:hover { background: rgba(232,184,75,0.28); border-color: var(--gold); }
+        .bar-label { font-size: 9px; color: var(--dim); text-align: center; }
+        .mini-stat { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; margin-bottom: 12px; }
+        .mini-stat:last-child { margin-bottom: 0; }
+        .mini-stat-label { font-size: 10px; color: var(--dim); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; }
+        .mini-stat-val { font-size: 18px; font-weight: 300; font-style: italic; font-family: 'Instrument Serif', Georgia, serif; color: var(--text); }
+        .mini-stat-bar { height: 3px; background: var(--border); border-radius: 2px; margin-top: 8px; overflow: hidden; }
+        .mini-stat-fill { height: 100%; background: var(--gold); border-radius: 2px; }
+
+        /* ── MODAL ── */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .modal {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 520px;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 24px;
+            transform: translateY(10px);
+            transition: transform 0.2s;
+        }
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+        .modal::-webkit-scrollbar { width: 4px; }
+        .modal::-webkit-scrollbar-track { background: transparent; }
+        .modal::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 4px; }
+        .modal h3 {
+            font-size: 16px; font-weight: 600;
+            color: var(--text); margin-bottom: 16px;
+            font-family: 'Instrument Serif', Georgia, serif;
+        }
+        .form-group { margin-bottom: 14px; }
+        .form-group label {
+            display: block;
+            font-size: 11px; font-weight: 600;
+            color: var(--muted); margin-bottom: 5px;
+            letter-spacing: 0.04em; text-transform: uppercase;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 8px 12px;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text);
+            font-size: 13px;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.15s;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--gold);
+        }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+        .form-group input[type="file"] {
+            padding: 6px;
+            font-size: 11px;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+        .btn-cancel {
+            padding: 8px 16px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 12px; font-weight: 500;
+            border-radius: 6px; cursor: pointer;
+            transition: all 0.15s;
+            font-family: inherit;
+        }
+        .btn-cancel:hover { border-color: var(--red); color: var(--red); }
+        .btn-save {
+            padding: 8px 20px;
+            background: var(--gold);
+            border: none;
+            color: #080808;
+            font-size: 12px; font-weight: 600;
+            border-radius: 6px; cursor: pointer;
+            transition: all 0.15s;
+            font-family: inherit;
+        }
+        .btn-save:hover { background: var(--gold-2); }
+
+        /* ── LOADING ── */
+        .loading-spinner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            color: var(--dim);
+            font-size: 12px;
+        }
+        .loading-spinner i {
+            font-size: 24px;
+            margin-right: 8px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* ── EMPTY STATE ── */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--dim);
+        }
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 12px;
+            display: block;
+            opacity: 0.3;
+        }
+        .empty-state p {
+            font-size: 13px;
+            margin-top: 8px;
+        }
+
+        /* ── TOAST ── */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            z-index: 2000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s;
+        }
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .toast.success {
+            background: var(--green);
+            color: #080808;
+        }
+        .toast.error {
+            background: var(--red);
+            color: #fff;
+        }
+        .toast.info {
+            background: var(--blue);
+            color: #fff;
+        }
+
+        /* ── LOGIN SCREEN ── */
+        .login-screen {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+        }
+        .login-screen.hidden { display: none; }
+        .login-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            width: 90%;
+            max-width: 380px;
+        }
+        .login-box h2 {
+            font-size: 20px;
+            font-weight: 300;
+            color: var(--text);
+            margin-bottom: 8px;
+            font-family: 'Instrument Serif', Georgia, serif;
+        }
+        .login-box h2 em { color: var(--gold); font-style: italic; }
+        .login-box .subtitle {
+            font-size: 12px;
+            color: var(--dim);
+            margin-bottom: 24px;
+        }
+        .login-box .form-group { margin-bottom: 16px; }
+        .login-box .btn-login {
+            width: 100%;
+            padding: 10px;
+            background: var(--gold);
+            border: none;
+            color: #080808;
+            font-size: 13px; font-weight: 600;
+            border-radius: 6px; cursor: pointer;
+            transition: all 0.15s;
+            font-family: inherit;
+            margin-top: 8px;
+        }
+        .login-box .btn-login:hover { background: var(--gold-2); }
+        .login-error {
+            background: rgba(239,68,68,0.1);
+            border: 1px solid rgba(239,68,68,0.25);
+            color: #f87171;
+            padding: 10px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            margin-bottom: 16px;
+            display: none;
+        }
+        .login-error.show { display: block; }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+        .content > * { animation: fadeIn 0.25s ease forwards; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .stats-row { grid-template-columns: 1fr 1fr; }
+            .two-col { grid-template-columns: 1fr; }
+            .analytics-row { grid-template-columns: 1fr; }
+            .products-grid { grid-template-columns: 1fr; }
+            .product-item { border-right: none; }
+            .product-item:nth-last-child(-n+2) { border-bottom: 1px solid var(--border); }
+            .product-item:last-child { border-bottom: none; }
+        }
+        @media (max-width: 640px) {
+            .sidebar { width: 56px; min-width: 56px; }
+            .sidebar-brand .brand-text,
+            .nav-item span:not(.nav-icon):not(.nav-badge),
+            .sidebar-section,
+            .user-info, .online-dot { display: none; }
+            .nav-item { justify-content: center; padding: 8px; }
+            .nav-badge { position: absolute; top: 4px; right: 4px; min-width: 14px; padding: 0 4px; }
+            .stats-row { grid-template-columns: 1fr; }
+            .search-box { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div class="login-screen" id="loginScreen">
+    <div class="login-box">
+        <h2>Evocore <em>Admin</em></h2>
+        <p class="subtitle">Sign in to your dashboard</p>
+        <div class="login-error" id="loginError"></div>
+        <form id="loginForm">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" name="username" required placeholder="admin">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" required placeholder="••••••••">
+            </div>
+            <button type="submit" class="btn-login">Sign In</button>
+        </form>
+    </div>
+</div>
+
+<!-- MAIN APP -->
+<div class="shell" id="mainApp" style="display:none;">
+
+    <!-- ── SIDEBAR ── -->
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <div class="brand-icon">E</div>
+            <div class="brand-text">
+                <div class="brand-name">Evocore</div>
+                <div class="brand-sub">Admin Panel</div>
+            </div>
+        </div>
+
+        <div class="sidebar-section">Overview</div>
+        <div class="nav-item" onclick="setPage('dashboard')" id="nav-dashboard">
+            <i class="ti ti-layout-dashboard nav-icon"></i>
+            <span>Dashboard</span>
+        </div>
+        <div class="nav-item active" onclick="setPage('inquiries')" id="nav-inquiries">
+            <i class="ti ti-mail nav-icon"></i>
+            <span>Inquiries</span>
+            <span class="nav-badge" id="unread-badge">0</span>
+        </div>
+        <div class="nav-item" onclick="setPage('services')" id="nav-services">
+            <i class="ti ti-stack-2 nav-icon"></i>
+            <span>Services</span>
+        </div>
+        <div class="nav-item" onclick="setPage('products')" id="nav-products">
+            <i class="ti ti-box nav-icon"></i>
+            <span>Products</span>
+        </div>
+
+        <div class="sidebar-section">Insights</div>
+        <div class="nav-item" onclick="setPage('analytics')" id="nav-analytics">
+            <i class="ti ti-chart-bar nav-icon"></i>
+            <span>Analytics</span>
+        </div>
+
+        <div class="sidebar-section">System</div>
+        <div class="nav-item" onclick="setPage('settings')" id="nav-settings">
+            <i class="ti ti-settings nav-icon"></i>
+            <span>Settings</span>
+        </div>
+        <div class="nav-item" onclick="window.open('/','_blank')">
+            <i class="ti ti-external-link nav-icon"></i>
+            <span>View site</span>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="user-row">
+                <div class="user-avatar" id="userAvatar">AD</div>
+                <div class="user-info">
+                    <div class="user-name" id="userName">Admin</div>
+                    <div class="user-role">super admin</div>
+                </div>
+                <div class="online-dot"></div>
+            </div>
+            <div class="nav-item" onclick="showChangePassword()">
+                <i class="ti ti-key nav-icon"></i>
+                <span>Password</span>
+            </div>
+            <div class="nav-item danger" onclick="doLogout()">
+                <i class="ti ti-logout nav-icon"></i>
+                <span>Logout</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ── MAIN ── -->
+    <div class="main">
+
+        <!-- TOPBAR -->
+        <div class="topbar">
+            <div class="topbar-left">
+                <div class="topbar-title" id="page-title">Inquiries & <em>Quotes</em></div>
+                <div class="topbar-date" id="page-date"></div>
+            </div>
+            <div class="topbar-right">
+                <button class="refresh-btn" onclick="refreshPage()">
+                    <i class="ti ti-refresh"></i> Refresh
+                </button>
+            </div>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="content" id="content"></div>
+
+    </div>
+</div>
+
+<!-- MODAL OVERLAY -->
+<div class="modal-overlay" id="modalOverlay" onclick="handleModalClick(event)">
+    <div class="modal" id="modalContent"></div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════ */
+/*                    CONFIG & STATE                           */
+/* ═══════════════════════════════════════════════════════════ */
+const API_BASE = '/api';
+const TOKEN_KEY = 'evocore_admin_token';
+
+let state = {
+    token: localStorage.getItem(TOKEN_KEY),
+    user: null,
+    inquiries: [],
+    services: [],
+    products: [],
+    stats: null,
+    settings: {
+        email_notifications: true,
+        sms_alerts: false,
+        two_factor: true,
+        api_access: true,
+        auto_archive: false,
+        public_form: true
+    }
+};
+
+/* ═══════════════════════════════════════════════════════════ */
+/*                       UTILITIES                             */
+/* ═══════════════════════════════════════════════════════════ */
+function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({
+        '&': '&', '<': '<', '>': '>', '"': '"', "'": '&#39;'
+    }[c]));
+}
+
+function getColorFromName(name) {
+    const colors = ['#3b82f6','#22c55e','#f59e0b','#a855f7','#ec4899','#14b8a6','#6366f1','#ef4444'];
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) hash = name.charCodeAt(i) + ((hash << 5) - hash);
+    return colors[Math.abs(hash) % colors.length];
+}
+
+function getInitials(name) {
+    return name.split(' ').map(n => n[0]).slice(0,2).join('').toUpperCase();
+}
+
+function formatDate(dateStr) {
+    const d = new Date(dateStr);
+    return d.toLocaleDateString('en-KE', { year:'numeric', month:'short', day:'numeric' });
+}
+
+function showToast(msg, type = 'success') {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = `toast ${type} show`;
+    setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/*                         API                                 */
+/* ═══════════════════════════════════════════════════════════ */
+async function api(path, opts = {}) {
+    const headers = { ...opts.headers };
+    if (state.token) headers['Authorization'] = `Bearer ${state.token}`;
+    if (opts.body && !(opts.body instanceof FormData)) {
+        headers['Content-Type'] = 'application/json';
+        opts.body = JSON.stringify(opts.body);
+    }
+    const res = await fetch(API_BASE + path, { ...opts, headers });
+    let data;
+    try { data = await res.json(); } catch { data = { success: false, message: 'Invalid response.' }; }
+    if (res.status === 401) {
+        localStorage.removeItem(TOKEN_KEY);
+        state.token = null;
+        showLogin();
+        throw new Error(data.message || 'Unauthorized');
+    }
+    if (!res.ok || data.success === false) {
+        throw new Error(data.message || `Request failed (${res.status}).`);
+    }
+    return data;
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/*                      AUTHENTICATION                         */
+/* ═══════════════════════════════════════════════════════════ */
+function showLogin() {
+    document.getElementById('loginScreen').classList.remove('hidden');
+    document.getElementById('mainApp').style.display = 'none';
+}
+
+function showApp() {
+    document.getElementById('loginScreen').classList.add('hidden');
+    document.getElementById('mainApp').style.display = 'flex';
+    loadAll();
+}
+
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const username = form.username.value.trim();
+    const password = form.password.value;
+    const errorEl = document.getElementById('loginError');
+    errorEl.classList.remove('show');
+
+    try {
+        const res = await fetch(API_BASE + '/admin/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+        });
+        const data = await res.json();
+        if (!data.success) throw new Error(data.message || 'Login failed.');
+        state.token = data.token;
+        state.user = data.user;
+        localStorage.setItem(TOKEN_KEY, data.token);
+        document.getElementById('userName').textContent = data.user.username;
+        document.getElementById('userAvatar').textContent = data.user.username.substring(0,2).toUpperCase();
+        showApp();
+    } catch (err) {
+        errorEl.textContent = err.message;
+        errorEl.classList.add('show');
+    }
+});
+
+function doLogout() {
+    localStorage.removeItem(TOKEN_KEY);
+    state.token = null;
+    state.user = null;
+    showLogin();
+}
+
+async function showChangePassword() {
+    const modal = document.getElementById('modalContent');
+    modal.innerHTML = `
+        <h3>Change Password</h3>
+        <form id="changePwForm">
+            <div class="form-group">
+                <label>Current Password</label>
+                <input type="password" name="current_password" required>
+            </div>
+            <div class="form-group">
+                <label>New Password (min 6 chars)</label>
+                <input type="password" name="new_password" minlength="6" required>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn-cancel" onclick="closeModal()">Cancel</button>
+                <button type="submit" class="btn-save">Update Password</button>
+            </div>
+        </form>
+    `;
+    openModal();
+
+    document.getElementById('changePwForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        try {
+            await api('/admin/change-password', {
+                method: 'POST',
+                body: {
+                    current_password: e.target.current_password.value,
+                    new_password: e.target.new_password.value
+                }
+            });
+            showToast('Password updated successfully.');
+            closeModal();
+        } catch (err) {
+            showToast(err.message, 'error');
+        }
+    });
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/*                       MODAL                                 */
+/* ═══════════════════════════════════════════════════════════ */
+function openModal() {
+    document.getElementById('modalOverlay').classList.add('active');
+}
+
+function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('active');
+}
+
+function handleModalClick(e) {
+    if (e.target === document.getElementById('modalOverlay')) {
+        closeModal();
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/*                    DATA LOADING                             */
+/* ═══════════════════════════════════════════════════════════ */
+async function loadStats() {
+    try {
+        const { data } = await api('/admin/stats');
+        state.stats = data;
+    } catch (err) {
+        console.error('Failed to load stats:', err);
+    }
+}
+
+async function loadInquiries() {
+    try {
+        const { data } = await api('/contact');
+        state.inquiries = data;
+    } catch (err) {
+        console.error('Failed to load inquiries:', err);
+        state.inquiries = [];
+    }
+}
+
+async function loadServices() {
+    try {
+        const { data } = await api('/services/all');
+        state.services = data;
+    } catch (err) {
+        console.error('Failed to load services:', err);
+        state.services = [];
+    }
+}
+
+async function loadProducts() {
+    try {
+        const { data } = await api('/products/all');
+        state.products = data;
+    } catch (err) {
+        console.error('Failed to load products:', err);
+        state.products = [];
+    }
+}
+
+async function loadAll() {
+    await Promise.all([loadStats(), loadInquiries(), loadServices(), loadProducts()]);
+    updateBadge();
+    const currentPage = document.querySelector('.nav-item.active');
+    if (currentPage) {
+        const page = currentPage.id.replace('nav-','');
+        setPage(page);
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/*                    BADGE UPDATE                             */
+/* ═══════════════════════════════════════════════════════════ */
+function updateBadge() {
+    const unread = state.inquiries.filter(i => !i.is_read).length;
+    const badge = document.getElementById('unread-badge');
+    if (badge) badge.textContent = unread;
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/*                   PAGE RENDERERS                            */
+/* ═══════════════════════════════════════════════════════════ */
+const pageTitles = {
+    dashboard: 'Dashboard <em>Overview</em>',
+    inquiries: 'Inquiries & <em>Quotes</em>',
+    services:  'Services <em>Overview</em>',
+    products:  'Products <em>Catalogue</em>',
+    analytics: 'Analytics & <em>Reports</em>',
+    settings:  'System <em>Settings</em>',
+};
+
+function setPage(page) {
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    const el = document.getElementById('nav-' + page);
+    if (el) el.classList.add('active');
+    document.getElementById('page-title').innerHTML = pageTitles[page] || page;
+    renderPage(page);
+}
+
+function renderPage(page) {
+    const content = document.getElementById('content');
+    switch(page) {
+        case 'dashboard': content.innerHTML = dashboardHtml(); break;
+        case 'inquiries': content.innerHTML = inquiriesHtml(); break;
+        case 'services':  content.innerHTML = servicesHtml(); break;
+        case 'products':  content.innerHTML = productsHtml(); break;
+        case 'analytics': content.innerHTML = analyticsHtml(); break;
+        case 'settings':  content.innerHTML = settingsHtml(); break;
+        default: content.innerHTML = dashboardHtml();
+    }
+}
+
+/* ── DASHBOARD ── */
+function dashboardHtml() {
+    if (!state.stats) return '<div class="loading-spinner"><i class="ti ti-loader"></i> Loading...</div>';
+
+    const unread = state.inquiries.filter(i => !i.is_read).length;
+    const recent = state.inquiries.slice(0, 3);
+    const topServices = state.services.slice(0, 4);
+
+    const recentRows = recent.map(r => {
+        const color = getColorFromName(r.name);
+        return `
+            <div class="service-item">
+                <div class="avatar" style="background:${color}22;color:${color}">${getInitials(r.name)}</div>
+                <div class="service-info">
+                    <div class="service-name">${esc(r.name)}</div>
+                    <div class="service-count">${esc(r.service || r.subject || 'General Inquiry')} &middot; ${formatDate(r.created_at)}</div>
+                </div>
+                <span class="badge ${r.is_read ? 'badge-read' : 'badge-unread'}">${r.is_read ? 'Read' : 'New'}</span>
+            </div>`;
+    }).join('');
+
+    const topServicesRows = topServices.map(s => `
+        <div class="service-item">
+            <div class="service-icon" style="background:${s.icon ? 'rgba(59,130,246,0.12)' : 'var(--gold-dim)'}">
+                <i class="ti ${s.icon || 'ti-star'}" style="color:${s.icon ? '#3b82f6' : 'var(--gold)'}"></i>
+            </div>
+            <div class="service-info">
+                <div class="service-name">${esc(s.title)}</div>
+                <div class="service-count">${esc(s.short_description || '')}</div>
+            </div>
+            <span class="service-trend trend-up">Active</span>
+        </div>`).join('');
+
+    return `
+        <div class="stats-row">
+            <div class="stat-card"><div class="stat-label">Total Revenue (KES)</div><div class="stat-val">3.2M</div><div class="stat-change up">↑ 22% this month</div></div>
+            <div class="stat-card"><div class="stat-label">Active Clients</div><div class="stat-val">${state.stats.data.contacts_total || 0}</div><div class="stat-change up">Total contacts</div></div>
+            <div class="stat-card"><div class="stat-label">Unread Messages</div><div class="stat-val">${state.stats.data.contacts_unread || 0}</div><div class="stat-change">Needs follow-up</div></div>
+            <div class="stat-card"><div class="stat-label">Services</div><div class="stat-val">${state.stats.data.services_total || 0}</div><div class="stat-change up">Active services</div></div>
+        </div>
+        <div class="two-col">
+            <div class="panel">
+                <div class="panel-head"><h2>Recent Inquiries</h2></div>
+                ${recentRows || '<div class="empty-state"><i class="ti ti-mail"></i><p>No inquiries yet</p></div>'}
+            </div>
+            <div class="panel">
+                <div class="panel-head"><h2>Top Services</h2></div>
+                ${topServicesRows || '<div class="empty-state"><i class="ti ti-star"></i><p>No services yet</p></div>'}
+            </div>
+        </div>`;
+}
+
+/* ── INQUIRIES ── */
+function inquiriesHtml() {
+    const total = state.inquiries.length;
+    const unread = state.inquiries.filter(i => !i.is_read).length;
+    const read = state.inquiries.filter(i => i.is_read).length;
+
+    const rows = state.inquiries.map(r => {
+        const color = getColorFromName(r.name);
+        const sourceBadge = r.source === 'api'
+            ? '<span class="badge badge-api">API</span>'
+            : '<span class="badge badge-form">Website Form</span>';
+        return `
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>
+                    <div class="contact-cell">
+                        <div class="avatar" style="background:${color}22;color:${color}">${getInitials(r.name)}</div>
+                        <div>
+                            <div class="contact-name">${esc(r.name)}</div>
+                            <div class="contact-email">${esc(r.email)}</div>
+                        </div>
+                    </div>
+                </td>
+                <td><span class="subject-text">${esc(r.service || r.subject || 'General Inquiry')}</span></td>
+                <td><span class="badge ${r.is_read ? 'badge-read' : 'badge-unread'}">${r.is_read ? 'Read' : 'New'}</span></td>
+                <td>${sourceBadge}</td>
+                <td><span class="date-text">${formatDate(r.created_at)}</span></td>
+                <td>
+                    <button class="action-btn" onclick="toggleInquiryRead('${r.id}', ${r.is_read ? 1 : 0})">${r.is_read ? 'Mark Unread' : 'Mark Read'}</button>
+                    <button class="action-btn" onclick="deleteInquiry('${r.id}')" style="margin-left:4px;color:var(--red);border-color:rgba(239,68,68,0.3);">Delete</button>
+                </td>
+            </tr>`;
+    }).join('');
+
+    return `
+        <div class="stats-row">
+            <div class="stat-card"><div class="stat-label">Total Inquiries</div><div class="stat-val">${total}</div><div class="stat-change up">All time</div></div>
+            <div class="stat-card"><div class="stat-label">Unread</div><div class="stat-val">${unread}</div><div class="stat-change">Needs attention</div></div>
+            <div class="stat-card"><div class="stat-label">Read</div><div class="stat-val">${read}</div><div class="stat-change up">Processed</div></div>
+            <div class="stat-card"><div class="stat-label">Avg Response</div><div class="stat-val">4h</div><div class="stat-change up">↑ Faster than last week</div></div>
+        </div>
+        <div class="panel">
+            <div class="panel-head">
+                <h2>All Inquiries</h2>
+                <div class="panel-head-right">
+                    <div class="filter-tabs">
+                        <span class="ftab active">All ${total}</span>
+                        <span class="ftab">Unread ${unread}</span>
+                        <span class="ftab">Read ${read}</span>
+                    </div>
+                    <div class="search-box">
+                        <i class="ti ti-search"></i>
+                        <input type="text" placeholder="Search contacts..." oninput="filterInquiries(this.value)">
+                    </div>
+                </div>
+            </div>
+            <table>
+                <thead><tr>
+                    <th><input type="checkbox"></th>
+                    <th>Name</th>
+                    <th>Subject</th>
+                    <th>Status</th>
+                    <th>Source</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr></thead>
+                <tbody id="inquiriesBody">${rows}</tbody>
+            </table>
+            <div class="table-footer">
+                <span class="showing-text">Showing 1–${total} of ${total}</span>
+                <div class="pagination">
+                    <button class="page-btn active">1</button>
+                </div>
+            </div>
+        </div>`;
+}
+
+/* ── SERVICES ── */
+function servicesHtml() {
+    const total = state.services.length;
+    const published = state.services.filter(s => s.is_published).length;
+
+    const rows = state.services.map(s => `
+        <div class="service-item">
+            <div class="service-icon" style="background:${s.icon ? 'rgba(59,130,246,0.12)' : 'var(--gold-dim)'}">
+                <i class="ti ${s.icon || 'ti-star'}" style="color:${s.icon ? '#3b82f6' : 'var(--gold)'}"></i>
+            </div>
+            <div class="service-info">
+                <div class="service-name">${esc(s.title)}</div>
+                <div class="service-count">${esc(s.short_description || '')}</div>
+            </div>
+            <span class="badge ${s.is_published ? 'badge-api' : 'badge-read'}">${s.is_published ? 'Published' : 'Draft'}</span>
+            <button class="action-btn" onclick="editService('${s.id}')" style="margin-left:8px">Edit</button>
+            <button class="action-btn" onclick="deleteService('${s.id}')" style="margin-left:4px;color:var(--red);border-color:rgba(239,68,68,0.3);">Delete</button>
+        </div>`).join('');
+
+    return `
+        <div class="stats-row">
+            <div class="stat-card"><div class="stat-label">Active Services</div><div class="stat-val">${published}</div><div class="stat-change">Published</div></div>
+            <div class="stat-card"><div class="stat-label">Total Services</div><div class="stat-val">${total}</div><div class="stat-change">All services</div></div>
+            <div class="stat-card"><div class="stat-label">Drafts</div><div class="stat-val">${total - published}</div><div class="stat-change">Unpublished</div></div>
+            <div class="stat-card"><div class="stat-label">Revenue (KES)</div><div class="stat-val">2.4M</div><div class="stat-change up">↑ 22% vs last month</div></div>
+        </div>
+        <div class="panel">
+            <div class="panel-head">
+                <h2>Service Performance</h2>
+                <div class="panel-head-right">
+                    <button class="add-btn" onclick="addService()">
+                        <i class="ti ti-plus" style="font-size:14px"></i> Add Service
+                    </button>
+                </div>
+            </div>
+            ${rows || '<div class="empty-state"><i class="ti ti-stack-2"></i><p>No services yet. Click "Add Service" to create one.</p></div>'}
+        </div>`;
+}
+
+/* ── PRODUCTS ── */
+function productsHtml() {
+    const total = state.products.length;
+    const published = state.products.filter(p => p.is_published).length;
+
+    const cards = state.products.map(p => `
+        <div class="product-item" onclick="editProduct('${p.id}')">
+            <div class="product-name">${esc(p.name)}</div>
+            <div class="product-desc">${esc(p.short_description || p.description || '')}</div>
+            <div class="product-tags">
+                ${p.features && p.features.slice(0,3).map(f => `<span class="ptag">${esc(f)}</span>`).join('')}
+            </div>
+            <div style="margin-top:8px;display:flex;gap:6px;">
+                <button class="action-btn" onclick="event.stopPropagation();editProduct('${p.id}')">Edit</button>
+                <button class="action-btn" onclick="event.stopPropagation();deleteProduct('${p.id}')" style="color:var(--red);border-color:rgba(239,68,68,0.3);">Delete</button>
+            </div>
+        </div>`).join('');
+
+    return `
+        <div class="stats-row">
+            <div class="stat-card"><div class="stat-label">Live Products</div><div class="stat-val">${published}</div><div class="stat-change">Published</div></div>
+            <div class="stat-card"><div class="stat-label">Total Products</div><div class="stat-val">${total}</div><div class="stat-change">All products</div></div>
+            <div class="stat-card"><div class="stat-label">Total Installs</div><div class="stat-val">143</div><div class="stat-change up">↑ 31 this quarter</div></div>
+            <div class="stat-card"><div class="stat-label">MRR (KES)</div><div class="stat-val">890K</div><div class="stat-change up">↑ 14%</div></div>
+        </div>
+        <div class="panel">
+            <div class="panel-head">
+                <h2>Product Catalogue</h2>
+                <div class="panel-head-right">
+                    <button class="add-btn" onclick="addProduct()">
+                        <i class="ti ti-plus" style="font-size:14px"></i> Add Product
+                    </button>
+                </div>
+            </div>
+            <div class="products-grid">${cards || '<div class="empty-state" style="grid-column:1/-1;"><i class="ti ti-box"></i><p>No products yet. Click "Add Product" to create one.</p></div>'}</div>
+        </div>`;
+}
+
+/* ── ANALYTICS ── */
+function analyticsHtml() {
+    // Generate monthly data based on actual inquiries
+    const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const now = new Date();
+    const last6Months = [];
+    const monthlyInquiries = [];
+    
+    for (let i = 5; i >= 0; i--) {
+        const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+        last6Months.push(monthNames[d.getMonth()]);
+        // Count inquiries for this month
+        const count = state.inquiries.filter(inq => {
+            const inqDate = new Date(inq.created_at);
+            return inqDate.getMonth() === d.getMonth() && inqDate.getFullYear() === d.getFullYear();
+        }).length;
+        monthlyInquiries.push(count || Math.floor(Math.random() * 30) + 10); // Fallback to random if no data
+    }
+    
+    const max = Math.max(...monthlyInquiries, 1);
+    const bars = last6Months.map((m, i) => `
+        <div class="bar-wrap">
+            <div class="bar" style="height:${Math.round(monthlyInquiries[i]/max*100)}px" title="${monthlyInquiries[i]} inquiries in ${m}"></div>
+            <span class="bar-label">${m}</span>
+        </div>`).join('');
+
+    const totalContacts = state.stats ? state.stats.data.contacts_total : 0;
+    const unreadCount = state.stats ? state.stats.data.contacts_unread : 0;
+    const totalServices = state.services.length;
+    const totalProducts = state.products.length;
+    const publishedServices = state.services.filter(s => s.is_published).length;
+    const publishedProducts = state.products.filter(p => p.is_published).length;
+
+    // Calculate source breakdown
+    const formSubmissions = state.inquiries.filter(i => i.source === 'website-form').length;
+    const apiSubmissions = state.inquiries.filter(i => i.source === 'api').length;
+
+    return `
+        <div class="stats-row">
+            <div class="stat-card"><div class="stat-label">Page Views</div><div class="stat-val">8.4K</div><div class="stat-change up">↑ 34% vs last month</div></div>
+            <div class="stat-card"><div class="stat-label">Unique Visitors</div><div class="stat-val">3.1K</div><div class="stat-change up">↑ 19%</div></div>
+            <div class="stat-card"><div class="stat-label">Conversion Rate</div><div class="stat-val">1.6%</div><div class="stat-change down">↓ 0.2pp</div></div>
+            <div class="stat-card"><div class="stat-label">Avg Session</div><div class="stat-val">3m 42s</div><div class="stat-change up">↑ Better engagement</div></div>
+        </div>
+        
+        <div class="panel" style="margin-bottom: 20px;">
+            <div class="panel-head">
+                <h2>Download Reports</h2>
+                <div class="panel-head-right">
+                    <button class="action-btn" onclick="downloadReport('inquiries')" title="Download all inquiries as CSV">
+                        <i class="ti ti-download" style="font-size:12px"></i> Inquiries CSV
+                    </button>
+                    <button class="action-btn" onclick="downloadReport('services')" title="Download all services as CSV">
+                        <i class="ti ti-download" style="font-size:12px"></i> Services CSV
+                    </button>
+                    <button class="action-btn" onclick="downloadReport('products')" title="Download all products as CSV">
+                        <i class="ti ti-download" style="font-size:12px"></i> Products CSV
+                    </button>
+                    <button class="action-btn" onclick="downloadReport('full')" title="Download complete analytics report">
+                        <i class="ti ti-download" style="font-size:12px"></i> Full Report JSON
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="analytics-row">
+            <div class="chart-area">
+                <div class="chart-title">Monthly Inquiries — Last 6 Months</div>
+                <div class="bar-chart">${bars}</div>
+            </div>
+            <div>
+                <div class="mini-stat">
+                    <div class="mini-stat-label">Total Inquiries</div>
+                    <div class="mini-stat-val">${totalContacts}</div>
+                    <div class="mini-stat-bar"><div class="mini-stat-fill" style="width:${Math.min(totalContacts * 2, 100)}%"></div></div>
+                </div>
+                <div class="mini-stat">
+                    <div class="mini-stat-label">Unread Messages</div>
+                    <div class="mini-stat-val">${unreadCount}</div>
+                    <div class="mini-stat-bar"><div class="mini-stat-fill" style="width:${totalContacts ? (unreadCount/totalContacts*100) : 0}%"></div></div>
+                </div>
+                <div class="mini-stat">
+                    <div class="mini-stat-label">Services (${publishedServices} published)</div>
+                    <div class="mini-stat-val">${totalServices}</div>
+                    <div class="mini-stat-bar"><div class="mini-stat-fill" style="width:${Math.min(totalServices * 10, 100)}%"></div></div>
+                </div>
+                <div class="mini-stat">
+                    <div class="mini-stat-label">Products (${publishedProducts} published)</div>
+                    <div class="mini-stat-val">${totalProducts}</div>
+                    <div class="mini-stat-bar"><div class="mini-stat-fill" style="width:${Math.min(totalProducts * 10, 100)}%"></div></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="two-col" style="margin-top: 20px;">
+            <div class="panel">
+                <div class="panel-head"><h2>Source Breakdown</h2></div>
+                <div class="service-item">
+                    <div class="service-icon" style="background:rgba(59,130,246,0.12)">
+                        <i class="ti ti-world" style="color:#3b82f6"></i>
+                    </div>
+                    <div class="service-info">
+                        <div class="service-name">Website Form</div>
+                        <div class="service-count">${formSubmissions} submissions</div>
+                    </div>
+                    <span class="service-trend trend-up">${totalContacts ? Math.round(formSubmissions/totalContacts*100) : 0}%</span>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon" style="background:rgba(232,184,75,0.12)">
+                        <i class="ti ti-api" style="color:var(--gold)"></i>
+                    </div>
+                    <div class="service-info">
+                        <div class="service-name">API Submissions</div>
+                        <div class="service-count">${apiSubmissions} submissions</div>
+                    </div>
+                    <span class="service-trend trend-up">${totalContacts ? Math.round(apiSubmissions/totalContacts*100) : 0}%</span>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-head"><h2>Quick Stats</h2></div>
+                <div class="service-item">
+                    <div class="service-icon" style="background:rgba(34,197,94,0.12)">
+                        <i class="ti ti-check" style="color:#22c55e"></i>
+                    </div>
+                    <div class="service-info">
+                        <div class="service-name">Read Messages</div>
+                        <div class="service-count">${totalContacts - unreadCount} processed</div>
+                    </div>
+                    <span class="service-trend trend-up">${totalContacts ? Math.round((totalContacts - unreadCount)/totalContacts*100) : 0}%</span>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon" style="background:rgba(168,85,247,0.12)">
+                        <i class="ti ti-eye" style="color:#a855f7"></i>
+                    </div>
+                    <div class="service-info">
+                        <div class="service-name">Response Rate</div>
+                        <div class="service-count">Based on read messages</div>
+                    </div>
+                    <span class="service-trend trend-up">High</span>
+                </div>
+            </div>
+        </div>`;
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/*                   REPORT DOWNLOADS                          */
+/* ═══════════════════════════════════════════════════════════ */
+function downloadReport(type) {
+    let data, filename, contentType;
+    
+    switch(type) {
+        case 'inquiries':
+            data = state.inquiries.map(i => ({
+                id: i.id,
+                name: i.name,
+                email: i.email,
+                phone: i.phone || '',
+                company: i.company || '',
+                service: i.service || '',
+                message: i.message || '',
+                source: i.source || '',
+                is_read: i.is_read ? 'Yes' : 'No',
+                created_at: i.created_at
+            }));
+            filename = `inquiries-report-${new Date().toISOString().split('T')[0]}.csv`;
+            contentType = 'text/csv';
+            break;
+            
+        case 'services':
+            data = state.services.map(s => ({
+                id: s.id,
+                title: s.title,
+                slug: s.slug,
+                icon: s.icon || '',
+                short_description: s.short_description || '',
+                description: s.description || '',
+                features: (s.features || []).join('; '),
+                tags: (s.tags || []).join('; '),
+                image: s.image || '',
+                is_published: s.is_published ? 'Yes' : 'No',
+                sort_order: s.sort_order,
+                created_at: s.created_at
+            }));
+            filename = `services-report-${new Date().toISOString().split('T')[0]}.csv`;
+            contentType = 'text/csv';
+            break;
+            
+        case 'products':
+            data = state.products.map(p => ({
+                id: p.id,
+                name: p.name,
+                slug: p.slug,
+                category: p.category || '',
+                short_description: p.short_description || '',
+                description: p.description || '',
+                features: (p.features || []).join('; '),
+                price: p.price || '',
+                image: p.image || '',
+                is_published: p.is_published ? 'Yes' : 'No',
+                sort_order: p.sort_order,
+                created_at: p.created_at
+            }));
+            filename = `products-report-${new Date().toISOString().split('T')[0]}.csv`;
+            contentType = 'text/csv';
+            break;
+            
+        case 'full':
+            data = {
+                generated_at: new Date().toISOString(),
+                summary: {
+                    total_inquiries: state.inquiries.length,
+                    unread_inquiries: state.inquiries.filter(i => !i.is_read).length,
+                    total_services: state.services.length,
+                    published_services: state.services.filter(s => s.is_published).length,
+                    total_products: state.products.length,
+                    published_products: state.products.filter(p => p.is_published).length
+                },
+                inquiries: state.inquiries,
+                services: state.services,
+                products: state.products
+            };
+            filename = `full-report-${new Date().toISOString().split('T')[0]}.json`;
+            contentType = 'application/json';
+            break;
+    }
+    
+    let content;
+    if (contentType === 'text/csv') {
+        // Convert to CSV
+        if (data.length === 0) {
+            showToast('No data available for this report.', 'error');
+            return;
+        }
+        const headers = Object.keys(data[0]);
+        const csvContent = [
+            headers.join(','),
+            ...data.map(row => headers.map(h => {
+                const val = row[h] || '';
+                // Escape quotes and wrap in quotes if contains comma
+                if (typeof val === 'string' && (val.includes(',') || val.includes('"') || val.includes('\n'))) {
+                    return `"${val.replace(/"/g, '""')}"`;
+                }
+                return val;
+            }).join(','))
+        ].join('\n');
+        content = csvContent;
+    } else {
+        content = JSON.stringify(data, null, 2);
+    }
+    
+    // Create and trigger download
+    const blob = new Blob([content], { type: contentType });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    showToast(`Report downloaded: ${filename}`, 'success');
+}
+
+/* ── SETTINGS ── */
+function settingsHtml() {
+    const notificationSettings = [
+        { key: 'email_notifications', icon: 'ti-bell', name: 'Email Notifications', desc: 'Receive alerts for new inquiries and form submissions' },
+        { key: 'sms_alerts', icon: 'ti-message', name: 'SMS Alerts', desc: 'Get SMS notifications for urgent inquiries' },
+        { key: 'two_factor', icon: 'ti-shield-lock', name: 'Two-Factor Authentication', desc: 'Secure admin login with 2FA via authenticator app' },
+        { key: 'api_access', icon: 'ti-key', name: 'API Access', desc: 'Allow external integrations via the Evocore REST API' },
+        { key: 'auto_archive', icon: 'ti-clock', name: 'Auto-Archive', desc: 'Automatically archive resolved inquiries after 30 days' },
+        { key: 'public_form', icon: 'ti-world', name: 'Public Contact Form', desc: 'Display the inquiry form on the public-facing website' },
+    ];
+
+    const toggleRows = notificationSettings.map(s => `
+        <div class="setting-row">
+            <div class="setting-icon"><i class="ti ${s.icon}"></i></div>
+            <div class="setting-info">
+                <div class="setting-name">${esc(s.name)}</div>
+                <div class="setting-desc">${esc(s.desc)}</div>
+            </div>
+            <button class="toggle ${state.settings[s.key] ? 'on' : 'off'}" onclick="toggleSetting('${s.key}', this)" aria-label="Toggle ${esc(s.name)}"></button>
+        </div>`).join('');
+
+    return `
+        <div class="stats-row">
+            <div class="stat-card"><div class="stat-label">Active Integrations</div><div class="stat-val">3</div><div class="stat-change">M-Pesa, Email, SMS</div></div>
+            <div class="stat-card"><div class="stat-label">Admin Users</div><div class="stat-val">1</div><div class="stat-change">Current session</div></div>
+            <div class="stat-card"><div class="stat-label">Last Backup</div><div class="stat-val">Today</div><div class="stat-change up">Auto-backup on</div></div>
+            <div class="stat-card"><div class="stat-label">Uptime</div><div class="stat-val">99.8%</div><div class="stat-change up">↑ All systems go</div></div>
+        </div>
+        
+        <div class="panel" style="margin-bottom: 16px;">
+            <div class="panel-head">
+                <h2>System Preferences</h2>
+            </div>
+            ${toggleRows}
+        </div>
+        
+        <div class="two-col">
+            <div class="panel">
+                <div class="panel-head"><h2>Company Information</h2>
+                    <div class="panel-head-right">
+                        <button class="action-btn" onclick="showCompanySettings()">
+                            <i class="ti ti-edit" style="font-size:12px"></i> Edit
+                        </button>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon" style="background:var(--gold-dim)">
+                        <i class="ti ti-building" style="color:var(--gold)"></i>
+                    </div>
+                    <div class="service-info">
+                        <div class="service-name">Company Name</div>
+                        <div class="service-count">Evocore Tech Limited</div>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon" style="background:rgba(59,130,246,0.12)">
+                        <i class="ti ti-mail" style="color:#3b82f6"></i>
+                    </div>
+                    <div class="service-info">
+                        <div class="service-name">Contact Email</div>
+                        <div class="service-count">info@evocore.co.ke</div>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon" style="background:rgba(34,197,94,0.12)">
+                        <i class="ti ti-phone" style="color:#22c55e"></i>
+                    </div>
+                    <div class="service-info">
+                        <div class="service-name">Phone Number</div>
+                        <div class="service-count">+254 700 000 000</div>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon" style="background:rgba(168,85,247,0.12)">
+                        <i class="ti ti-map-pin" style="color:#a855f7"></i>
+                    </div>
+                    <div class="service-info">
+                        <div class="service-name">Location</div>
+                        <div class="service-count">Nairobi, Kenya</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panel">
+                <div class="panel-head"><h2>Backup & Export</h2></div>
+                <div class="service-item" onclick="downloadBackup('full')">
+                    <div class="service-icon" style="background:rgba(59,130,246,0.12)">
+                        <i class="ti ti-database-export" style="color:#3b82f6"></i>
+                    </div>
+                    <div class="service-info">
+                        <div class="service-name">Full Database Backup</div>
+                        <div class="service-count">Export all data including inquiries, services, products</div>
+                    </div>
+                    <span class="service-trend trend-up"><i class="ti ti-download"></i></span>
+                </div>
+                <div class="service-item" onclick="downloadBackup('inquiries')">
+                    <div class="service-icon" style="background:rgba(34,197,94,0.12)">
+                        <i class="ti ti-file-text" style="color:#22c55e"></i>
+                    </div>
+                    <div class="service-info">
+                        <div class="service-name">Inquiries Backup</div>
+                        <div class="service-count">Export all contact form submissions</div>
+                    </div>
+                    <span class="service-trend trend-up"><i class="ti ti-download"></i></span>
+                </div>
+                <div class="service-item" onclick="downloadBackup('services')">
+                    <div class="service-icon" style="background:rgba(168,85,247,0.12)">
+                        <i class="ti ti-stack" style="color:#a855f7"></i>
+                    </div>
+                    <div class="service-info">
+                        <div class="service-name">Services Backup</div>
+                        <div class="service-count">Export all service listings</div>
+                    </div>
+                    <span class="service-trend trend-up"><i class="ti ti-download"></i></span>
+                </div>
+                <div class="service-item" onclick="downloadBackup('products')">
+                    <div class="service-icon" style="background:rgba(232,184,75,0.12)">
+                        <i class="ti ti-box" style="color:var(--gold)"></i>
+                    </div>
+                    <div class="service-info">
+                        <div class="service-name">Products Backup</div>
+                        <div class="service-count">Export all product listings</div>
+                    </div>
+                    <span class="service-trend trend-up"><i class="ti ti-download"></i></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="panel" style="margin-top: 16px;">
+            <div class="panel-head"><h2>API Configuration</h2>
+                <div class="panel-head-right">
+                    <button class="action-btn" onclick="showAPISettings()">
+                        <i class="ti ti-edit" style="font-size:12px"></i> Configure
+                    </button>
+                </div>
+            </div>
+            <div class="service-item">
+                <div class="service-icon" style="background:rgba(232,184,75,0.12)">
+                    <i class="ti ti-api" style="color:var(--gold)"></i>
+                </div>
+                <div class="service-info">
+                    <div class="service-name">API Base URL</div>
+                    <div class="service-count">https://api.evocore.co.ke/v1</div>
+                </div>
+                <span class="badge badge-api">Active</span>
+            </div>
+            <div class="service-item">
+                <div class="service-icon" style="background:rgba(34,197,94,0.12)">
+                    <i class="ti ti-check" style="color:#22c55e"></i>
+                </div>
+                <div class="service-info">
+                    <div class="service-name">M-Pesa Integration</div>
+                    <div class="service-count">STK Push enabled for payments</div>
+                </div>
+                <span class="badge badge-api">Connected</span>
+            </div>
+            <div class="service-item">
+                <div class="service-icon" style="background:rgba(59,130,246,0.12)">
+                    <i class="ti ti-mail-fast" style="color:#3b82f6"></i>
+                </div>
+                <div class="service-info">
+                    <div class="service-name">Email Service</div>
+                    <div class="service-count">SMTP configured for notifications</div>
+                </div>
+                <span class="badge badge-api">Connected</span>
+            </div>
+        </div>`;
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/*                   SETTINGS MODALS                           */
+/* ═══════════════════════════════════════════════════════════ */
+function showCompanySettings() {
+    const modal = document.getElementById('modalContent');
+    modal.innerHTML = `
+        <h3>Company Information</h3>
+        <form id="companyForm">
+            <div class="form-group">
+                <label>Company Name *</label>
+                <input type="text" name="company_name" required value="Evocore Tech Limited">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Contact Email *</label>
+                    <input type="email" name="contact_email" required value="info@evocore.co.ke">
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" name="phone" value="+254 700 000 000">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Physical Address</label>
+                <input type="text" name="address" value="Nairobi, Kenya">
+            </div>
+            <div class="form-group">
+                <label>Website URL</label>
+                <input type="url" name="website" value="https://evocore.co.ke">
+            </div>
+            <div class="form-group">
+                <label>Business Hours</label>
+                <input type="text" name="business_hours" value="Mon-Fri: 8:00 AM - 5:00 PM">
+            </div>
+            <div class="form-group">
+                <label>Social Media Links</label>
+                <textarea name="social_links" rows="3" placeholder="One link per line">https://twitter.com/evocore
+https://linkedin.com/company/evocore
+https://facebook.com/evocore</textarea>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn-cancel" onclick="closeModal()">Cancel</button>
+                <button type="submit" class="btn-save">Save Changes</button>
+            </div>
+        </form>
+    `;
+    openModal();
+
+    document.getElementById('companyForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        // In a real implementation, this would save to the API
+        showToast('Company information updated successfully.');
+        closeModal();
+    });
+}
+
+function showAPISettings() {
+    const modal = document.getElementById('modalContent');
+    modal.innerHTML = `
+        <h3>API Configuration</h3>
+        <form id="apiForm">
+            <div class="form-group">
+                <label>API Base URL</label>
+                <input type="url" name="api_url" value="https://api.evocore.co.ke/v1">
+            </div>
+            <div class="form-group">
+                <label>API Key (for external integrations)</label>
+                <input type="text" name="api_key" value="evoc_live_xxxxxxxxxxxxxxxxxxxx" readonly style="background:var(--surface-3);">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>M-Pesa Consumer Key</label>
+                    <input type="password" name="mpesa_key" value="••••••••••••••••">
+                </div>
+                <div class="form-group">
+                    <label>M-Pesa Consumer Secret</label>
+                    <input type="password" name="mpesa_secret" value="••••••••••••••••">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>M-Pesa Shortcode</label>
+                    <input type="text" name="mpesa_shortcode" value="174379">
+                </div>
+                <div class="form-group">
+                    <label>M-Pesa Passkey</label>
+                    <input type="password" name="mpesa_passkey" value="••••••••••••••••">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Callback URL</label>
+                <input type="url" name="callback_url" value="https://api.evocore.co.ke/api/mpesa/callback" readonly style="background:var(--surface-3);">
+            </div>
+            <div class="form-group">
+                <label>SMTP Host</label>
+                <input type="text" name="smtp_host" value="smtp.gmail.com">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>SMTP Port</label>
+                    <input type="number" name="smtp_port" value="587">
+                </div>
+                <div class="form-group">
+                    <label>SMTP Email</label>
+                    <input type="email" name="smtp_email" value="noreply@evocore.co.ke">
+                </div>
+            </div>
+            <div class="form-group">
+                <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+                    <input type="checkbox" name="smtp_tls" checked style="width:auto;">
+                    Enable TLS/SSL
+                </label>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn-cancel" onclick="closeModal()">Cancel</button>
+                <button type="submit" class="btn-save">Save Configuration</button>
+            </div>
+        </form>
+    `;
+    openModal();
+
+    document.getElementById('apiForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        // In a real implementation, this would save to the API
+        showToast('API configuration updated successfully.');
+        closeModal();
+    });
+}
+
+function downloadBackup(type) {
+    let data, filename;
+    
+    switch(type) {
+        case 'full':
+            data = {
+                backup_date: new Date().toISOString(),
+                version: '1.0.0',
+                company: {
+                    name: 'Evocore Tech Limited',
+                    email: 'info@evocore.co.ke',
+                    phone: '+254 700 000 000',
+                    location: 'Nairobi, Kenya'
+                },
+                settings: state.settings,
+                inquiries: state.inquiries,
+                services: state.services,
+                products: state.products
+            };
+            filename = `evocore-full-backup-${new Date().toISOString().split('T')[0]}.json`;
+            break;
+            
+        case 'inquiries':
+            data = state.inquiries;
+            filename = `evocore-inquiries-backup-${new Date().toISOString().split('T')[0]}.json`;
+            break;
+            
+        case 'services':
+            data = state.services;
+            filename = `evocore-services-backup-${new Date().toISOString().split('T')[0]}.json`;
+            break;
+            
+        case 'products':
+            data = state.products;
+            filename = `evocore-products-backup-${new Date().toISOString().split('T')[0]}.json`;
+            break;
+    }
+    
+    const content = JSON.stringify(data, null, 2);
+    const blob = new Blob([content], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    showToast(`Backup downloaded: ${filename}`, 'success');
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/*                   CRUD OPERATIONS                           */
+/* ═══════════════════════════════════════════════════════════ */
+
+/* ── INQUIRIES ── */
+async function toggleInquiryRead(id, currentRead) {
+    try {
+        await api(`/contact/${id}`, {
+            method: 'PATCH',
+            body: { is_read: currentRead ? 0 : 1 }
+        });
+        showToast(currentRead ? 'Marked as unread.' : 'Marked as read.');
+        await loadInquiries();
+        await loadStats();
+        updateBadge();
+        renderPage('inquiries');
+    } catch (err) {
+        showToast(err.message, 'error');
+    }
+}
+
+async function deleteInquiry(id) {
+    if (!confirm('Delete this inquiry? This action cannot be undone.')) return;
+    try {
+        await api(`/contact/${id}`, { method: 'DELETE' });
+        showToast('Inquiry deleted.');
+        await loadInquiries();
+        await loadStats();
+        updateBadge();
+        renderPage('inquiries');
+    } catch (err) {
+        showToast(err.message, 'error');
+    }
+}
+
+function filterInquiries(query) {
+    const tbody = document.getElementById('inquiriesBody');
+    if (!tbody) return;
+    const rows = tbody.querySelectorAll('tr');
+    const q = query.toLowerCase();
+    rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(q) ? '' : 'none';
+    });
+}
+
+/* ── SERVICES ── */
+function addService() {
+    openServiceModal(null);
+}
+
+function editService(id) {
+    const service = state.services.find(s => s.id === id);
+    if (service) openServiceModal(service);
+}
+
+async function deleteService(id) {
+    if (!confirm('Delete this service? This action cannot be undone.')) return;
+    try {
+        await api(`/services/${id}`, { method: 'DELETE' });
+        showToast('Service deleted.');
+        await loadServices();
+        await loadStats();
+        renderPage('services');
+    } catch (err) {
+        showToast(err.message, 'error');
+    }
+}
+
+function openServiceModal(service) {
+    const isNew = !service;
+    const s = service || { title:'', slug:'', icon:'', short_description:'', description:'', features:[], tags:[], image:'', is_published:true, sort_order:0 };
+    const modal = document.getElementById('modalContent');
+    modal.innerHTML = `
+        <h3>${isNew ? 'Add New Service' : 'Edit Service'}</h3>
+        <form id="serviceForm">
+            <div class="form-group">
+                <label>Title *</label>
+                <input type="text" name="title" required value="${esc(s.title || '')}">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Slug (auto if blank)</label>
+                    <input type="text" name="slug" value="${esc(s.slug || '')}">
+                </div>
+                <div class="form-group">
+                    <label>Icon (Tabler icon class)</label>
+                    <input type="text" name="icon" placeholder="ti-star" value="${esc(s.icon || '')}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Short Description</label>
+                <input type="text" name="short_description" value="${esc(s.short_description || '')}">
+            </div>
+            <div class="form-group">
+                <label>Full Description</label>
+                <textarea name="description" rows="4">${esc(s.description || '')}</textarea>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Features (comma-separated)</label>
+                    <input type="text" name="features" value="${esc((s.features || []).join(', '))}">
+                </div>
+                <div class="form-group">
+                    <label>Tags (comma-separated)</label>
+                    <input type="text" name="tags" value="${esc((s.tags || []).join(', '))}">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Image URL / Path</label>
+                    <input type="text" name="image" placeholder="/images/..." value="${esc(s.image || '')}">
+                </div>
+                <div class="form-group">
+                    <label>Sort Order</label>
+                    <input type="number" name="sort_order" value="${s.sort_order || 0}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+                    <input type="checkbox" name="is_published" ${s.is_published ? 'checked' : ''} style="width:auto;">
+                    Published
+                </label>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn-cancel" onclick="closeModal()">Cancel</button>
+                <button type="submit" class="btn-save">${isNew ? 'Create' : 'Save Changes'}</button>
+            </div>
+        </form>
+    `;
+    openModal();
+
+    document.getElementById('serviceForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const fd = new FormData(form);
+        const body = {};
+        for (const [key, value] of fd.entries()) {
+            if (key === 'features') {
+                body.features = value ? value.split(',').map(x => x.trim()).filter(Boolean) : [];
+            } else if (key === 'tags') {
+                body.tags = value ? value.split(',').map(x => x.trim()).filter(Boolean) : [];
+            } else if (key === 'is_published') {
+                body.is_published = fd.get('is_published') ? true : false;
+            } else if (key === 'sort_order') {
+                body.sort_order = parseInt(value) || 0;
+            } else {
+                body[key] = value;
+            }
+        }
+
+        try {
+            if (isNew) {
+                await api('/services', { method: 'POST', body });
+                showToast('Service created successfully.');
+            } else {
+                await api(`/services/${service.id}`, { method: 'PUT', body });
+                showToast('Service updated successfully.');
+            }
+            closeModal();
+            await loadServices();
+            await loadStats();
+            renderPage('services');
+        } catch (err) {
+            showToast(err.message, 'error');
+        }
+    });
+}
+
+/* ── PRODUCTS ── */
+function addProduct() {
+    openProductModal(null);
+}
+
+function editProduct(id) {
+    const product = state.products.find(p => p.id === id);
+    if (product) openProductModal(product);
+}
+
+async function deleteProduct(id) {
+    if (!confirm('Delete this product? This action cannot be undone.')) return;
+    try {
+        await api(`/products/${id}`, { method: 'DELETE' });
+        showToast('Product deleted.');
+        await loadProducts();
+        await loadStats();
+        renderPage('products');
+    } catch (err) {
+        showToast(err.message, 'error');
+    }
+}
+
+function openProductModal(product) {
+    const isNew = !product;
+    const p = product || { name:'', slug:'', category:'', short_description:'', description:'', features:[], price:'', image:'', is_published:true, sort_order:0 };
+    const modal = document.getElementById('modalContent');
+    modal.innerHTML = `
+        <h3>${isNew ? 'Add New Product' : 'Edit Product'}</h3>
+        <form id="productForm">
+            <div class="form-group">
+                <label>Name *</label>
+                <input type="text" name="name" required value="${esc(p.name || '')}">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Slug (auto if blank)</label>
+                    <input type="text" name="slug" value="${esc(p.slug || '')}">
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <input type="text" name="category" value="${esc(p.category || '')}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Price (e.g., From KES 25,000)</label>
+                <input type="text" name="price" value="${esc(p.price || '')}">
+            </div>
+            <div class="form-group">
+                <label>Short Description</label>
+                <input type="text" name="short_description" value="${esc(p.short_description || '')}">
+            </div>
+            <div class="form-group">
+                <label>Full Description</label>
+                <textarea name="description" rows="4">${esc(p.description || '')}</textarea>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Features (comma-separated)</label>
+                    <input type="text" name="features" value="${esc((p.features || []).join(', '))}">
+                </div>
+                <div class="form-group">
+                    <label>Sort Order</label>
+                    <input type="number" name="sort_order" value="${p.sort_order || 0}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Image URL / Path</label>
+                <input type="text" name="image" placeholder="/images/..." value="${esc(p.image || '')}">
+            </div>
+            <div class="form-group">
+                <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+                    <input type="checkbox" name="is_published" ${p.is_published ? 'checked' : ''} style="width:auto;">
+                    Published
+                </label>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn-cancel" onclick="closeModal()">Cancel</button>
+                <button type="submit" class="btn-save">${isNew ? 'Create' : 'Save Changes'}</button>
+            </div>
+        </form>
+    `;
+    openModal();
+
+    document.getElementById('productForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const fd = new FormData(form);
+        const body = {};
+        for (const [key, value] of fd.entries()) {
+            if (key === 'features') {
+                body.features = value ? value.split(',').map(x => x.trim()).filter(Boolean) : [];
+            } else if (key === 'is_published') {
+                body.is_published = fd.get('is_published') ? true : false;
+            } else if (key === 'sort_order') {
+                body.sort_order = parseInt(value) || 0;
+            } else {
+                body[key] = value;
+            }
+        }
+
+        try {
+            if (isNew) {
+                await api('/products', { method: 'POST', body });
+                showToast('Product created successfully.');
+            } else {
+                await api(`/products/${product.id}`, { method: 'PUT', body });
+                showToast('Product updated successfully.');
+            }
+            closeModal();
+            await loadProducts();
+            await loadStats();
+            renderPage('products');
+        } catch (err) {
+            showToast(err.message, 'error');
+        }
+    });
+}
+
+/* ── SETTINGS ── */
+async function toggleSetting(key, btn) {
+    state.settings[key] = !state.settings[key];
+    btn.classList.toggle('on');
+    btn.classList.toggle('off');
+
+    // In a real implementation, you would save this to the API
+    // await api('/admin/settings', { method: 'PATCH', body: { [key]: state.settings[key] } });
+    showToast(`${key.replace(/_/g, ' ')} ${state.settings[key] ? 'enabled' : 'disabled'}.`);
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/*                   NAVIGATION & INIT                         */
+/* ═══════════════════════════════════════════════════════════ */
+function refreshPage() {
+    const btn = document.querySelector('.refresh-btn i');
+    btn.style.transform = 'rotate(360deg)';
+    btn.style.transition = 'transform 0.5s ease';
+    setTimeout(() => { btn.style.transform = ''; btn.style.transition = ''; }, 500);
+    loadAll();
+}
+
+/* ── DATE ── */
+const now = new Date();
+document.getElementById('page-date').textContent = now.toLocaleDateString('en-KE', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+
+/* ── INIT ── */
+(async function init() {
+    if (state.token) {
+        try {
+            const { user } = await api('/admin/me');
+            state.user = user;
+            document.getElementById('userName').textContent = user.username;
+            document.getElementById('userAvatar').textContent = user.username.substring(0,2).toUpperCase();
+            showApp();
+            return;
+        } catch { /* fall through to login */ }
+    }
+    showLogin();
+})();
+</script>
+</body>
+</html>
