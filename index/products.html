@@ -77,72 +77,117 @@
         nav a:hover { color: var(--text); background: rgba(255,255,255,0.04); }
         nav a.active { color: var(--gold); background: var(--gold-dim); }
 
-        /* HERO */
+        /* HERO — full-bleed background */
+        .hero-wrap {
+            position: relative;
+            min-height: 78vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute; inset: 0;
+            background-image: url('images/pic33.jpg');
+            background-size: cover;
+            background-position: center 40%;
+            filter: brightness(0.38) saturate(0.55);
+            transform: scale(1.03);
+            transition: transform 9s ease;
+        }
+        .hero-wrap:hover .hero-bg { transform: scale(1.0); }
+
+        .hero-bg::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(135deg, rgba(233,188,79,0.15) 0%, transparent 60%);
+        }
+
+        .hero-grain {
+            position: absolute; inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            opacity: 0.3; pointer-events: none;
+        }
+
+        .hero-fade-bottom {
+            position: absolute; inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(8,8,8,0.1) 0%,
+                rgba(8,8,8,0.0) 25%,
+                rgba(8,8,8,0.5) 65%,
+                rgba(8,8,8,1.0) 100%
+            );
+        }
+
+        /* Center vignette to anchor text */
+        .hero-fade-center {
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse 80% 70% at 50% 55%, rgba(8,8,8,0.45) 0%, transparent 100%);
+        }
+
+        /* Content centered above all layers */
         .hero {
-            position: relative; z-index: 1;
-            max-width: 1200px; margin: 0 auto;
-            padding: 2.5rem 2rem 2rem;
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 2.5rem; align-items: center;
+            position: relative; z-index: 2;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 5rem 2rem 6rem;
+            gap: 1.25rem;
         }
-        .hero-left {
-            display: flex; flex-direction: column; gap: 0;
-        }
+
         .hero-label {
-            display: inline-flex; align-items: center; gap: 0.45rem;
-            font-family: var(--sans); font-size: 0.67rem; font-weight: 700;
-            letter-spacing: 0.16em; text-transform: uppercase;
-            color: var(--gold); margin-bottom: 0.9rem;
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            font-family: var(--sans); font-size: 0.68rem; font-weight: 700;
+            letter-spacing: 0.18em; text-transform: uppercase;
+            color: var(--gold);
         }
-        .hero-label::before {  display: block; width: 16px; height: 1px; background: var(--gold); }
+        .hero-label::before,
+        .hero-label::after {
+            display: block; width: 20px; height: 1px; background: var(--gold);
+        }
+
         .hero h1 {
             font-family: var(--serif);
-            font-size: clamp(2rem, 3.6vw, 3rem);
+            font-size: clamp(2.8rem, 6vw, 4.8rem);
             font-weight: 400;
-            line-height: 1.12; color: var(--text);
+            line-height: 1.05; color: #fff;
             letter-spacing: -0.02em;
-            margin-bottom: 1rem;
+            max-width: 700px;
         }
-        .hero h1 em { font-style: italic; color: var(--gold); }
-        /* description sits in left column now */
-        .hero-left p {
-            font-size: 0.9rem; color: var(--text-muted);
-            line-height: 1.7; max-width: 360px;
+        .hero h1 em { font-style: normal; color: var(--gold); }
+
+        .hero p {
+            font-size: 0.96rem; color: rgba(240,240,230,0.68);
+            line-height: 1.8; max-width: 480px;
         }
 
-        /* right column: image + stats only */
-        .hero-right { display: flex; flex-direction: column; gap: 0.85rem; }
-        .hero-right > p { display: none; } /* moved to left */
-
-        .hero-img-frame {
-            position: relative; border-radius: 12px; overflow: hidden;
-            border: 1px solid var(--border-mid);
-            box-shadow: 0 16px 48px rgba(0,0,0,0.45);
-        }
-        .hero-img-frame::after {
-            content: ''; position: absolute; inset: 0;
-            background: linear-gradient(160deg, transparent 55%, rgba(233,188,79,0.06) 100%);
-            pointer-events: none;
-        }
-        .hero-img-frame img {
-            width: 100%; aspect-ratio: 16/9;
-            object-fit: cover; display: block;
-            filter: brightness(0.78) saturate(0.85);
+        .hero-actions {
+            display: flex; align-items: center; gap: 1.25rem;
+            margin-top: 0.5rem;
         }
 
-        .hero-stats {
-            display: flex; gap: 0;
-            background: var(--surface); border: 1px solid var(--border);
-            border-radius: var(--r); overflow: hidden;
+        /* Scroll hint line */
+        .hero-scroll {
+            position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); z-index: 3;
+            display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
         }
-        .stat-item {
-            flex: 1; padding: 0.75rem 1rem;
-            display: flex; flex-direction: column; gap: 0.1rem;
-            border-right: 1px solid var(--border);
+        .hero-scroll span {
+            font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
         }
-        .stat-item:last-child { border-right: none; }
-        .stat-num { font-family: var(--serif); font-size: 1.25rem; color: var(--gold); line-height: 1; }
-        .stat-label { font-family: var(--sans); font-size: 0.6rem; color: var(--text-dim); letter-spacing: 0.08em; text-transform: uppercase; }
+        .hero-scroll-line {
+            width: 1px; height: 50px;
+            background: linear-gradient(to bottom, rgba(233,188,79,0.6), transparent);
+            animation: scrollPulse 2.2s 1.5s ease-in-out infinite;
+        }
+        @keyframes scrollPulse {
+            0%,100%{transform:scaleY(1);opacity:0.6}
+            50%{transform:scaleY(0.55);opacity:1}
+        }
 
         /* BUTTONS */
         .btn-primary {
@@ -291,7 +336,7 @@
             pointer-events: none;
         }
         .cta-band h2 { font-family: var(--serif); font-size: 1.95rem; font-weight: 400; color: var(--text); max-width: 460px; line-height: 1.2; }
-        .cta-band h2 em { font-style: italic; color: var(--gold); }
+        .cta-band h2 em { font-style:normal; color: var(--gold); }
         .cta-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 0.7rem; flex-shrink: 0; }
 
         /* FOOTER */
@@ -315,9 +360,8 @@
 
         /* RESPONSIVE */
         @media(max-width:900px){
-            .hero { grid-template-columns: 1fr; gap: 1.75rem; padding: 2rem 1.5rem 1.75rem; }
-            .hero h1 { font-size: clamp(2rem,6vw,2.6rem); }
-            .hero-left p { max-width: 100%; }
+            .hero { padding: 4rem 1.5rem 5rem; }
+            .hero h1 { font-size: clamp(2.2rem, 6vw, 3rem); }
             .products-grid { grid-template-columns: 1fr 1fr; }
             .process-steps { grid-template-columns: 1fr 1fr; }
             .cta-band { flex-direction: column; align-items: flex-start; }
@@ -327,13 +371,12 @@
             .header-inner { padding: 0 1rem; }
             nav { gap: 0.1rem; }
             nav a { font-size: 0.75rem; padding: 0.35rem 0.55rem; }
-            .hero { padding: 2rem 1.25rem 1.5rem; }
+            .hero { padding: 3.5rem 1.25rem 4.5rem; }
+            .hero-actions { flex-direction: column; gap: 0.75rem; }
             main { padding: 0 1.25rem 4rem; }
             .products-grid { grid-template-columns: 1fr; }
             .process-steps { grid-template-columns: 1fr; }
             .cta-band { padding: 2rem 1.5rem; }
-            .hero-stats { flex-wrap: wrap; }
-            .stat-item { min-width: 90px; }
         }
     </style>
 </head>
@@ -355,22 +398,30 @@
         </div>
     </header>
 
-    <!-- HERO -->
-    <section class="hero fade-in">
-        <div class="hero-left">
+    <!-- HERO — full-bleed background image, centered content -->
+    <section class="hero-wrap">
+        <div class="hero-bg"></div>
+        <div class="hero-grain"></div>
+        <div class="hero-fade-bottom"></div>
+        <div class="hero-fade-center"></div>
+
+        <div class="hero fade-in">
             <p class="hero-label">Ready to Deploy</p>
-            <h1>Products built for<br><em>Kenyan</em> businesses.</h1>
-            <p>Production-ready software you can use today — POS, payroll, invoicing, and starter websites. Fast to set up, easy to run, and priced for SMEs.</p>
-        </div>
-        <div class="hero-right fade-in delay-2">
-            <div class="hero-img-frame">
-                <img src="images/pic33.jpg" alt="Products showcase">
+            <h1>Digital solutions built for<br><em>Growing</em> businesses.</h1>
+            <p>From POS systems and payroll software to invoicing platforms, websites, and digital marketing solutions  we deliver business tools that are easy to use, quick to launch, and built to help SMEs scale efficiently.</p>
+            <div class="hero-actions fade-in delay-2">
+                <a href="contact.html" class="btn-primary">Get started</a>
+                <a href="#products" class="btn-secondary">Browse products →</a>
             </div>
-         
+        </div>
+
+        <div class="hero-scroll">
+            <div class="hero-scroll-line"></div>
+            <span>Scroll</span>
         </div>
     </section>
 
-    <main>
+    <main id="products">
         <!-- PRODUCTS -->
         <div class="section-header fade-in delay-1">
             <h2>Our Products</h2>

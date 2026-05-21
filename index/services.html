@@ -131,7 +131,9 @@
         }
 
         .eyebrow {
-            display: inline-flex; align-items: center; gap: 0.5rem;
+            display: inline-flex; align-items: flex-start; gap: 0.5rem;
+                        text-align: center;
+
             font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em;
             text-transform: uppercase; color: var(--gold); margin-bottom: 0.85rem;
             opacity: 0; animation: fadeUp 0.7s 0.2s ease forwards;
@@ -140,9 +142,10 @@
         .hero h1 {
             font-size: clamp(2.6rem, 5.5vw, 4.2rem);
             line-height: 1.05; color: #fff;
+            align-items: center;
             opacity: 0; animation: fadeUp 0.75s 0.35s ease forwards;
         }
-        .hero h1 em { font-style: italic; color: var(--gold); }
+        .hero h1 em { font-style:normal; color: var(--gold); }
         .hero-right {
             display: flex; flex-direction: column; justify-content: flex-end; gap: 1.5rem;
             opacity: 0; animation: fadeUp 0.75s 0.5s ease forwards;
@@ -210,7 +213,6 @@
         .service-card:nth-last-child(-n+3):not(.featured ~ *) { border-bottom: none; }
 
         .service-card::before {
-            content: '';
             position: absolute;
             top: 0; left: 0; right: 0;
             height: 1.5px;
@@ -319,7 +321,7 @@
         .industry-name { font-size: 0.88rem; font-weight: 600; color: var(--text); }
         .industry-note { font-size: 0.76rem; color: var(--muted); line-height: 1.55; }
         .industry-item::before {
-            content: ''; display: block; width: 20px; height: 1.5px;
+             display: block; width: 20px; height: 1.5px;
             background: var(--gold); margin-bottom: 0.25rem; opacity: 0.5;
             transition: width 0.3s, opacity 0.3s;
         }
@@ -342,7 +344,7 @@
             pointer-events: none;
         }
         .cta-band h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); color: var(--text); line-height: 1.2; max-width: 500px; }
-        .cta-band h2 em { font-style: italic; color: var(--gold); }
+        .cta-band h2 em { font-style: normal; color: var(--gold); }
         .cta-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 0.65rem; flex-shrink: 0; }
         .btn-primary {
             display: inline-block; background: var(--gold); color: #080808;
@@ -410,7 +412,7 @@
             .process-steps { grid-template-columns: 1fr; }
             .process-step { border-right: none; border-bottom: 1px solid var(--border); }
             .process-step:last-child { border-bottom: none; }
-            .industry-grid { flex-direction: column; }
+            .industry-grid { flex-direction: row; }
             .industry-item { border-right: none; border-bottom: 1px solid var(--border); }
             .industry-item:last-child { border-bottom: none; }
         }
@@ -449,7 +451,7 @@
                 <h1>Technology that works<br>for <em>your</em> business.</h1>
             </div>
             <div class="hero-right">
-                <p>Practical digital tools for Kenyan SMEs — from your first website to custom software, payment integration, and everything in between. No jargon, no bloat, just results.</p>
+                <p>Practical digital tools for Kenyan SMEs, from your first website to custom software, payment integration, and everything in between. No jargon, no bloat, just results.</p>
                
             </div>
         </div>

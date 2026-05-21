@@ -110,78 +110,154 @@
     }
 
     /* ---------- HEADER / NAV ---------- */
-    header {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      background: rgba(54, 49, 8, 0.88);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
-    }
+ header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(54, 49, 8, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(212, 170, 50, 0.2);
+  overflow: hidden;
+}
 
-    .nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 64px;
-    }
+/* Gold shimmer top line */
+header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(212, 170, 50, 0.9),
+    rgba(255, 220, 100, 1),
+    rgba(212, 170, 50, 0.9),
+    transparent
+  );
+  animation: header-shimmer 3.5s ease-in-out infinite;
+}
 
+@keyframes header-shimmer {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 1; }
+}
+
+/* Sharp corner accents */
+header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 10px; height: 10px;
+  border-bottom: 1.5px solid rgba(245, 200, 66, 0.5);
+  border-right:  1.5px solid rgba(245, 200, 66, 0.5);
+  pointer-events: none;
+}
+
+  .nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+  padding: 0 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
     .nav-brand {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       text-decoration: none;
     }
 
     .nav-brand img {
-      height: 36px;
-      width: 36px;
-      border-radius: 8px;
-      object-fit: cover;
-    }
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;               /* ← circular */
+  object-fit: cover;
+  border: 1.5px solid rgba(255, 220, 80, 0.6);
+  box-shadow: 0 0 14px rgba(212, 170, 50, 0.25);
+}
 
-    .nav-brand-name {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 18px;
-      color: var(--text);
-    }
+   .nav-brand-name {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: #fff;
+  letter-spacing: -0.3px;
+}
 
-    .nav-brand-name span { color: var(--gold); }
+   .nav-brand-name span {
+  color: rgba(255, 255, 255, 0.3);
+  font-weight: 400;
+}
 
     nav {
       display: flex;
       align-items: center;
-      gap: 32px;
+      gap: 0;
     }
 
-    nav a {
-      font-size: 14px;
-      font-weight: 400;
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
+ 
+nav a {
+  position: relative;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13.5px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.45);
+  text-decoration: none;
+  padding: 6px 15px;
+  border-radius: 0;                 /* ← sharp corners */
+  letter-spacing: 0.02em;
+  transition: color 0.2s ease, background 0.2s ease;
+}
 
-    nav a:hover { color: var(--text); }
 
-    nav a.active { color: var(--text); font-weight: 500; }
+nav a:hover {
+  color: #f5c842;
+  background: rgba(212, 170, 50, 0.06);
+}
 
-    .nav-cta {
-      background: var(--gold);
-      color: #000 !important;
-      font-weight: 500 !important;
-      padding: 8px 18px;
-      border-radius: 8px;
-      transition: background 0.2s, transform 0.2s !important;
-    }
+nav a.active {
+  color: #f5c842;
+  font-weight: 500;
+}
+nav a.active {
+  color: #f5c842;
+  font-weight: 500;
+}
 
-    .nav-cta:hover {
-      background: var(--gold-light) !important;
-      transform: translateY(-1px);
-      color: #000 !important;
-    }
+nav a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 50%;
+  transform: translateX(-50%);
+  width: 20px; height: 2px;
+  background: #f5c842;
+  border-radius: 0;                 /* ← sharp */
+}
+
+nav a.nav-cta {
+  margin-left: 14px;
+  background: #f5c842;
+  color: #0a0a07 !important;
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 9px 20px;
+  border-radius: 0;                 /* ← sharp corners */
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+nav a.nav-cta:hover {
+  background: #fff;
+  transform: translateY(-1px);
+}
+
+nav a.nav-cta::after { display: none; }
+
 
     /* ---------- HERO ---------- */
     .hero {
