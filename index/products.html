@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Products — Evocore Tech Limited</title>
+    <meta name="description" content="Ready-to-deploy products from Evocore Tech: POS, payroll, invoicing and starter websites tailored for Kenyan SMEs.">
+
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Figtree:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg:           #080808;
+            --surface:      #101010;
+            --surface-2:    #161616;
+            --surface-3:    #1d1d1d;
+            --border:       rgba(255,255,255,0.06);
+            --border-mid:   rgba(255,255,255,0.10);
+            --gold:         #E9BC4F;
+            --gold-light:   #F5D07A;
+            --gold-muted:   #C9A23A;
+            --gold-dim:     rgba(233,188,79,0.10);
+            --gold-glow:    rgba(233,188,79,0.16);
+            --text:         #EFEFEF;
+            --text-muted:   #888;
+            --text-dim:     #484848;
+            --serif:        'Instrument Serif', Georgia, serif;
+            --sans:         'Syne', system-ui, sans-serif;
+            --body:         'Figtree', system-ui, sans-serif;
+            --r:            10px;
+            --r-sm:         6px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--body);
+            font-weight: 400;
+            line-height: 1.6;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        body::after {
+            content: '';
+            position: fixed; top: 0; right: 0;
+            width: 600px; height: 600px;
+            background: radial-gradient(ellipse at top right, rgba(233,188,79,0.04) 0%, transparent 65%);
+            pointer-events: none; z-index: 0;
+        }
+
+        /* HEADER */
+        header {
+            position: sticky; top: 0; z-index: 200;
+            background: rgba(8,8,8,0.82);
+            backdrop-filter: blur(18px) saturate(1.5);
+            border-bottom: 1px solid var(--border);
+        }
+        .header-inner {
+            max-width: 1200px; margin: 0 auto;
+            padding: 0 2rem; height: 62px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .logo { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; flex-shrink: 0; }
+        .logo img { height: 34px; width: 34px; border-radius: 8px; object-fit: cover; border: 1px solid rgba(233,188,79,0.2); }
+        .logo-name { font-family: var(--sans); font-size: 0.95rem; font-weight: 700; color: var(--text); letter-spacing: 0.03em; }
+        nav { display: flex; gap: 0.15rem; align-items: center; }
+        nav a {
+            font-family: var(--sans); font-size: 0.8rem; font-weight: 500;
+            color: var(--text-muted); text-decoration: none;
+            padding: 0.4rem 0.8rem; border-radius: var(--r-sm);
+            letter-spacing: 0.02em;
+            transition: color 0.18s, background 0.18s;
+        }
+        nav a:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+        nav a.active { color: var(--gold); background: var(--gold-dim); }
+
+        /* HERO */
+        .hero {
+            position: relative; z-index: 1;
+            max-width: 1200px; margin: 0 auto;
+            padding: 2.5rem 2rem 2rem;
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 2.5rem; align-items: center;
+        }
+        .hero-left {
+            display: flex; flex-direction: column; gap: 0;
+        }
+        .hero-label {
+            display: inline-flex; align-items: center; gap: 0.45rem;
+            font-family: var(--sans); font-size: 0.67rem; font-weight: 700;
+            letter-spacing: 0.16em; text-transform: uppercase;
+            color: var(--gold); margin-bottom: 0.9rem;
+        }
+        .hero-label::before {  display: block; width: 16px; height: 1px; background: var(--gold); }
+        .hero h1 {
+            font-family: var(--serif);
+            font-size: clamp(2rem, 3.6vw, 3rem);
+            font-weight: 400;
+            line-height: 1.12; color: var(--text);
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+        .hero h1 em { font-style: italic; color: var(--gold); }
+        /* description sits in left column now */
+        .hero-left p {
+            font-size: 0.9rem; color: var(--text-muted);
+            line-height: 1.7; max-width: 360px;
+        }
+
+        /* right column: image + stats only */
+        .hero-right { display: flex; flex-direction: column; gap: 0.85rem; }
+        .hero-right > p { display: none; } /* moved to left */
+
+        .hero-img-frame {
+            position: relative; border-radius: 12px; overflow: hidden;
+            border: 1px solid var(--border-mid);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.45);
+        }
+        .hero-img-frame::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(160deg, transparent 55%, rgba(233,188,79,0.06) 100%);
+            pointer-events: none;
+        }
+        .hero-img-frame img {
+            width: 100%; aspect-ratio: 16/9;
+            object-fit: cover; display: block;
+            filter: brightness(0.78) saturate(0.85);
+        }
+
+        .hero-stats {
+            display: flex; gap: 0;
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: var(--r); overflow: hidden;
+        }
+        .stat-item {
+            flex: 1; padding: 0.75rem 1rem;
+            display: flex; flex-direction: column; gap: 0.1rem;
+            border-right: 1px solid var(--border);
+        }
+        .stat-item:last-child { border-right: none; }
+        .stat-num { font-family: var(--serif); font-size: 1.25rem; color: var(--gold); line-height: 1; }
+        .stat-label { font-family: var(--sans); font-size: 0.6rem; color: var(--text-dim); letter-spacing: 0.08em; text-transform: uppercase; }
+
+        /* BUTTONS */
+        .btn-primary {
+            display: inline-flex; align-items: center; gap: 0.45rem;
+            background: var(--gold); color: #080808;
+            font-family: var(--sans); font-size: 0.78rem; font-weight: 700;
+            letter-spacing: 0.06em; text-transform: uppercase;
+            padding: 0.72rem 1.4rem; border-radius: var(--r-sm);
+            text-decoration: none; border: none; cursor: pointer;
+            transition: background 0.18s, transform 0.18s, box-shadow 0.18s;
+        }
+        .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); box-shadow: 0 8px 20px rgba(233,188,79,0.22); }
+        .btn-secondary {
+            display: inline-flex; align-items: center;
+            font-family: var(--sans); font-size: 0.78rem; font-weight: 500;
+            color: var(--text-muted); text-decoration: none;
+            letter-spacing: 0.03em; transition: color 0.18s;
+        }
+        .btn-secondary:hover { color: var(--text); }
+
+        /* MAIN */
+        main { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 0 2rem 5rem; }
+
+        /* SECTION HEADER */
+        .section-header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 0 1.25rem; margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .section-header h2 { font-family: var(--serif); font-size: 1.55rem; font-weight: 400; color: var(--text); }
+        .section-header span { font-family: var(--sans); font-size: 0.68rem; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; }
+
+        /* FILTERS */
+        .filters { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.75rem; }
+        .filter-btn {
+            background: var(--surface); border: 1px solid var(--border);
+            color: var(--text-muted); font-family: var(--sans);
+            font-size: 0.7rem; font-weight: 600;
+            letter-spacing: 0.07em; text-transform: uppercase;
+            padding: 0.42rem 0.95rem; border-radius: 100px;
+            cursor: pointer; transition: all 0.18s;
+        }
+        .filter-btn:hover { color: var(--text); border-color: var(--border-mid); background: var(--surface-2); }
+        .filter-btn.active { background: var(--gold); color: #080808; border-color: var(--gold); }
+
+        /* PRODUCT GRID */
+        .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.15rem; }
+
+        /* PRODUCT CARD */
+        .product-card {
+            background: var(--surface); border: 1px solid var(--border); border-radius: var(--r);
+            display: flex; flex-direction: column;
+            overflow: hidden; position: relative;
+            transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+        }
+        .product-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            transform: scaleX(0); transform-origin: left; transition: transform 0.35s ease;
+        }
+        .product-card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(0,0,0,0.45), 0 0 0 1px rgba(233,188,79,0.1); border-color: rgba(233,188,79,0.18); }
+        .product-card:hover::before { transform: scaleX(1); }
+
+        .product-image {
+            width: 100%; aspect-ratio: 16/10; object-fit: cover; display: block;
+            filter: brightness(0.78) saturate(0.85);
+            transition: filter 0.35s ease, transform 0.35s ease;
+            background: var(--surface-2);
+        }
+        .product-card:hover .product-image { filter: brightness(0.88) saturate(1); transform: scale(1.025); }
+        .product-image-placeholder {
+            width: 100%; aspect-ratio: 16/10;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2.25rem;
+            background: linear-gradient(135deg, rgba(233,188,79,0.05), rgba(255,255,255,0.02));
+            color: rgba(233,188,79,0.2);
+        }
+
+        .product-body { padding: 1.2rem 1.2rem 0; display: flex; flex-direction: column; gap: 0.5rem; flex: 1; }
+        .product-category { font-family: var(--sans); font-size: 0.63rem; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: var(--gold-muted); }
+        .product-name { font-family: var(--serif); font-size: 1.18rem; font-weight: 400; color: var(--text); line-height: 1.25; }
+        .product-desc { font-size: 0.83rem; color: var(--text-muted); line-height: 1.65; }
+
+        .product-features { list-style: none; display: flex; flex-direction: column; gap: 0.32rem; margin-top: 0.15rem; }
+        .product-features li { font-size: 0.77rem; color: var(--text-muted); display: flex; align-items: flex-start; gap: 0.5rem; }
+        .product-features li i { color: var(--gold); font-size: 0.65rem; margin-top: 0.3rem; flex-shrink: 0; font-style: normal; }
+        .product-features li i::before { content: '✓'; }
+
+        .product-footer {
+            margin-top: auto; padding: 0.9rem 1.2rem;
+            display: flex; align-items: center; justify-content: space-between;
+            border-top: 1px solid var(--border);
+            background: rgba(255,255,255,0.012);
+        }
+        .product-price { font-family: var(--serif); font-size: 1rem; color: var(--text); }
+        .product-price span { font-family: var(--sans); font-size: 0.62rem; color: var(--text-dim); display: block; letter-spacing: 0.06em; text-transform: uppercase; }
+        .product-link {
+            font-family: var(--sans); font-size: 0.72rem; font-weight: 700;
+            color: var(--gold-muted); letter-spacing: 0.06em; text-transform: uppercase;
+            text-decoration: none;
+            display: inline-flex; align-items: center; gap: 0.35rem;
+            padding: 0.42rem 0.85rem; border-radius: var(--r-sm);
+            border: 1px solid rgba(233,188,79,0.18);
+            transition: color 0.18s, background 0.18s, border-color 0.18s, gap 0.18s;
+        }
+        .product-link:hover { color: var(--gold); gap: 0.55rem; background: var(--gold-dim); border-color: rgba(233,188,79,0.3); }
+
+        /* SKELETONS */
+        .skeleton { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; display: flex; flex-direction: column; }
+        .skeleton .sk-img { aspect-ratio: 16/10; background: linear-gradient(90deg, #0f0f0f 0%, #191919 50%, #0f0f0f 100%); background-size: 200% 100%; animation: shimmer 1.5s ease infinite; }
+        .skeleton .sk-body { padding: 1.2rem; display: flex; flex-direction: column; gap: 0.7rem; }
+        .skeleton .sk-line { height: 9px; border-radius: 3px; background: linear-gradient(90deg, #141414 0%, #1e1e1e 50%, #141414 100%); background-size: 200% 100%; animation: shimmer 1.5s ease infinite; }
+        .sk-line.w-30{width:30%} .sk-line.w-60{width:60%} .sk-line.w-80{width:80%} .sk-line.w-100{width:100%}
+        @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+        /* EMPTY STATE */
+        .empty-state { grid-column: 1/-1; padding: 4rem 2rem; text-align: center; }
+        .empty-state i { display: block; font-size: 2.2rem; font-style: normal; color: var(--gold); opacity: 0.35; margin-bottom: 1rem; }
+        .empty-state h3 { font-family: var(--serif); font-size: 1.4rem; font-weight: 400; color: var(--text); margin-bottom: 0.5rem; }
+        .empty-state p { color: var(--text-muted); font-size: 0.88rem; }
+
+        .cta-card { grid-column: 1/-1; padding: 3rem 2rem; text-align: center; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); color: var(--text-muted); font-size: 0.9rem; }
+
+        /* PROCESS SECTION */
+        .process-section { margin-top: 4rem; }
+        .process-label { font-family: var(--sans); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.65rem; }
+        .process-title { font-family: var(--serif); font-size: 1.65rem; font-weight: 400; color: var(--text); margin-bottom: 1.75rem; }
+        .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }
+        .process-step { background: var(--surface); padding: 1.75rem 1.4rem; display: flex; flex-direction: column; gap: 0.6rem; transition: background 0.2s; }
+        .process-step:hover { background: var(--surface-2); }
+        .step-num { font-family: var(--serif); font-size: 2.2rem; color: rgba(233,188,79,0.13); line-height: 1; font-weight: 400; }
+        .step-title { font-family: var(--sans); font-weight: 600; font-size: 0.88rem; color: var(--text); }
+        .step-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.65; }
+
+        /* CTA BAND */
+        .cta-band {
+            margin-top: 3.5rem; padding: 2.75rem;
+            background: var(--surface); border: 1px solid var(--border); border-radius: var(--r);
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 2rem; position: relative; overflow: hidden;
+        }
+        .cta-band::before {
+            content: ''; position: absolute; top: -50%; right: -5%;
+            width: 320px; height: 320px;
+            background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .cta-band h2 { font-family: var(--serif); font-size: 1.95rem; font-weight: 400; color: var(--text); max-width: 460px; line-height: 1.2; }
+        .cta-band h2 em { font-style: italic; color: var(--gold); }
+        .cta-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 0.7rem; flex-shrink: 0; }
+
+        /* FOOTER */
+        footer { border-top: 1px solid var(--border); }
+        .footer-inner { max-width: 1200px; margin: 0 auto; padding: 2rem 2rem; display: flex; align-items: center; justify-content: space-between; }
+        .footer-copy { font-size: 0.76rem; color: var(--text-dim); }
+        .footer-socials { display: flex; gap: 0.5rem; }
+        .footer-socials a {
+            font-family: var(--sans); font-size: 0.7rem; font-weight: 600;
+            color: var(--text-dim); text-decoration: none;
+            padding: 0.32rem 0.6rem; border-radius: var(--r-sm);
+            border: 1px solid transparent; letter-spacing: 0.04em;
+            transition: all 0.18s;
+        }
+        .footer-socials a:hover { color: var(--gold); border-color: rgba(233,188,79,0.2); background: var(--gold-dim); }
+
+        /* ANIMATIONS */
+        @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+        .fade-in { opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.22,1,0.36,1) forwards; }
+        .delay-1{animation-delay:0.08s} .delay-2{animation-delay:0.18s} .delay-3{animation-delay:0.28s} .delay-4{animation-delay:0.42s}
+
+        /* RESPONSIVE */
+        @media(max-width:900px){
+            .hero { grid-template-columns: 1fr; gap: 1.75rem; padding: 2rem 1.5rem 1.75rem; }
+            .hero h1 { font-size: clamp(2rem,6vw,2.6rem); }
+            .hero-left p { max-width: 100%; }
+            .products-grid { grid-template-columns: 1fr 1fr; }
+            .process-steps { grid-template-columns: 1fr 1fr; }
+            .cta-band { flex-direction: column; align-items: flex-start; }
+            .cta-actions { align-items: flex-start; }
+        }
+        @media(max-width:600px){
+            .header-inner { padding: 0 1rem; }
+            nav { gap: 0.1rem; }
+            nav a { font-size: 0.75rem; padding: 0.35rem 0.55rem; }
+            .hero { padding: 2rem 1.25rem 1.5rem; }
+            main { padding: 0 1.25rem 4rem; }
+            .products-grid { grid-template-columns: 1fr; }
+            .process-steps { grid-template-columns: 1fr; }
+            .cta-band { padding: 2rem 1.5rem; }
+            .hero-stats { flex-wrap: wrap; }
+            .stat-item { min-width: 90px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-inner">
+            <a href="index.html" class="logo">
+                <img src="images/Evocore_logo.png" alt="Evocore Tech">
+                <span class="logo-name">Evocore Tech</span>
+            </a>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="services.html">Services</a>
+                <a href="products.html" class="active">Products</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero fade-in">
+        <div class="hero-left">
+            <p class="hero-label">Ready to Deploy</p>
+            <h1>Products built for<br><em>Kenyan</em> businesses.</h1>
+            <p>Production-ready software you can use today — POS, payroll, invoicing, and starter websites. Fast to set up, easy to run, and priced for SMEs.</p>
+        </div>
+        <div class="hero-right fade-in delay-2">
+            <div class="hero-img-frame">
+                <img src="images/pic33.jpg" alt="Products showcase">
+            </div>
+         
+        </div>
+    </section>
+
+    <main>
+        <!-- PRODUCTS -->
+        <div class="section-header fade-in delay-1">
+            <h2>Our Products</h2>
+            <span id="products-count">Loading…</span>
+        </div>
+
+        <div class="filters fade-in delay-1" id="filters" hidden></div>
+
+        <div class="products-grid fade-in delay-2" id="products-grid">
+            <div class="cta-card">No products yet. Contact us for a custom solution.</div>
+        </div>
+
+        <!-- PROCESS -->
+        <section class="process-section fade-in delay-2">
+            <p class="process-label">How It Works</p>
+            <h2 class="process-title">From order to live system</h2>
+            <div class="process-steps">
+                <div class="process-step">
+                    <span class="step-num">01</span>
+                    <span class="step-title">Choose</span>
+                    <p class="step-desc">Pick the product that fits your business. Not sure? We'll help you decide on a quick discovery call.</p>
+                </div>
+                <div class="process-step">
+                    <span class="step-num">02</span>
+                    <span class="step-title">Configure</span>
+                    <p class="step-desc">We set it up with your branding, users, and data — M-Pesa till, products, staff, the lot.</p>
+                </div>
+                <div class="process-step">
+                    <span class="step-num">03</span>
+                    <span class="step-title">Train</span>
+                    <p class="step-desc">A hands-on session for your team so everyone is comfortable using the system day one.</p>
+                </div>
+                <div class="process-step">
+                    <span class="step-num">04</span>
+                    <span class="step-title">Support</span>
+                    <p class="step-desc">Ongoing support and updates. We're a WhatsApp message away when you need us.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <div class="cta-band fade-in delay-4">
+            <h2>Need something<br><em>custom</em> instead?</h2>
+            <div class="cta-actions">
+                <a href="contact.html" class="btn-primary">Request a quote</a>
+                <a href="services.html" class="btn-secondary">See our services →</a>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <p class="footer-copy">&copy; <span id="current-year"></span> Evocore Tech Limited. Nairobi, Kenya.</p>
+            <div class="footer-socials">
+                <a href="https://www.facebook.com/EvocoreTech" target="_blank" aria-label="Facebook">Fb</a>
+                <a href="https://twitter.com/EvocoreTech" target="_blank" aria-label="Twitter">X</a>
+                <a href="https://www.linkedin.com/company/evocore-tech-limited/" target="_blank" aria-label="LinkedIn">In</a>
+                <a href="https://wa.me/254720020453" target="_blank" aria-label="WhatsApp">Wa</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ALL ORIGINAL LOGIC — UNTOUCHED -->
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        const API_BASE = (location.port === '5000' || location.port === '')
+            ? '/api'
+            : 'http://127.0.0.1:5000/api';
+
+        const grid = document.getElementById('products-grid');
+        const countEl = document.getElementById('products-count');
+        const statEl = document.getElementById('stat-products');
+        const filtersEl = document.getElementById('filters');
+
+        const escapeHtml = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+        function skeletonCard() {
+            return `
+                <div class="skeleton">
+                    <div class="sk-img"></div>
+                    <div class="sk-body">
+                        <div class="sk-line w-30"></div>
+                        <div class="sk-line w-80"></div>
+                        <div class="sk-line w-100"></div>
+                        <div class="sk-line w-60"></div>
+                    </div>
+                </div>`;
+        }
+
+        function renderSkeletons(n = 6) {
+            grid.innerHTML = Array.from({ length: n }, skeletonCard).join('');
+        }
+
+        function productCard(p) {
+            const img = p.image
+                ? `<img class="product-image" src="${escapeHtml(p.image)}" alt="${escapeHtml(p.name)}" onerror="this.outerHTML='<div class=\\'product-image-placeholder\\'></div>'">`
+                : `<div class="product-image-placeholder"></div>`;
+            const features = (p.features || []).slice(0, 4)
+                .map(f => `<li><i></i><span>${escapeHtml(f)}</span></li>`).join('');
+            const price = p.price
+                ? `<div class="product-price"><span>Starting at</span>${escapeHtml(p.price)}</div>`
+                : `<div class="product-price"><span>Pricing</span>On request</div>`;
+            const category = p.category ? `<span class="product-category">${escapeHtml(p.category)}</span>` : '';
+            return `
+                <article class="product-card" data-category="${escapeHtml(p.category || '')}">
+                    ${img}
+                    <div class="product-body">
+                        ${category}
+                        <h3 class="product-name">${escapeHtml(p.name)}</h3>
+                        <p class="product-desc">${escapeHtml(p.short_description || p.description || '')}</p>
+                        ${features ? `<ul class="product-features">${features}</ul>` : ''}
+                    </div>
+                    <div class="product-footer">
+                        ${price}
+                        <a href="contact.html?product=${encodeURIComponent(p.slug || p.name)}" class="product-link">Enquire →</a>
+                    </div>
+                </article>`;
+        }
+
+        let allProducts = [];
+        let activeFilter = 'all';
+
+        function renderProducts() {
+            const list = activeFilter === 'all'
+                ? allProducts
+                : allProducts.filter(p => (p.category || '') === activeFilter);
+            if (!list.length) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <i>📦</i>
+                        <h3>No products yet</h3>
+                        <p>We're putting the finishing touches on our lineup. Check back soon — or reach out for a custom quote.</p>
+                    </div>`;
+                return;
+            }
+            grid.innerHTML = list.map(productCard).join('');
+        }
+
+        function renderFilters() {
+            const categories = Array.from(new Set(allProducts.map(p => p.category).filter(Boolean))).sort();
+            if (categories.length < 2) { filtersEl.hidden = true; return; }
+            filtersEl.hidden = false;
+            filtersEl.innerHTML = ['all', ...categories]
+                .map(c => `<button class="filter-btn ${c === activeFilter ? 'active' : ''}" data-cat="${escapeHtml(c)}">${c === 'all' ? 'All' : escapeHtml(c)}</button>`)
+                .join('');
+            filtersEl.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    activeFilter = btn.dataset.cat;
+                    filtersEl.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b === btn));
+                    renderProducts();
+                });
+            });
+        }
+
+        async function loadProducts() {
+            renderSkeletons(6);
+            try {
+                const res = await fetch(`${API_BASE}/products`);
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const json = await res.json();
+                allProducts = Array.isArray(json.data) ? json.data : [];
+                countEl.textContent = `${allProducts.length} ${allProducts.length === 1 ? 'product' : 'products'}`;
+                statEl.textContent = String(allProducts.length);
+                renderFilters();
+                renderProducts();
+            } catch (err) {
+                console.error('[products] load failed:', err);
+                countEl.textContent = 'Unavailable';
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <i>⚠</i>
+                        <h3>Couldn't load products</h3>
+                        <p>Please make sure the API server is running, then refresh this page.</p>
+                    </div>`;
+            }
+        }
+
+        loadProducts();
+
+        const fadeEls = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(el => {
+                if (el.isIntersecting) {
+                    el.target.style.animationPlayState = 'running';
+                    observer.unobserve(el.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeEls.forEach(el => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

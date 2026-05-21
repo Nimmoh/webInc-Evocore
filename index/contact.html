@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Evocore Tech Limited</title>
+    <meta name="description" content="Get in touch with Evocore Tech Limited for smart tech solutions for your Kenyan SME. Contact us via form, email, phone, or visit our Nairobi office.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #080808;
+            --bg-card: #0e0e0e;
+            --bg-raised: #141414;
+            --border: rgba(232,184,75,0.14);
+            --border-s: rgba(255,255,255,0.06);
+            --gold: #E8B84B;
+            --gold2: #C89F2E;
+            --white: #F0F0EC;
+            --muted: #888;
+            --dim: #444;
+            --ok: #4ade80;
+            --err: #f87171;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--white);
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-weight: 400;
+            letter-spacing: -0.015em;
+        }
+
+        /* ── HEADER ── */
+        header {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(54,49,8,0.9);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-s);
+        }
+        .header-inner {
+            max-width: 1200px; margin: 0 auto; padding: 0 2rem;
+            height: 64px; display: flex; align-items: center; justify-content: space-between;
+        }
+        .logo-group { display: flex; align-items: center; gap: 0.65rem; text-decoration: none; }
+        .logo-group img { height: 36px; width: 36px; border-radius: 50%; object-fit: cover; }
+        .logo-name { font-family: 'Inter', sans-serif; font-size: 1.2rem; font-weight: 800; color: var(--white); letter-spacing: -0.02em; }
+        .logo-name span { color: var(--gold); }
+        nav { display: flex; align-items: center; gap: 1.75rem; }
+        nav a { font-size: 0.8rem; font-weight: 500; color: var(--muted); text-decoration: none; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; }
+        nav a:hover { color: var(--white); }
+        nav a.active { color: var(--gold); }
+
+        /* ── PAGE WRAPPER ── */
+        .page {
+            flex: 1;
+            max-width: 1200px; margin: 0 auto; width: 100%;
+            padding: 3.5rem 2rem 5rem;
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            grid-template-rows: auto 1fr;
+            gap: 0 3rem;
+        }
+
+        /* ── PAGE HEADER ── */
+        .page-head {
+            grid-column: 1 / -1;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            padding-bottom: 2.5rem;
+            border-bottom: 1px solid var(--border-s);
+            margin-bottom: 2.5rem;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .page-head-left {}
+        .eyebrow {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em;
+            text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem;
+        }
+        .eyebrow::before { display: block; width: 20px; height: 1px; background: var(--gold); }
+        .page-head h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1.06; color: var(--white); }
+        .page-head h1 em { font-style: italic; color: var(--gold); }
+        .page-head-right {
+            display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-end;
+        }
+        .quick-link {
+            display: flex; align-items: center; gap: 0.5rem;
+            font-size: 0.8rem; color: var(--muted); text-decoration: none;
+            transition: color 0.2s;
+        }
+        .quick-link:hover { color: var(--white); }
+        .quick-link::before {  color: var(--gold); font-size: 0.7rem; }
+
+        /* ── FORM PANEL ── */
+        .form-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-s);
+        }
+
+        /* Step tabs */
+        .step-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-s);
+        }
+        .step-tab {
+            flex: 1; padding: 0.85rem 0.5rem;
+            text-align: center; cursor: pointer;
+            font-size: 0.72rem; font-weight: 600;
+            letter-spacing: 0.08em; text-transform: uppercase;
+            color: var(--dim); border-bottom: 2px solid transparent;
+            transition: all 0.2s; user-select: none;
+            display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+        }
+        .step-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+        .step-tab.done { color: var(--muted); }
+        .step-num {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 18px; height: 18px; border-radius: 50%;
+            background: var(--border-s); font-size: 0.65rem; font-weight: 700;
+            flex-shrink: 0;
+        }
+        .step-tab.active .step-num { background: var(--gold); color: #000; }
+        .step-tab.done .step-num { background: var(--ok); color: #000; font-size: 0; }
+        .step-tab.done .step-num::before { content: '✓'; font-size: 0.65rem; }
+
+        /* Progress bar */
+        .progress-bar { height: 1.5px; background: var(--border-s); }
+        .progress-fill { height: 100%; background: var(--gold); transition: width 0.4s ease; }
+
+        /* Form header */
+        .form-head {
+            padding: 1.5rem 1.75rem 1.25rem;
+            border-bottom: 1px solid var(--border-s);
+        }
+        .form-head h2 { font-size: 1.25rem; color: var(--white); margin-bottom: 0.25rem; }
+        .form-head p { font-size: 0.8rem; color: var(--muted); }
+
+        /* Form body */
+        .form-body { padding: 1.5rem 1.75rem; }
+        .form-step { display: none; }
+        .form-step.active { display: block; }
+
+        /* Fields */
+        .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+        .field-group { margin-bottom: 1rem; }
+        .field-group label {
+            display: block; font-size: 0.7rem; font-weight: 600;
+            letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+            margin-bottom: 0.4rem;
+        }
+        .field-group label .req { color: var(--gold); margin-left: 1px; }
+
+        input, select, textarea {
+            width: 100%; background: var(--bg);
+            border: 1px solid var(--border-s);
+            padding: 0.65rem 0.9rem;
+            font-family: 'Inter', sans-serif; font-size: 0.85rem;
+            color: var(--white); outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            appearance: none; border-radius: 0;
+        }
+        select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23666' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 0.85rem center;
+            padding-right: 2.25rem; cursor: pointer;
+        }
+        select option { background: #1a1a1a; }
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 2px rgba(232,184,75,0.1);
+        }
+        input::placeholder, textarea::placeholder { color: var(--dim); }
+        textarea { resize: vertical; min-height: 110px; line-height: 1.65; }
+
+        /* Char counter */
+        .char-counter { display: flex; justify-content: flex-end; margin-top: 0.3rem; }
+        .char-counter span { font-size: 0.68rem; color: var(--dim); }
+
+        /* Budget pills */
+        .pill-group { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.4rem; }
+        .pill-option {
+            padding: 0.35rem 0.75rem; border: 1px solid var(--border-s);
+            font-size: 0.75rem; color: var(--muted); cursor: pointer;
+            transition: all 0.18s; user-select: none;
+        }
+        .pill-option:hover { border-color: var(--muted); color: var(--white); }
+        .pill-option.selected { border-color: var(--gold); background: rgba(232,184,75,0.07); color: var(--gold); }
+
+        /* Checkbox */
+        .checkbox-group {
+            display: flex; align-items: flex-start; gap: 0.65rem;
+            padding: 0.85rem; background: rgba(232,184,75,0.03);
+            border: 1px solid var(--border); margin-bottom: 1rem;
+        }
+        .checkbox-group input[type="checkbox"] { width: 15px; height: 15px; flex-shrink: 0; margin-top: 1px; accent-color: var(--gold); }
+        .checkbox-group label { font-size: 0.78rem; color: var(--muted); line-height: 1.5; text-transform: none; letter-spacing: 0; font-weight: 400; }
+
+        /* Step nav */
+        .step-nav {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-top: 1.25rem; padding-top: 1.25rem;
+            border-top: 1px solid var(--border-s);
+        }
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            padding: 0.6rem 1.4rem; font-family: 'Inter', sans-serif;
+            font-size: 0.8rem; font-weight: 600; cursor: pointer;
+            transition: all 0.2s; border: none; letter-spacing: 0.04em;
+            text-transform: uppercase; border-radius: 0; text-decoration: none;
+        }
+        .btn-primary { background: var(--gold); color: #000; }
+        .btn-primary:hover { background: #f5c84a; transform: translateY(-1px); }
+        .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+        .btn-ghost { background: transparent; color: var(--muted); border: 1px solid var(--border-s); }
+        .btn-ghost:hover { color: var(--white); border-color: var(--dim); }
+
+        /* Validation */
+        .field-error { font-size: 0.7rem; color: var(--err); margin-top: 0.25rem; display: none; }
+        .field-group.invalid input,
+        .field-group.invalid select,
+        .field-group.invalid textarea { border-color: var(--err); }
+        .field-group.invalid .field-error { display: block; }
+
+        /* Status */
+        #formStatus { margin-top: 0.85rem; font-size: 0.78rem; text-align: center; }
+
+        /* Success state */
+        .success-state {
+            display: none; text-align: center;
+            padding: 3.5rem 2rem;
+        }
+        .success-check {
+            width: 48px; height: 48px; border-radius: 50%;
+            background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.3);
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 1.25rem; font-size: 1.1rem; color: var(--ok);
+        }
+        .success-state h3 { font-size: 1.4rem; margin-bottom: 0.5rem; }
+        .success-state p { font-size: 0.85rem; color: var(--muted); }
+
+        /* ── SIDEBAR ── */
+        .sidebar { display: flex; flex-direction: column; gap: 1px; }
+
+        /* Info blocks — borderless mosaic */
+        .info-block {
+            background: var(--bg-card);
+            border: 1px solid var(--border-s);
+            padding: 1.5rem;
+            margin-bottom: 1px;
+        }
+        .info-block:last-child { margin-bottom: 0; }
+        .block-label {
+            font-size: 0.65rem; font-weight: 700; letter-spacing: 0.16em;
+            text-transform: uppercase; color: var(--dim); margin-bottom: 1rem;
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+        .block-label::after { content: ''; flex: 1; height: 1px; background: var(--border-s); }
+
+        /* Contact rows */
+        .cinfo-row {
+            display: flex; align-items: baseline; justify-content: space-between;
+            padding: 0.5rem 0; border-bottom: 1px solid var(--border-s); gap: 1rem;
+        }
+        .cinfo-row:last-child { border-bottom: none; padding-bottom: 0; }
+        .cinfo-key { font-size: 0.72rem; color: var(--dim); font-weight: 500; white-space: nowrap; }
+        .cinfo-val { font-size: 0.82rem; color: var(--white); text-align: right; }
+        .cinfo-val a { color: var(--white); text-decoration: none; transition: color 0.2s; }
+        .cinfo-val a:hover { color: var(--gold); }
+
+        /* Hours */
+        .hours-row {
+            display: flex; justify-content: space-between;
+            padding: 0.45rem 0; border-bottom: 1px solid var(--border-s);
+            font-size: 0.8rem;
+        }
+        .hours-row:last-of-type { border-bottom: none; }
+        .hours-day { color: var(--muted); }
+        .hours-time { color: var(--white); font-weight: 500; }
+        .hours-time.closed { color: var(--dim); }
+        .status-badge {
+            display: inline-flex; align-items: center; gap: 0.35rem;
+            font-size: 0.68rem; font-weight: 600; letter-spacing: 0.05em;
+            padding: 0.25rem 0.6rem; margin-top: 0.85rem;
+        }
+        .status-badge.open {
+            background: rgba(74,222,128,0.08); border: 1px solid rgba(74,222,128,0.2); color: var(--ok);
+        }
+        .status-badge.open::before {
+            content: ''; width: 5px; height: 5px; border-radius: 50%;
+            background: var(--ok); animation: pdot 2s infinite;
+        }
+        @keyframes pdot { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+
+        /* Socials */
+        .social-row {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;
+        }
+        .social-item {
+            display: flex; flex-direction: column; gap: 0.1rem;
+            padding: 0.75rem; background: var(--bg);
+            border: 1px solid var(--border-s); text-decoration: none;
+            transition: all 0.2s;
+        }
+        .social-item:hover { border-color: var(--border); background: var(--bg-raised); }
+        .social-name { font-size: 0.78rem; font-weight: 600; color: var(--white); }
+        .social-handle { font-size: 0.68rem; color: var(--muted); }
+
+        /* FAQ */
+        .faq-item { border-bottom: 1px solid var(--border-s); }
+        .faq-item:last-child { border-bottom: none; }
+        .faq-q {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0.75rem 0; cursor: pointer;
+            font-size: 0.82rem; font-weight: 500; color: var(--white);
+            user-select: none; gap: 1rem;
+        }
+        .faq-chevron { color: var(--dim); font-size: 0.6rem; flex-shrink: 0; transition: transform 0.2s; }
+        .faq-item.open .faq-chevron { transform: rotate(180deg); color: var(--gold); }
+        .faq-a {
+            font-size: 0.78rem; color: var(--muted); line-height: 1.65;
+            max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s;
+        }
+        .faq-item.open .faq-a { max-height: 160px; padding-bottom: 0.75rem; }
+
+        /* ── FOOTER ── */
+        footer { background: rgba(54,49,8,0.9); border-top: 1px solid var(--border-s); }
+        .footer-inner {
+            max-width: 1200px; margin: 0 auto; padding: 1.75rem 2rem;
+            display: flex; flex-wrap: wrap; justify-content: space-between;
+            align-items: center; gap: 1rem;
+        }
+        .footer-copy { font-size: 0.75rem; color: var(--dim); }
+        .footer-links { display: flex; gap: 1.75rem; }
+        .footer-links a { font-size: 0.75rem; color: var(--dim); text-decoration: none; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--white); }
+
+        /* ── ANIMATIONS ── */
+        .fade-in { animation: fi 0.5s ease both; }
+        @keyframes fi { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:none} }
+        .d1{animation-delay:0.05s} .d2{animation-delay:0.12s} .d3{animation-delay:0.19s}
+
+        /* ── RESPONSIVE ── */
+        @media(max-width:900px){
+            .page { grid-template-columns: 1fr; }
+            .page-head-right { display: none; }
+            .field-row { grid-template-columns: 1fr; }
+        }
+        @media(max-width:600px){
+            nav { display: none; }
+            .page { padding: 2rem 1.25rem 3.5rem; }
+            .page-head { padding-bottom: 1.75rem; margin-bottom: 1.75rem; }
+            .form-body { padding: 1.25rem; }
+            .form-head { padding: 1.25rem; }
+        }
+
+        @keyframes spin { to{transform:rotate(360deg)} }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="header-inner">
+        <a href="index.html" class="logo-group">
+            <img src="images/Evocore_logo.png" alt="Evocore Tech Limited Logo" onerror="this.style.display='none'">
+            <span class="logo-name">Evocore<span> Tech</span></span>
+        </a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="products.html">Products</a>
+            <a href="about.html">About</a>
+            <a href="contact.html" class="active">Contact</a>
+        </nav>
+    </div>
+</header>
+
+<!-- PAGE -->
+<div class="page">
+
+    <!-- PAGE HEADER -->
+    <div class="page-head fade-in">
+        <div class="page-head-left">
+            <div class="eyebrow">Get in Touch</div>
+            <h1>Let's build something<br><em>worth building.</em></h1>
+        </div>
+        <div class="page-head-right">
+            <a href="mailto:sales@evocore.co.ke" class="quick-link">sales@evocore.co.ke</a>
+            <a href="tel:+254720020453" class="quick-link">+254 720 020 453</a>
+            <a href="https://wa.me/254720020453" target="_blank" class="quick-link">WhatsApp us directly</a>
+        </div>
+    </div>
+
+    <!-- FORM PANEL -->
+    <div class="form-panel fade-in d1">
+
+        <!-- Step Tabs -->
+        <div class="step-tabs">
+            <div class="step-tab active" data-step="1"><span class="step-num">1</span> About You</div>
+            <div class="step-tab" data-step="2"><span class="step-num">2</span> Your Project</div>
+            <div class="step-tab" data-step="3"><span class="step-num">3</span> Details</div>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:33%"></div></div>
+
+        <!-- Form Header -->
+        <div class="form-head">
+            <h2>Send an Inquiry</h2>
+            <p>We'll follow up within one business day — no sales scripts, just a real conversation.</p>
+        </div>
+
+        <div class="form-body">
+
+            <!-- STEP 1 -->
+            <div class="form-step active" id="step1">
+                <div class="field-row">
+                    <div class="field-group" id="grp-name">
+                        <label for="name">Full Name <span class="req">*</span></label>
+                        <input type="text" id="name" name="name" placeholder="Jane Doe" autocomplete="name">
+                        <div class="field-error">Please enter your name.</div>
+                    </div>
+                    <div class="field-group" id="grp-email">
+                        <label for="email">Email <span class="req">*</span></label>
+                        <input type="email" id="email" name="email" placeholder="jane@company.com" autocomplete="email">
+                        <div class="field-error">Please enter a valid email.</div>
+                    </div>
+                </div>
+                <div class="field-row">
+                    <div class="field-group">
+                        <label for="phone">Phone / WhatsApp</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+254 7XX XXX XXX" autocomplete="tel">
+                    </div>
+                    <div class="field-group">
+                        <label for="company">Company Name</label>
+                        <input type="text" id="company" name="company" placeholder="Your Business Ltd.">
+                    </div>
+                </div>
+                <div class="field-group">
+                    <label for="role">Your Role</label>
+                    <select id="role" name="role">
+                        <option value="">Select your role…</option>
+                        <option>Business Owner / Founder</option>
+                        <option>Manager / Director</option>
+                        <option>IT / Technical Lead</option>
+                        <option>Marketing / Brand Lead</option>
+                        <option>Procurement Officer</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="step-nav">
+                    <span></span>
+                    <button class="btn btn-primary" onclick="goStep(2)">Next →</button>
+                </div>
+            </div>
+
+            <!-- STEP 2 -->
+            <div class="form-step" id="step2">
+                <div class="field-group" id="grp-service">
+                    <label for="service">Service Interest <span class="req">*</span></label>
+                    <select id="service" name="service">
+                        <option value="">Select a service…</option>
+                        <option value="web-development">Web Development & Design</option>
+                        <option value="ecommerce">E-commerce Solutions</option>
+                        <option value="mobile-apps">Mobile App Development</option>
+                        <option value="digital-marketing">Digital Marketing & Branding</option>
+                        <option value="business-automation">Business Automation</option>
+                        <option value="finance-tech">Finance & Payment Solutions</option>
+                        <option value="custom-software">Custom Software Development</option>
+                        <option value="it-consulting">IT Consulting</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <div class="field-error">Please select a service.</div>
+                </div>
+                <div class="field-group">
+                    <label>Budget Range</label>
+                    <div class="pill-group" id="budgetPills">
+                        <div class="pill-option" data-value="under-50k">Under KES 50k</div>
+                        <div class="pill-option" data-value="50k-100k">50k–100k</div>
+                        <div class="pill-option" data-value="100k-250k">100k–250k</div>
+                        <div class="pill-option" data-value="250k-500k">250k–500k</div>
+                        <div class="pill-option" data-value="500k-1m">500k–1M</div>
+                        <div class="pill-option" data-value="above-1m">Above 1M</div>
+                    </div>
+                    <input type="hidden" id="budget" name="budget">
+                </div>
+                <div class="field-group">
+                    <label for="timeline">Preferred Timeline</label>
+                    <select id="timeline" name="timeline">
+                        <option value="">Select timeline…</option>
+                        <option value="urgent">Urgent — within 2 weeks</option>
+                        <option value="1-month">Within 1 month</option>
+                        <option value="2-3-months">2–3 months</option>
+                        <option value="3-6-months">3–6 months</option>
+                        <option value="flexible">Flexible</option>
+                    </select>
+                </div>
+                <div class="step-nav">
+                    <button class="btn btn-ghost" onclick="goStep(1)">← Back</button>
+                    <button class="btn btn-primary" onclick="goStep(3)">Next →</button>
+                </div>
+            </div>
+
+            <!-- STEP 3 -->
+            <div class="form-step" id="step3">
+                <div class="field-group" id="grp-message">
+                    <label for="message">Project Details <span class="req">*</span></label>
+                    <textarea id="message" name="message" rows="5" maxlength="1000"
+                        placeholder="Describe your project, goals, and any specific requirements."></textarea>
+                    <div class="char-counter">
+                        <div class="field-error" style="display:none">Please describe your project.</div>
+                        <span id="charCount">0 / 1000</span>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <label for="how-heard">How Did You Hear About Us?</label>
+                    <select id="how-heard" name="how_heard">
+                        <option value="">Select…</option>
+                        <option>Google / Search Engine</option>
+                        <option>LinkedIn</option>
+                        <option>Facebook</option>
+                        <option>Twitter / X</option>
+                        <option>Referral from a colleague</option>
+                        <option>Word of mouth</option>
+                        <option>WhatsApp</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="newsletter" name="newsletter" value="yes">
+                    <label for="newsletter">Subscribe me to occasional updates on tech insights and Evocore news. No spam — ever.</label>
+                </div>
+                <div class="step-nav">
+                    <button class="btn btn-ghost" onclick="goStep(2)">← Back</button>
+                    <button class="btn btn-primary" id="submitBtn" onclick="submitForm()">
+                        <span id="submitText">Submit Inquiry</span>
+                        <span id="submitSpinner" style="display:none;">
+                            <svg style="width:14px;height:14px;animation:spin 1s linear infinite;display:inline;vertical-align:-2px" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" opacity=".25"/>
+                                <path fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" opacity=".75"/>
+                            </svg>
+                            Sending…
+                        </span>
+                    </button>
+                </div>
+                <p id="formStatus"></p>
+            </div>
+
+        </div>
+
+        <!-- SUCCESS -->
+        <div class="success-state" id="successState">
+            <div class="success-check">✓</div>
+            <h3>Inquiry Received!</h3>
+            <p>Thank you — we'll be in touch within one business day.<br>Check your inbox for a confirmation shortly.</p>
+        </div>
+
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+        <!-- Contact Details -->
+        <div class="info-block fade-in d1">
+            <div class="block-label">Contact</div>
+            <div class="cinfo-row">
+                <span class="cinfo-key">Email</span>
+                <span class="cinfo-val"><a href="mailto:sales@evocore.co.ke">sales@evocore.co.ke</a></span>
+            </div>
+            <div class="cinfo-row">
+                <span class="cinfo-key">Phone</span>
+                <span class="cinfo-val"><a href="tel:+254720020453">+254 720 020 453</a></span>
+            </div>
+            <div class="cinfo-row">
+                <span class="cinfo-key">WhatsApp</span>
+                <span class="cinfo-val"><a href="https://wa.me/254720020453" target="_blank">Message directly</a></span>
+            </div>
+            <div class="cinfo-row">
+                <span class="cinfo-key">Location</span>
+                <span class="cinfo-val">Nairobi, Kenya</span>
+            </div>
+            </div>
+
+        <!-- Instant Quote Channels -->
+        <div class="info-block fade-in d1.5">
+            <div class="block-label">Request a Quote</div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+                <button onclick="requestViaChannel('whatsapp')" class="btn btn-ghost" style="width:100%;justify-content:center;font-size:0.78rem;padding:0.55rem">
+                    💬 Request via WhatsApp
+                </button>
+                <button onclick="requestViaChannel('email')" class="btn btn-ghost" style="width:100%;justify-content:center;font-size:0.78rem;padding:0.55rem">
+                    ✉️ Request via Email
+                </button>
+                <div style="font-size:0.65rem;color:var(--dim);text-align:center;margin-top:4px">We'll record your request and get back to you</div>
+            </div>
+        </div>
+
+         <!-- Hours -->
+         <div class="info-block fade-in d2">
+            <div class="block-label">Business Hours</div>
+            <div class="hours-row">
+                <span class="hours-day">Mon – Fri</span>
+                <span class="hours-time">8:00 AM – 6:00 PM</span>
+            </div>
+            <div class="hours-row">
+                <span class="hours-day">Saturday</span>
+                <span class="hours-time">9:00 AM – 1:00 PM</span>
+            </div>
+            <div class="hours-row">
+                <span class="hours-day">Sunday</span>
+                <span class="hours-time closed">Closed</span>
+            </div>
+            <div class="status-badge open" id="statusBadge">Open Now</div>
+            <p style="margin-top:0.75rem;font-size:0.72rem;color:var(--dim);line-height:1.55;">All times EAT (UTC+3). We typically reply within 4 hours during business hours.</p>
+        </div>
+
+        <!-- Socials -->
+        <div class="info-block fade-in d2">
+            <div class="block-label">Find Us Online</div>
+            <div class="social-row">
+                <a href="https://www.facebook.com/EvocoreTech" target="_blank" class="social-item">
+                    <span class="social-name">Facebook</span>
+                    <span class="social-handle">EvocoreTech</span>
+                </a>
+                <a href="https://twitter.com/EvocoreTech" target="_blank" class="social-item">
+                    <span class="social-name">Twitter / X</span>
+                    <span class="social-handle">@EvocoreTech</span>
+                </a>
+                <a href="https://www.linkedin.com/company/evocore-tech-limited/" target="_blank" class="social-item">
+                    <span class="social-name">LinkedIn</span>
+                    <span class="social-handle">Evocore Tech</span>
+                </a>
+                <a href="https://wa.me/254720020453" target="_blank" class="social-item">
+                    <span class="social-name">WhatsApp</span>
+                    <span class="social-handle">Chat directly</span>
+                </a>
+            </div>
+        </div>
+
+ 
+
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-inner">
+        <p class="footer-copy">© <span id="currentYear"></span> Evocore Tech Limited. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="products.html">Products</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // ── STEP NAVIGATION ──
+    let currentStep = 1;
+    const totalSteps = 3;
+
+    function goStep(step) {
+        if (step > currentStep && !validateStep(currentStep)) return;
+        document.getElementById('step' + currentStep).classList.remove('active');
+        document.getElementById('step' + step).classList.add('active');
+        document.querySelectorAll('.step-tab').forEach(tab => {
+            const n = parseInt(tab.dataset.step);
+            tab.classList.remove('active', 'done');
+            if (n === step) tab.classList.add('active');
+            if (n < step) tab.classList.add('done');
+        });
+        document.getElementById('progressFill').style.width = (step / totalSteps * 100) + '%';
+        currentStep = step;
+    }
+
+    // ── VALIDATION ──
+    function validateStep(step) {
+        let valid = true;
+        if (step === 1) {
+            const name = document.getElementById('name');
+            const email = document.getElementById('email');
+            const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            setValid('grp-name', name.value.trim().length > 1);
+            setValid('grp-email', emailRe.test(email.value.trim()));
+            if (!name.value.trim() || name.value.trim().length < 2) valid = false;
+            if (!emailRe.test(email.value.trim())) valid = false;
+        }
+        if (step === 2) {
+            const service = document.getElementById('service');
+            setValid('grp-service', service.value !== '');
+            if (!service.value) valid = false;
+        }
+        if (step === 3) {
+            const msg = document.getElementById('message');
+            setValid('grp-message', msg.value.trim().length > 10);
+            if (msg.value.trim().length <= 10) valid = false;
+        }
+        return valid;
+    }
+
+    function setValid(groupId, isValid) {
+        const g = document.getElementById(groupId);
+        if (g) g.classList.toggle('invalid', !isValid);
+    }
+
+    // ── BUDGET PILLS ──
+    document.querySelectorAll('.pill-option').forEach(pill => {
+        pill.addEventListener('click', () => {
+            document.querySelectorAll('.pill-option').forEach(p => p.classList.remove('selected'));
+            pill.classList.add('selected');
+            document.getElementById('budget').value = pill.dataset.value;
+        });
+    });
+
+    // ── CHAR COUNTER ──
+    const msgArea = document.getElementById('message');
+    const charCount = document.getElementById('charCount');
+    msgArea.addEventListener('input', () => {
+        charCount.textContent = msgArea.value.length + ' / 1000';
+    });
+
+    // ── FAQ ──
+    function toggleFaq(el) {
+        const item = el.parentElement;
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(f => f.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+    }
+
+    // ── FORM SUBMIT ──
+    async function submitForm() {
+        if (!validateStep(3)) return;
+        const btn = document.getElementById('submitBtn');
+        const txtEl = document.getElementById('submitText');
+        const spnEl = document.getElementById('submitSpinner');
+        const status = document.getElementById('formStatus');
+        btn.disabled = true;
+        txtEl.style.display = 'none';
+        spnEl.style.display = 'inline';
+        const formData = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            company: document.getElementById('company').value,
+            role: document.getElementById('role').value,
+            service: document.getElementById('service').value,
+            budget: document.getElementById('budget').value,
+            timeline: document.getElementById('timeline').value,
+            message: document.getElementById('message').value,
+            how_heard: document.getElementById('how-heard').value,
+            newsletter: document.getElementById('newsletter').checked,
+        };
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+            const result = await response.json();
+            if (!response.ok || !result.success) throw new Error(result.message || 'Submission failed.');
+            document.querySelector('.form-body').style.display = 'none';
+            document.querySelector('.step-tabs').style.display = 'none';
+            document.querySelector('.progress-bar').style.display = 'none';
+            document.querySelector('.form-head').style.display = 'none';
+            document.getElementById('successState').style.display = 'block';
+        } catch (err) {
+            btn.disabled = false;
+            txtEl.style.display = 'inline';
+            spnEl.style.display = 'none';
+            status.textContent = err.message || 'Something went wrong. Please try again or email us directly.';
+            status.style.color = 'var(--err)';
+        }
+    }
+
+    // ── INSTANT QUOTE CHANNELS (logs to admin + opens external) ──
+    async function logInstantRequest(source, data) {
+        try {
+            await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    ...data,
+                    source: source,
+                    message: data.message || `Quote request via ${source}`,
+                    service: data.service || 'General inquiry'
+                })
+            });
+        } catch (e) {
+            // fail silently for user experience; request still goes through wa/email
+            console.warn('Could not log instant request', e);
+        }
+    }
+
+    async function requestViaChannel(channel) {
+        const name = document.getElementById('name')?.value || prompt('Your name (for the quote request):') || 'Website visitor';
+        const email = document.getElementById('email')?.value || prompt('Your email:') || '';
+        const phone = document.getElementById('phone')?.value || '';
+        const service = document.getElementById('service')?.value || 'General';
+        const message = document.getElementById('message')?.value || 'Please send me a quote for the selected service.';
+
+        const payload = { name, email, phone, service, message, company: document.getElementById('company')?.value || '' };
+
+        await logInstantRequest(channel, payload);
+
+        if (channel === 'whatsapp') {
+            const text = encodeURIComponent(`Hi Evocore, my name is ${name}. I'm interested in a quote for: ${service}. ${message} (Phone: ${phone || 'N/A'}, Email: ${email || 'N/A'})`);
+            window.open(`https://wa.me/254720020453?text=${text}`, '_blank');
+        } else if (channel === 'email') {
+            const subject = encodeURIComponent(`Quote Request: ${service}`);
+            const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nService: ${service}\n\nDetails:\n${message}`);
+            window.location.href = `mailto:sales@evocore.co.ke?subject=${subject}&body=${body}`;
+        }
+
+        // Show a small confirmation
+        const status = document.getElementById('formStatus');
+        if (status) {
+            status.textContent = `Request logged via ${channel}. We'll follow up shortly.`;
+            status.style.color = 'var(--ok)';
+            setTimeout(() => { status.textContent = ''; }, 4000);
+        }
+    }
+
+    // ── STATUS BADGE ──
+    (function() {
+        const badge = document.getElementById('statusBadge');
+        if (!badge) return;
+        const now = new Date();
+        const day = now.getDay();
+        const hour = now.getHours();
+        const isOpen = (day >= 1 && day <= 5 && hour >= 8 && hour < 18) ||
+                       (day === 6 && hour >= 9 && hour < 13);
+        if (!isOpen) {
+            badge.className = 'status-badge';
+            badge.style.cssText = 'background:rgba(248,113,113,0.08);border:1px solid rgba(248,113,113,0.2);color:var(--err);display:inline-flex;align-items:center;font-size:0.68rem;font-weight:600;letter-spacing:0.05em;padding:0.25rem 0.6rem;margin-top:0.85rem;';
+            badge.textContent = 'Currently Closed';
+        }
+    })();
+</script>
+</body>
+</html>

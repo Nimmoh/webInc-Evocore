@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services — Evocore Tech Limited</title>
+    <meta name="description" content="Explore Evocore Tech's comprehensive range of services for Kenyan SMEs: Digital Presence, Business Automation, Finance Tech, Custom Software, and more.">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #080808;
+            --surface: #0e0e0e;
+            --surface-2: #141414;
+            --border: rgba(255,255,255,0.06);
+            --border-gold: rgba(232,184,75,0.2);
+            --gold: #E8B84B;
+            --gold2: #C89F2E;
+            --text: #EFEFEB;
+            --muted: #888;
+            --dim: #444;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-weight: 400;
+            letter-spacing: -0.015em;
+        }
+
+        /* ── HEADER ── */
+        header {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(54,49,8,0.9);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+        }
+        .header-inner {
+            max-width: 1200px; margin: 0 auto; padding: 0 2rem;
+            height: 64px; display: flex; align-items: center; justify-content: space-between;
+        }
+        .logo { display: flex; align-items: center; gap: 0.65rem; text-decoration: none; }
+        .logo img { height: 36px; width: 36px; border-radius: 50%; object-fit: cover; }
+        .logo-name { font-family: 'Inter', sans-serif; font-size: 1.15rem; font-weight: 800; color: var(--text); letter-spacing: -0.02em; }
+        .logo-name span { color: var(--gold); }
+        nav { display: flex; gap: 1.75rem; align-items: center; }
+        nav a { font-size: 0.8rem; font-weight: 500; color: var(--muted); text-decoration: none; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; }
+        nav a:hover { color: var(--text); }
+        nav a.active { color: var(--gold); }
+
+        /* ── PAGE WRAPPER ── */
+        .page { max-width: 1200px; margin: 0 auto; padding: 0 2rem 6rem; }
+
+        /* ── HERO — full-bleed ── */
+        .hero-wrap {
+            position: relative;
+            min-height: 78vh;
+            display: flex;
+            align-items: flex-end;
+            overflow: hidden;
+            margin-bottom: 0;
+        }
+
+        /* Background image */
+        .hero-bg {
+            position: absolute; inset: 0;
+            background-image: url('images/payments.jpg');
+            background-size: cover;
+            background-position: center 40%;
+            filter: brightness(0.38) saturate(0.55);
+            transform: scale(1.03);
+            transition: transform 9s ease;
+        }
+        .hero-wrap:hover .hero-bg { transform: scale(1.0); }
+
+        /* Fallback gradient if image missing */
+        .hero-bg::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(135deg, rgba(54,49,8,0.5) 0%, transparent 60%);
+        }
+
+        /* Grain texture */
+        .hero-grain {
+            position: absolute; inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            opacity: 0.3; pointer-events: none;
+        }
+
+        /* Bottom-to-top dark fade into page bg */
+        .hero-fade-bottom {
+            position: absolute; inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(8,8,8,0.1) 0%,
+                rgba(8,8,8,0.0) 25%,
+                rgba(8,8,8,0.5) 65%,
+                rgba(8,8,8,1.0) 100%
+            );
+        }
+
+        /* Left-side vignette to anchor text */
+        .hero-fade-left {
+            position: absolute; inset: 0;
+            background: linear-gradient(to right, rgba(8,8,8,0.65) 0%, transparent 55%);
+        }
+
+        /* Content sits above all layers */
+        .hero {
+            position: relative; z-index: 2;
+            width: 100%; max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: flex-end;
+        }
+
+        .eyebrow {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em;
+            text-transform: uppercase; color: var(--gold); margin-bottom: 0.85rem;
+            opacity: 0; animation: fadeUp 0.7s 0.2s ease forwards;
+        }
+        .eyebrow::before {  display: block; width: 20px; height: 1px; background: var(--gold); }
+        .hero h1 {
+            font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+            line-height: 1.05; color: #fff;
+            opacity: 0; animation: fadeUp 0.75s 0.35s ease forwards;
+        }
+        .hero h1 em { font-style: italic; color: var(--gold); }
+        .hero-right {
+            display: flex; flex-direction: column; justify-content: flex-end; gap: 1.5rem;
+            opacity: 0; animation: fadeUp 0.75s 0.5s ease forwards;
+        }
+        .hero-right p { font-size: 0.92rem; color: rgba(240,240,230,0.72); line-height: 1.8; max-width: 420px; }
+        .hero-stats { display: flex; gap: 2rem; }
+        .stat-item { display: flex; flex-direction: column; gap: 0.15rem; }
+        .stat-num { font-family: 'Instrument Serif', serif; font-size: 1.9rem; color: #fff; line-height: 1; }
+        .stat-label { font-size: 0.68rem; color: rgba(255,255,255,0.4); letter-spacing: 0.08em; text-transform: uppercase; }
+
+        /* Scroll hint line */
+        .hero-scroll {
+            position: absolute; bottom: 2rem; right: 2rem; z-index: 3;
+            display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+            opacity: 0; animation: fadeUp 0.8s 0.9s ease forwards;
+        }
+        .hero-scroll span {
+            font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase;
+            color: rgba(255,255,255,0.3); writing-mode: vertical-rl;
+        }
+        .hero-scroll-line {
+            width: 1px; height: 50px;
+            background: linear-gradient(to bottom, rgba(232,184,75,0.6), transparent);
+            animation: scrollPulse 2.2s 1.5s ease-in-out infinite;
+        }
+        @keyframes scrollPulse {
+            0%,100%{transform:scaleY(1);opacity:0.6}
+            50%{transform:scaleY(0.55);opacity:1}
+        }
+
+        /* ── SECTION LABEL ── */
+        .sec-label {
+            display: flex; align-items: center; gap: 0.75rem;
+            font-size: 0.68rem; font-weight: 700; letter-spacing: 0.16em;
+            text-transform: uppercase; color: var(--dim);
+            padding: 2.5rem 0 1.5rem;
+        }
+        .sec-label::after {  flex: 1; height: 1px; background: var(--border); }
+
+        /* ── SERVICES GRID ── */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            border: 1px solid var(--border);
+        }
+
+        .service-card {
+            background: var(--surface);
+            padding: 1.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            transition: background 0.2s;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+        }
+        /* Remove right border on last in each row */
+        .service-card:nth-child(3n) { border-right: none; }
+        /* Remove bottom border on last row — handled via JS or nth-last */
+        .service-card:nth-last-child(-n+3):not(.featured ~ *) { border-bottom: none; }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1.5px;
+            background: var(--gold);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+        .service-card:hover { background: var(--surface-2); }
+        .service-card:hover::before { transform: scaleX(1); }
+
+        /* Featured card spans 2 cols */
+        .service-card.featured {
+            grid-column: span 2;
+            flex-direction: row;
+            gap: 2rem;
+            align-items: flex-start;
+            border-right: 1px solid var(--border);
+        }
+        .featured-content { flex: 1; display: flex; flex-direction: column; gap: 0.85rem; }
+        .featured-img {
+            width: 200px; height: 145px;
+            object-fit: cover; flex-shrink: 0;
+            opacity: 0.65; filter: grayscale(40%);
+            transition: opacity 0.3s, filter 0.3s;
+            align-self: flex-start;
+            margin-top: 0.25rem;
+        }
+        .service-card.featured:hover .featured-img { opacity: 0.85; filter: grayscale(0%); }
+
+        .card-title { font-size: 1.05rem; color: var(--text); line-height: 1.2; }
+        .card-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.7; flex: 1; }
+
+        .card-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: auto; padding-top: 0.5rem; }
+        .tag {
+            font-size: 0.65rem; font-weight: 600; letter-spacing: 0.06em;
+            text-transform: uppercase; color: var(--dim);
+            border: 1px solid var(--border); padding: 0.2rem 0.5rem;
+            transition: border-color 0.2s, color 0.2s;
+        }
+        .service-card:hover .tag { border-color: var(--border-gold); color: var(--muted); }
+
+        .card-link {
+            font-size: 0.72rem; font-weight: 700; color: var(--gold2);
+            letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none;
+            display: inline-flex; align-items: center; gap: 0.35rem;
+            transition: color 0.2s, gap 0.2s; margin-top: 0.25rem;
+        }
+        .card-link::after { content: '→'; }
+        .card-link:hover { color: var(--gold); gap: 0.55rem; }
+
+        /* ── PROCESS ── */
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            border: 1px solid var(--border);
+        }
+        .process-step {
+            background: var(--surface);
+            padding: 1.75rem 1.5rem;
+            border-right: 1px solid var(--border);
+            display: flex; flex-direction: column; gap: 0.65rem;
+            transition: background 0.2s;
+            position: relative;
+        }
+        .process-step:last-child { border-right: none; }
+        .process-step:hover { background: var(--surface-2); }
+        .process-step::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0;
+            height: 1.5px; background: var(--gold);
+            transform: scaleX(0); transform-origin: left;
+            transition: transform 0.3s;
+        }
+        .process-step:hover::before { transform: scaleX(1); }
+        .step-num {
+            font-family: 'Instrument Serif', serif;
+            font-size: 2rem; color: rgba(232,184,75,0.12); line-height: 1;
+            font-weight: 400;
+        }
+        .step-title { font-size: 0.88rem; font-weight: 600; color: var(--text); font-family: 'Inter', sans-serif; }
+        .step-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.65; }
+
+        /* ── INDUSTRIES ── */
+        .industry-intro {
+            display: flex; align-items: baseline; gap: 2rem;
+            padding: 2.5rem 0 1.5rem; flex-wrap: wrap;
+        }
+        .industry-intro h2 { font-size: 1.5rem; color: var(--text); }
+        .industry-intro p { font-size: 0.82rem; color: var(--muted); max-width: 360px; }
+
+        .industry-grid {
+            display: flex; gap: 0;
+            border: 1px solid var(--border);
+        }
+        .industry-item {
+            flex: 1; background: var(--surface);
+            padding: 1.5rem 1.25rem;
+            border-right: 1px solid var(--border);
+            display: flex; flex-direction: column; gap: 0.5rem;
+            transition: background 0.2s;
+        }
+        .industry-item:last-child { border-right: none; }
+        .industry-item:hover { background: var(--surface-2); }
+        .industry-name { font-size: 0.88rem; font-weight: 600; color: var(--text); }
+        .industry-note { font-size: 0.76rem; color: var(--muted); line-height: 1.55; }
+        .industry-item::before {
+            content: ''; display: block; width: 20px; height: 1.5px;
+            background: var(--gold); margin-bottom: 0.25rem; opacity: 0.5;
+            transition: width 0.3s, opacity 0.3s;
+        }
+        .industry-item:hover::before { width: 32px; opacity: 1; }
+
+        /* ── CTA BAND ── */
+        .cta-band {
+            margin-top: 3rem;
+            padding: 2.75rem 3rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            display: flex; align-items: center;
+            justify-content: space-between; gap: 2rem;
+            position: relative; overflow: hidden;
+        }
+        .cta-band::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 80% 50%, rgba(232,184,75,0.05) 0%, transparent 65%);
+            pointer-events: none;
+        }
+        .cta-band h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); color: var(--text); line-height: 1.2; max-width: 500px; }
+        .cta-band h2 em { font-style: italic; color: var(--gold); }
+        .cta-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 0.65rem; flex-shrink: 0; }
+        .btn-primary {
+            display: inline-block; background: var(--gold); color: #080808;
+            font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em;
+            text-transform: uppercase; padding: 0.75rem 1.75rem;
+            text-decoration: none; transition: background 0.2s, transform 0.2s;
+        }
+        .btn-primary:hover { background: #f5c84a; transform: translateY(-1px); }
+        .btn-secondary {
+            display: inline-block; font-size: 0.76rem; font-weight: 500;
+            color: var(--muted); text-decoration: none; transition: color 0.2s;
+            letter-spacing: 0.04em;
+        }
+        .btn-secondary:hover { color: var(--text); }
+
+        /* ── FOOTER ── */
+        footer { border-top: 1px solid var(--border); background: rgba(54,49,8,0.9); }
+        .footer-inner {
+            max-width: 1200px; margin: 0 auto; padding: 1.75rem 2rem;
+            display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+        }
+        .footer-copy { font-size: 0.75rem; color: var(--dim); }
+        .footer-socials { display: flex; gap: 1.25rem; }
+        .footer-socials a { font-size: 0.75rem; font-weight: 600; color: var(--dim); text-decoration: none; letter-spacing: 0.04em; transition: color 0.2s; }
+        .footer-socials a:hover { color: var(--gold); }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:none} }
+        .fade-in { opacity: 0; animation: fadeUp 0.55s ease forwards; animation-play-state: paused; }
+        .delay-1 { animation-delay: 0.08s; }
+        .delay-2 { animation-delay: 0.16s; }
+        .delay-3 { animation-delay: 0.24s; }
+        .delay-4 { animation-delay: 0.34s; }
+
+        /* ── RESPONSIVE ── */
+        @media(max-width:960px){
+            .hero-wrap { min-height: 65vh; }
+            .hero { grid-template-columns: 1fr; gap: 1.5rem; }
+            .services-grid { grid-template-columns: 1fr 1fr; }
+            .service-card.featured { grid-column: span 2; flex-direction: column; }
+            .service-card:nth-child(3n) { border-right: 1px solid var(--border); }
+            .service-card:nth-child(2n) { border-right: none; }
+            .featured-img { width: 100%; height: 160px; }
+            .process-steps { grid-template-columns: 1fr 1fr; }
+            .process-step:nth-child(2n) { border-right: none; }
+            .process-step:nth-child(1),
+            .process-step:nth-child(2) { border-bottom: 1px solid var(--border); }
+            .industry-grid { flex-wrap: wrap; }
+            .industry-item { flex: 0 0 calc(50% - 0.5px); }
+            .industry-item:nth-child(2n) { border-right: none; }
+            .industry-item:nth-child(-n+2) { border-bottom: 1px solid var(--border); }
+            .cta-band { flex-direction: column; align-items: flex-start; padding: 2rem; }
+            .cta-actions { align-items: flex-start; }
+        }
+        @media(max-width:600px){
+            nav { display: none; }
+            .hero-wrap { min-height: 60vh; }
+            .hero { padding: 0 1.25rem 3rem; }
+            .page { padding: 0 1.25rem 4rem; }
+            .services-grid { grid-template-columns: 1fr; }
+            .service-card,
+            .service-card.featured { grid-column: span 1; border-right: none; }
+            .service-card:nth-child(n) { border-right: none; }
+            .service-card:last-child { border-bottom: none; }
+            .process-steps { grid-template-columns: 1fr; }
+            .process-step { border-right: none; border-bottom: 1px solid var(--border); }
+            .process-step:last-child { border-bottom: none; }
+            .industry-grid { flex-direction: column; }
+            .industry-item { border-right: none; border-bottom: 1px solid var(--border); }
+            .industry-item:last-child { border-bottom: none; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-inner">
+        <a href="index.html" class="logo">
+            <img src="images/Evocore_logo.png" alt="Evocore Tech">
+            <span class="logo-name">Evocore<span> Tech</span></span>
+        </a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="services.html" class="active">Services</a>
+            <a href="products.html">Products</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </div>
+</header>
+
+<div class="page">
+
+    <!-- HERO -->
+    <section class="hero-wrap">
+        <div class="hero-bg"></div>
+        <div class="hero-grain"></div>
+        <div class="hero-fade-bottom"></div>
+        <div class="hero-fade-left"></div>
+
+        <div class="hero">
+            <div>
+                <div class="eyebrow">What We Build</div>
+                <h1>Technology that works<br>for <em>your</em> business.</h1>
+            </div>
+            <div class="hero-right">
+                <p>Practical digital tools for Kenyan SMEs — from your first website to custom software, payment integration, and everything in between. No jargon, no bloat, just results.</p>
+               
+            </div>
+        </div>
+
+       
+    </section>
+
+    <!-- SERVICES -->
+    <div class="sec-label fade-in delay-1">Our Services</div>
+
+    <div class="services-grid fade-in delay-2">
+
+        <!-- Featured: Digital Presence -->
+        <div class="service-card featured" id="digital-presence">
+            <div class="featured-content">
+                <h3 class="card-title">Digital Presence & Branding</h3>
+                <p class="card-desc">Professional, responsive websites, e-commerce platforms, and social media management. We build brand identities that hold up across every touchpoint — from your domain name to your business card.</p>
+                <div class="card-tags">
+                    <span class="tag">Web Dev</span>
+                    <span class="tag">E-Commerce</span>
+                    <span class="tag">Social Media</span>
+                    <span class="tag">Brand Identity</span>
+                </div>
+                <a href="contact.html" class="card-link">Get a quote</a>
+            </div>
+            <img src="https://images.pexels.com/photos/1029757/pexels-photo-1029757.jpeg" alt="Digital Presence" class="featured-img">
+        </div>
+
+        <!-- Business Automation -->
+        <div class="service-card" id="business-automation">
+            <h3 class="card-title">Business Automation</h3>
+            <p class="card-desc">POS systems, inventory tracking, HR & payroll tools, and automated invoicing. Reduce manual work so your team focuses on what matters.</p>
+            <div class="card-tags">
+                <span class="tag">POS</span>
+                <span class="tag">HR Tools</span>
+                <span class="tag">Invoicing</span>
+            </div>
+            <a href="contact.html" class="card-link">Automate</a>
+        </div>
+
+        <!-- Custom Software -->
+        <div class="service-card" id="custom-software">
+            <h3 class="card-title">Custom Software & Apps</h3>
+            <p class="card-desc">Mobile apps, mini-ERPs, and industry-specific systems built around your workflow — not the other way around.</p>
+            <div class="card-tags">
+                <span class="tag">Mobile Apps</span>
+                <span class="tag">ERP</span>
+                <span class="tag">Integrations</span>
+            </div>
+            <a href="contact.html" class="card-link">Start a project</a>
+        </div>
+
+        <!-- Payments & Fintech -->
+        <div class="service-card" id="payments-fintech">
+            <h3 class="card-title">Payments & Fintech</h3>
+            <p class="card-desc">M-Pesa integration, payment gateways, and transaction management built for the Kenyan market. Reliable, secure, and straightforward to use.</p>
+            <div class="card-tags">
+                <span class="tag">M-Pesa</span>
+                <span class="tag">Gateways</span>
+                <span class="tag">Reconciliation</span>
+            </div>
+            <a href="contact.html" class="card-link">Integrate payments</a>
+        </div>
+
+        <!-- Customer Engagement -->
+        <div class="service-card" id="customer-engagement">
+            <h3 class="card-title">Customer Engagement</h3>
+            <p class="card-desc">CRM systems, SMS & email marketing, and loyalty programmes that turn one-time buyers into repeat customers.</p>
+            <div class="card-tags">
+                <span class="tag">CRM</span>
+                <span class="tag">Marketing</span>
+                <span class="tag">Loyalty</span>
+            </div>
+            <a href="contact.html" class="card-link">Engage customers</a>
+        </div>
+
+        <!-- Bulk SMS -->
+        <div class="service-card" id="bulk-sms">
+            <h3 class="card-title">Bulk SMS</h3>
+            <p class="card-desc">Reach thousands of recipients instantly — campaigns, alerts, or reminders. Fast delivery, detailed reports, and rates built for Kenyan SMEs.</p>
+            <div class="card-tags">
+                <span class="tag">Campaigns</span>
+                <span class="tag">Alerts</span>
+                <span class="tag">Delivery Reports</span>
+            </div>
+            <a href="contact.html" class="card-link">Get SMS service</a>
+        </div>
+
+        <!-- Tech Recruitment -->
+        <div class="service-card" id="recruitment">
+            <h3 class="card-title">Tech Recruitment</h3>
+            <p class="card-desc">Source and place vetted tech talent from across Africa. We handle screening and employer branding so you can focus on building your team.</p>
+            <div class="card-tags">
+                <span class="tag">Sourcing</span>
+                <span class="tag">Screening</span>
+                <span class="tag">Placement</span>
+            </div>
+            <a href="contact.html" class="card-link">Find talent</a>
+        </div>
+
+        <!-- Training & Support -->
+        <div class="service-card" id="training-support">
+            <h3 class="card-title">Training & Support</h3>
+            <p class="card-desc">Digital skills training, software onboarding, and ongoing maintenance. We stay with you after launch to make sure things keep working.</p>
+            <div class="card-tags">
+                <span class="tag">Onboarding</span>
+                <span class="tag">Maintenance</span>
+                <span class="tag">Skills</span>
+            </div>
+            <a href="contact.html" class="card-link">Get support</a>
+        </div>
+
+    </div>
+
+    <!-- PROCESS -->
+    <div class="sec-label fade-in delay-2" style="margin-top:1rem;">How We Work</div>
+
+    <div class="process-steps fade-in delay-2">
+        <div class="process-step">
+            <span class="step-num">01</span>
+            <span class="step-title">Discovery</span>
+            <p class="step-desc">We listen first. Understanding your operations, pain points, and budget before proposing anything.</p>
+        </div>
+        <div class="process-step">
+            <span class="step-num">02</span>
+            <span class="step-title">Proposal</span>
+            <p class="step-desc">A clear scope, timeline, and fixed cost — no ambiguous hourly billing or scope creep surprises.</p>
+        </div>
+        <div class="process-step">
+            <span class="step-num">03</span>
+            <span class="step-title">Build</span>
+            <p class="step-desc">Regular check-ins as we build. You see progress before the final handoff — nothing built in the dark.</p>
+        </div>
+        <div class="process-step">
+            <span class="step-num">04</span>
+            <span class="step-title">Handoff & Support</span>
+            <p class="step-desc">We train your team, document everything, and provide ongoing support so you're never left stranded.</p>
+        </div>
+    </div>
+
+    <!-- INDUSTRIES -->
+    <div class="industry-intro fade-in delay-3">
+        <h2>Industries We Work with</h2>
+    </div>
+
+    <div class="industry-grid fade-in delay-3">
+        <div class="industry-item">
+            <span class="industry-name">Retailers</span>
+            <p class="industry-note">POS, inventory management, loyalty programmes, and e-commerce.</p>
+        </div>
+        <div class="industry-item">
+            <span class="industry-name">Clinics & Health</span>
+            <p class="industry-note">Patient management, appointment booking, and billing systems.</p>
+        </div>
+        <div class="industry-item">
+            <span class="industry-name">SACCOs</span>
+            <p class="industry-note">Member portals, loan tracking, and automated M-Pesa contributions.</p>
+        </div>
+        <div class="industry-item">
+            <span class="industry-name">Real Estate</span>
+            <p class="industry-note">Property listings, rent collection, and tenant management tools.</p>
+        </div>
+        <div class="industry-item">
+            <span class="industry-name">Agro-businesses</span>
+            <p class="industry-note">Supply chain tracking, farmer payments, and market price alerts.</p>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-band fade-in delay-4">
+        <h2>Have a project in mind?<br>Let's talk through <em>it.</em></h2>
+        <div class="cta-actions">
+            <a href="contact.html" class="btn-primary">Request a consultation</a>
+            <a href="about.html" class="btn-secondary">Learn about us →</a>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <div class="footer-inner">
+        <p class="footer-copy">© <span id="current-year"></span> Evocore Tech Limited. Nairobi, Kenya.</p>
+        <div class="footer-socials">
+            <a href="https://www.facebook.com/EvocoreTech" target="_blank">Fb</a>
+            <a href="https://twitter.com/EvocoreTech" target="_blank">X</a>
+            <a href="https://www.linkedin.com/company/evocore-tech-limited/" target="_blank">In</a>
+            <a href="https://wa.me/" target="_blank">Wa</a>
+        </div>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+
+    // Intersection Observer for fade-in elements
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(el => {
+            if (el.isIntersecting) {
+                el.target.style.animationPlayState = 'running';
+                observer.unobserve(el.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    fadeEls.forEach(el => {
+        el.style.animationPlayState = 'paused';
+        observer.observe(el);
+    });
+</script>
+</body>
+</html>
